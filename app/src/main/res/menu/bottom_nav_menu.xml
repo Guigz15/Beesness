@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_market"
+        android:icon="@drawable/ic_basket_24"
+        android:title="@string/title_market" />
+
+    <item
+        android:id="@+id/navigation_apiaries"
+        android:icon="@drawable/ic_apiaries_24"
+        android:title="@string/title_apiaries" />
+
+    <item
+        android:id="@+id/navigation_home"
+        android:icon="@drawable/ic_home_black_24dp"
+        android:title="@string/title_home" />
+
+    <item
+        android:id="@+id/navigation_statistics"
+        android:icon="@drawable/ic_baseline_show_chart_24"
+        android:title="@string/title_statistics" />
+
+    <item
+        android:id="@+id/navigation_plus"
+        android:icon="@drawable/ic_round_dehaze_24"
+        android:title="@string/title_plus" />
+
+</menu>
