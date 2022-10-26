@@ -9,4 +9,16 @@
     <string name="qr_code_scanner">Scanner QR Code</string>
     <string name="menu">Menu</string>
     <string name="logo_beesness">Logo Beesness</string>
+    <string name="main_info">Informations générales</string>
+    <string name="initial_number">0</string>
+    <string name="title_beehives">Ruches</string>
+    <string name="honey_supers">Hausses</string>
+    <string name="planning">Planning</string>
+    <string name="health_checking">Contrôle sanitaire</string>
+    <string name="heart">heart</string>
+    <string name="health_events">À jour</string>
+    <string name="feeding">Nourrissement</string>
+    <string name="feed_events">À jour</string>
+    <string name="harvesting">Récolte</string>
+    <string name="harvest_events">À jour</string>
 </resources>
