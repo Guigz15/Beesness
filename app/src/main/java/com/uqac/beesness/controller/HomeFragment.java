@@ -1,4 +1,4 @@
-package com.uqac.beesness.ui.home;
+package com.uqac.beesness.controller;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

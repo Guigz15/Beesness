@@ -1,27 +1,32 @@
-package com.uqac.beesness.ui.market;
+package com.uqac.beesness.controller;
 
 import androidx.lifecycle.ViewModelProvider;
+
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import com.uqac.beesness.databinding.FragmentMarketBinding;
 
-public class MarketFragment extends Fragment {
+import com.uqac.beesness.databinding.FragmentPlusBinding;
+import com.uqac.beesness.model.PlusViewModel;
 
-    private FragmentMarketBinding binding;
+public class PlusFragment extends Fragment {
+
+    private FragmentPlusBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        MarketViewModel marketViewModel = new ViewModelProvider(this).get(MarketViewModel.class);
+        PlusViewModel plusViewModel = new ViewModelProvider(this).get(PlusViewModel.class);
 
-        binding = FragmentMarketBinding.inflate(inflater, container, false);
+        binding = FragmentPlusBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textMarket;
-        marketViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        final TextView textView = binding.textPlus;
+        plusViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 

@@ -1,9 +1,17 @@
 package com.uqac.beesness;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageButton;
+import android.widget.Toast;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.PopupMenu;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -26,6 +34,30 @@ public class MainActivity extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setDisplayShowCustomEnabled(true);
         getSupportActionBar().setCustomView(R.layout.custom_action_bar);
+        View view = getSupportActionBar().getCustomView();
+
+        // To define qrCode button behavior
+        ImageButton qrCodeButton = (ImageButton)view.findViewById(R.id.action_bar_qr_code_scanner);
+        qrCodeButton.setOnClickListener(v -> Toast.makeText(MainActivity.this, "QR Code Scanner", Toast.LENGTH_SHORT).show());
+
+        // To define menu items behavior
+        ImageButton menuButton = (ImageButton)view.findViewById(R.id.action_bar_more_vert);
+        menuButton.setOnClickListener(v -> {
+            PopupMenu popupMenu = new PopupMenu(MainActivity.this, menuButton);
+            popupMenu.getMenuInflater().inflate(R.menu.main_menu, popupMenu.getMenu());
+            popupMenu.setForceShowIcon(true);
+            popupMenu.setOnMenuItemClickListener(menuItem -> {
+                if (menuItem.getTitle().equals("Mon compte")) {
+                    Toast.makeText(MainActivity.this, "Mon compte", Toast.LENGTH_SHORT).show();
+                } else if (menuItem.getTitle().equals("Déconnexion")) {
+                    Intent intent = new Intent(this, LoginActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+                return true;
+            });
+            popupMenu.show();
+        });
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(

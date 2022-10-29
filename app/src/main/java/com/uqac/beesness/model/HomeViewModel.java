@@ -1,4 +1,4 @@
-package com.uqac.beesness.ui.home;
+package com.uqac.beesness.model;
 
 import androidx.lifecycle.ViewModel;
 

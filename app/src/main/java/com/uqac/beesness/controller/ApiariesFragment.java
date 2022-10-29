@@ -1,4 +1,4 @@
-package com.uqac.beesness.ui.apiaries;
+package com.uqac.beesness.controller;
 
 import androidx.lifecycle.ViewModelProvider;
 import android.os.Bundle;
@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import com.uqac.beesness.databinding.FragmentApiariesBinding;
+import com.uqac.beesness.model.ApiariesViewModel;
 
 public class ApiariesFragment extends Fragment {
 

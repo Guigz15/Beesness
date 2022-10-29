@@ -1,16 +1,16 @@
-package com.uqac.beesness.ui.apiaries;
+package com.uqac.beesness.model;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class ApiariesViewModel extends ViewModel {
+public class PlusViewModel extends ViewModel {
 
     private final MutableLiveData<String> mText;
 
-    public ApiariesViewModel() {
+    public PlusViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is apiaries fragment");
+        mText.setValue("This is plus fragment");
     }
 
     public LiveData<String> getText() {

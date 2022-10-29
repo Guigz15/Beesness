@@ -1,4 +1,4 @@
-package com.uqac.beesness.ui.stats;
+package com.uqac.beesness.controller;
 
 import androidx.lifecycle.ViewModelProvider;
 import android.os.Bundle;
@@ -8,20 +8,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import com.uqac.beesness.databinding.FragmentStatsBinding;
+import com.uqac.beesness.databinding.FragmentMarketBinding;
+import com.uqac.beesness.model.MarketViewModel;
 
-public class StatsFragment extends Fragment {
+public class MarketFragment extends Fragment {
 
-    private FragmentStatsBinding binding;
+    private FragmentMarketBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        StatsViewModel statsViewModel = new ViewModelProvider(this).get(StatsViewModel.class);
+        MarketViewModel marketViewModel = new ViewModelProvider(this).get(MarketViewModel.class);
 
-        binding = FragmentStatsBinding.inflate(inflater, container, false);
+        binding = FragmentMarketBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textStats;
-        statsViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        final TextView textView = binding.textMarket;
+        marketViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 

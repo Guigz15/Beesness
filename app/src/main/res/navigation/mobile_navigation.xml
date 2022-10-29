@@ -7,31 +7,31 @@
 
     <fragment
         android:id="@+id/navigation_market"
-        android:name="com.uqac.beesness.ui.market.MarketFragment"
+        android:name="com.uqac.beesness.controller.MarketFragment"
         android:label="@string/title_market"
         tools:layout="@layout/fragment_market" />
 
     <fragment
         android:id="@+id/navigation_apiaries"
-        android:name="com.uqac.beesness.ui.apiaries.ApiariesFragment"
+        android:name="com.uqac.beesness.controller.ApiariesFragment"
         android:label="@string/title_apiaries"
         tools:layout="@layout/fragment_apiaries" />
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.uqac.beesness.ui.home.HomeFragment"
+        android:name="com.uqac.beesness.controller.HomeFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/navigation_statistics"
-        android:name="com.uqac.beesness.ui.stats.StatsFragment"
+        android:name="com.uqac.beesness.controller.StatsFragment"
         android:label="@string/title_statistics"
         tools:layout="@layout/fragment_stats" />
 
     <fragment
         android:id="@+id/navigation_plus"
-        android:name="com.uqac.beesness.ui.plus.PlusFragment"
+        android:name="com.uqac.beesness.controller.PlusFragment"
         android:label="@string/title_plus"
         tools:layout="@layout/fragment_plus" />
 
