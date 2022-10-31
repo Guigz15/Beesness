@@ -26,9 +26,10 @@
                 android:id="@+id/mainInfo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/dosis_book"
                 android:text="@string/main_info"
                 android:textColor="@color/white"
-                android:textSize="24sp" />
+                android:textSize="26sp" />
 
             <Space
                 android:layout_width="match_parent"
@@ -56,9 +57,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal|top"
+                        android:fontFamily="@font/dosis_book"
                         android:text="@string/title_apiaries"
                         android:textColor="@color/writing_color"
-                        android:textSize="20sp" />
+                        android:textSize="22sp" />
 
                     <ImageView
                         android:id="@+id/apiariesImage"
@@ -74,9 +76,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="bottom|center_horizontal"
+                        android:fontFamily="@font/dosis_semibold"
                         android:text="@string/initial_number"
                         android:textColor="@color/writing_color"
-                        android:textSize="20sp"
+                        android:textSize="22sp"
                         android:textStyle="bold" />
 
                 </androidx.cardview.widget.CardView>
@@ -98,9 +101,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal|top"
+                        android:fontFamily="@font/dosis_book"
                         android:text="@string/title_beehives"
                         android:textColor="@color/writing_color"
-                        android:textSize="20sp" />
+                        android:textSize="22sp" />
 
                     <ImageView
                         android:id="@+id/beehivesImage"
@@ -116,9 +120,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="bottom|center_horizontal"
+                        android:fontFamily="@font/dosis_semibold"
                         android:text="@string/initial_number"
                         android:textColor="@color/writing_color"
-                        android:textSize="20sp"
+                        android:textSize="22sp"
                         android:textStyle="bold" />
 
                 </androidx.cardview.widget.CardView>
@@ -140,9 +145,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal|top"
+                        android:fontFamily="@font/dosis_book"
                         android:text="@string/honey_supers"
                         android:textColor="@color/writing_color"
-                        android:textSize="20sp" />
+                        android:textSize="22sp" />
 
                     <ImageView
                         android:id="@+id/honey_supers_image"
@@ -158,9 +164,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="bottom|center_horizontal"
+                        android:fontFamily="@font/dosis_semibold"
                         android:text="@string/initial_number"
                         android:textColor="@color/writing_color"
-                        android:textSize="20sp"
+                        android:textSize="22sp"
                         android:textStyle="bold" />
 
                     <Space
@@ -193,9 +200,10 @@
                 android:id="@+id/planning"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/dosis_book"
                 android:text="@string/planning"
                 android:textColor="@color/white"
-                android:textSize="24sp" />
+                android:textSize="26sp" />
 
             <Space
                 android:layout_width="match_parent"
@@ -217,9 +225,10 @@
                         android:id="@+id/health_checking"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/dosis_book"
                         android:text="@string/health_checking"
                         android:textColor="@color/white"
-                        android:textSize="20sp" />
+                        android:textSize="22sp" />
 
                     <Space
                         android:layout_width="0dp"
@@ -246,9 +255,10 @@
                     android:id="@+id/healt_events"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/dosis_extralight"
                     android:text="@string/health_events"
                     android:textColor="@color/white"
-                    android:textSize="18sp" />
+                    android:textSize="20sp" />
 
             </LinearLayout>
 
@@ -272,9 +282,10 @@
                         android:id="@+id/feeding"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/dosis_book"
                         android:text="@string/feeding"
                         android:textColor="@color/white"
-                        android:textSize="20sp" />
+                        android:textSize="22sp" />
 
                     <Space
                         android:layout_width="0dp"
@@ -301,9 +312,10 @@
                     android:id="@+id/feed_events"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/dosis_extralight"
                     android:text="@string/feed_events"
                     android:textColor="@color/white"
-                    android:textSize="18sp" />
+                    android:textSize="20sp" />
 
             </LinearLayout>
 
@@ -327,9 +339,10 @@
                         android:id="@+id/harvesting"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/dosis_book"
                         android:text="@string/harvesting"
                         android:textColor="@color/white"
-                        android:textSize="20sp" />
+                        android:textSize="22sp" />
 
                     <Space
                         android:layout_width="0dp"
@@ -356,9 +369,10 @@
                     android:id="@+id/harvest_events"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/dosis_extralight"
                     android:text="@string/harvest_events"
                     android:textColor="@color/white"
-                    android:textSize="18sp" />
+                    android:textSize="20sp" />
 
             </LinearLayout>
 

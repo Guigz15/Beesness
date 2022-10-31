@@ -24,6 +24,10 @@
             android:name=".MainActivity"
             android:theme="@style/CustomTheme"
             android:exported="false" />
+        <activity
+            android:name=".SubscriptionActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:exported="false" />
     </application>
 
 </manifest>

@@ -37,11 +37,11 @@ public class MainActivity extends AppCompatActivity {
         View view = getSupportActionBar().getCustomView();
 
         // To define qrCode button behavior
-        ImageButton qrCodeButton = (ImageButton)view.findViewById(R.id.action_bar_qr_code_scanner);
+        ImageButton qrCodeButton = view.findViewById(R.id.action_bar_qr_code_scanner);
         qrCodeButton.setOnClickListener(v -> Toast.makeText(MainActivity.this, "QR Code Scanner", Toast.LENGTH_SHORT).show());
 
         // To define menu items behavior
-        ImageButton menuButton = (ImageButton)view.findViewById(R.id.action_bar_more_vert);
+        ImageButton menuButton = view.findViewById(R.id.action_bar_more_vert);
         menuButton.setOnClickListener(v -> {
             PopupMenu popupMenu = new PopupMenu(MainActivity.this, menuButton);
             popupMenu.getMenuInflater().inflate(R.menu.main_menu, popupMenu.getMenu());
