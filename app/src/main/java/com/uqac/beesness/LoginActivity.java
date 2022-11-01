@@ -1,19 +1,15 @@
 package com.uqac.beesness;
 
-import android.app.Dialog;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -43,20 +39,15 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void showDialog() {
-        final Dialog forgotPasswordDialog = new Dialog(this);
-        forgotPasswordDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        forgotPasswordDialog.setContentView(R.layout.forgot_password_dialog);
+        BottomSheetDialog forgotPasswordDialog = new BottomSheetDialog(this, R.style.BottomSheetDialogTheme);
+        View forgotPasswordView = getLayoutInflater().inflate(R.layout.forgot_password_dialog, findViewById(R.id.bottom_sheet_container));
 
-        Button sendButton = forgotPasswordDialog.findViewById(R.id.send_link_button);
-        sendButton.setOnClickListener(v -> {
-            forgotPasswordDialog.dismiss();
+        forgotPasswordView.findViewById(R.id.send_link_button).setOnClickListener(v -> {
             Toast.makeText(this, "Un lien de réinitialisation de mot de passe a été envoyé à votre adresse courriel.", Toast.LENGTH_LONG).show();
+            forgotPasswordDialog.dismiss();
         });
 
+        forgotPasswordDialog.setContentView(forgotPasswordView);
         forgotPasswordDialog.show();
-        forgotPasswordDialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        forgotPasswordDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        forgotPasswordDialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
-        forgotPasswordDialog.getWindow().setGravity(Gravity.BOTTOM);
     }
 }
