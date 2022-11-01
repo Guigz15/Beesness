@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_blue"
+    tools:context=".ProfileActivity">
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/email_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/dosis_semibold"
+            android:text="@string/email_title"
+            android:textColor="@color/white"
+            android:textSize="26sp" />
+
+        <TextView
+            android:id="@+id/mail_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/dosis_semibold"
+            android:text="@string/mail_address"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="22sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+
+        <TextView
+            android:id="@+id/name_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/dosis_semibold"
+            android:text="@string/name"
+            android:textColor="@color/white"
+            android:textSize="26sp" />
+
+        <EditText
+            android:id="@+id/name"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:autofillHints=""
+            android:background="@drawable/custom_edit_text_rounded"
+            android:ems="10"
+            android:fontFamily="@font/dosis_book"
+            android:inputType="textPersonName"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:textColor="@color/writing_color"
+            android:textSize="24sp"
+            tools:ignore="LabelFor,SpeakableTextPresentCheck" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+
+        <TextView
+            android:id="@+id/forename_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/dosis_semibold"
+            android:text="@string/forename"
+            android:textColor="@color/white"
+            android:textSize="26sp" />
+
+        <EditText
+            android:id="@+id/forename"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:autofillHints=""
+            android:background="@drawable/custom_edit_text_rounded"
+            android:ems="10"
+            android:fontFamily="@font/dosis_book"
+            android:inputType="textPersonName"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:textColor="@color/writing_color"
+            android:textSize="24sp"
+            tools:ignore="LabelFor,SpeakableTextPresentCheck" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
+
+        <TextView
+            android:id="@+id/address_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/dosis_semibold"
+            android:text="@string/address"
+            android:textColor="@color/white"
+            android:textSize="26sp" />
+
+        <EditText
+            android:id="@+id/address"
+            android:layout_width="match_parent"
+            android:layout_height="96dp"
+            android:autofillHints=""
+            android:background="@drawable/custom_edit_text_rounded"
+            android:ems="10"
+            android:fontFamily="@font/dosis_book"
+            android:inputType="textMultiLine|textPostalAddress"
+            android:lineSpacingExtra="8sp"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:singleLine="false"
+            android:textColor="@color/writing_color"
+            android:textSize="24sp"
+            tools:ignore="LabelFor,SpeakableTextPresentCheck" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout4">
+
+        <TextView
+            android:id="@+id/beekeeper_number_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/dosis_semibold"
+            android:text="@string/beekeeper_number"
+            android:textColor="@color/white"
+            android:textSize="26sp" />
+
+        <EditText
+            android:id="@+id/beekeeper_number"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:autofillHints=""
+            android:background="@drawable/custom_edit_text_rounded"
+            android:ems="10"
+            android:fontFamily="@font/dosis_book"
+            android:inputType="number|text"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:textColor="@color/writing_color"
+            android:textSize="24sp"
+            tools:ignore="LabelFor,SpeakableTextPresentCheck" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="50dp"
+        android:backgroundTint="@color/main_yellow"
+        android:fontFamily="@font/dosis_semibold"
+        android:text="@string/save"
+        android:textAllCaps="false"
+        android:textColor="@color/writing_color"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/delete_account"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        android:fontFamily="@font/dosis_semibold"
+        android:gravity="center"
+        android:minHeight="48dp"
+        android:text="@string/delete_account"
+        android:textColor="@color/main_red"
+        android:textSize="22sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button"
+        tools:ignore="TextContrastCheck" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

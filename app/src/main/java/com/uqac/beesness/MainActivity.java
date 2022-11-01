@@ -43,12 +43,13 @@ public class MainActivity extends AppCompatActivity {
         // To define menu items behavior
         ImageButton menuButton = view.findViewById(R.id.action_bar_more_vert);
         menuButton.setOnClickListener(v -> {
-            PopupMenu popupMenu = new PopupMenu(MainActivity.this, menuButton);
+            PopupMenu popupMenu = new PopupMenu(this, menuButton);
             popupMenu.getMenuInflater().inflate(R.menu.main_menu, popupMenu.getMenu());
             popupMenu.setForceShowIcon(true);
             popupMenu.setOnMenuItemClickListener(menuItem -> {
                 if (menuItem.getTitle().equals("Mon compte")) {
-                    Toast.makeText(MainActivity.this, "Mon compte", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(this, ProfileActivity.class);
+                    startActivity(intent);
                 } else if (menuItem.getTitle().equals("Déconnexion")) {
                     Intent intent = new Intent(this, LoginActivity.class);
                     startActivity(intent);

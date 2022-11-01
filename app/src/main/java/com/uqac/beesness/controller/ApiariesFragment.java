@@ -24,6 +24,7 @@ public class ApiariesFragment extends Fragment {
         final TextView textView = binding.textApiaries;
         apiariesViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
 
+
         return root;
     }
 
