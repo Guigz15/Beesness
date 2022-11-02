@@ -51,4 +51,11 @@
     <string name="delete_account_confirmation">Etes-vous sûr de vouloir supprimer votre compte ?</string>
     <string name="cancel">Annuler</string>
     <string name="delete">Supprimer</string>
+    <string name="ruche_name">Nom de la ruche</string>
+    <string name="ruche_type">Type de ruche</string>
+    <string name="ruche_details">Détails sur la ruche</string>
+    <string name="reine_info">Informations sur la reine</string>
+    <string name="reine_annee">Année de naissance</string>
+    <string name="reine_origine">Origine</string>
+    <string name="reine_lignee">Lignée</string>
 </resources>
