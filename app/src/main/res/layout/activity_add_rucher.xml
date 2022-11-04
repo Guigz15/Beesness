@@ -7,170 +7,182 @@
     android:background="@color/main_blue"
     tools:context=".AddRucherActivity">
 
-    <TextView
-        android:id="@+id/nameRucherTitle"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="72dp"
-        android:fontFamily="@font/dosis_book"
-        android:text="@string/name"
-        android:textColor="@color/white"
-        android:textSize="24sp"
-        android:textStyle="bold"
+        android:orientation="vertical"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.05"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <EditText
-        android:id="@+id/rucherName"
-        android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/nameRucherTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="72dp"
+            android:fontFamily="@font/dosis_book"
+            android:text="@string/name"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/apiarieName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:autofillHints=""
+            android:backgroundTint="@color/white2"
+            android:ems="13"
+            android:fontFamily="@font/dosis_book"
+            android:hint="@string/apiarie_name"
+            android:inputType="text"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white2"
+            android:textSize="22sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:autofillHints=""
-        android:backgroundTint="@color/white2"
-        android:ems="13"
-        android:inputType="text"
-        android:fontFamily="@font/dosis_book"
-        android:hint="@string/rucher_name"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white2"
-        android:textSize="22sp"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.488"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nameRucherTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
-    <TextView
-        android:id="@+id/rucherEnv"
-        android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/rucherEnv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="22dp"
+            android:fontFamily="@font/dosis_book"
+            android:text="@string/rucher_env"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/rucherEnvDetails"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:autofillHints=""
+            android:backgroundTint="@color/white2"
+            android:ems="13"
+            android:fontFamily="@font/dosis_book"
+            android:hint="@string/rucher_env_details"
+            android:inputType="text"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white2"
+            android:textSize="22sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="22dp"
-        android:fontFamily="@font/dosis_book"
-        android:text="@string/rucher_env"
-        android:textColor="@color/white"
-        android:textSize="24sp"
-        android:textStyle="bold"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.09"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rucherName" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
 
-    <EditText
-        android:id="@+id/rucherEnvDetails"
-        android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/rucherDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="22dp"
+            android:fontFamily="@font/dosis_book"
+            android:text="@string/description"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/rucherDescriptionDetails"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:autofillHints=""
+            android:backgroundTint="@color/white2"
+            android:ems="13"
+            android:fontFamily="@font/dosis_book"
+            android:hint="@string/description_details"
+            android:inputType="text"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white2"
+            android:textSize="22sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout4"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:autofillHints=""
-        android:backgroundTint="@color/white2"
-        android:ems="13"
-        android:inputType="text"
-        android:fontFamily="@font/dosis_book"
-        android:hint="@string/rucher_env_details"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white2"
-        android:textSize="22sp"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.488"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rucherEnv" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
 
-    <TextView
-        android:id="@+id/rucherDescription"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="22dp"
-        android:fontFamily="@font/dosis_book"
-        android:text="@string/description"
-        android:textColor="@color/white"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.051"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rucherEnvDetails" />
+        <TextView
+            android:id="@+id/coordonneesGpsTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="22dp"
+            android:fontFamily="@font/dosis_book"
+            android:text="@string/coordonnees_gps_txt"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:textStyle="bold" />
 
-    <EditText
-        android:id="@+id/rucherDescriptionDetails"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:autofillHints=""
-        android:backgroundTint="@color/white2"
-        android:ems="13"
-        android:inputType="text"
-        android:fontFamily="@font/dosis_book"
-        android:hint="@string/description_details"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white2"
-        android:textSize="22sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.488"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rucherDescription" />
+        <EditText
+            android:id="@+id/longitude"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:autofillHints=""
+            android:backgroundTint="@color/white2"
+            android:ems="13"
+            android:fontFamily="@font/dosis_book"
+            android:hint="@string/longitude"
+            android:inputType="text"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white2"
+            android:textSize="22sp" />
 
-    <TextView
-        android:id="@+id/coordonneesGpsTxt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="22dp"
-        android:fontFamily="@font/dosis_book"
-        android:text="@string/coordonnees_gps_txt"
-        android:textColor="@color/white"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.072"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rucherDescriptionDetails" />
+        <EditText
+            android:id="@+id/latitude"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:autofillHints=""
+            android:backgroundTint="@color/white2"
+            android:ems="13"
+            android:fontFamily="@font/dosis_book"
+            android:hint="@string/latitude"
+            android:inputType="text"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white2"
+            android:textSize="22sp" />
 
-    <EditText
-        android:id="@+id/latitude"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:autofillHints=""
-        android:backgroundTint="@color/white2"
-        android:ems="13"
-        android:inputType="text"
-        android:fontFamily="@font/dosis_book"
-        android:hint="@string/latitude"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white2"
-        android:textSize="22sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.488"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/coordonneesGpsTxt" />
+        <Button
+            android:id="@+id/situerCarteButton"
+            android:layout_width="170dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="4dp"
+            android:backgroundTint="@color/white"
+            android:fontFamily="@font/dosis_semibold"
+            android:text="@string/situer_carte"
+            android:textColor="@color/writing_color"
+            android:textSize="16sp" />
 
-    <EditText
-        android:id="@+id/longitude"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:autofillHints=""
-        android:backgroundTint="@color/white2"
-        android:ems="13"
-        android:inputType="text"
-        android:fontFamily="@font/dosis_book"
-        android:hint="@string/longitude"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white2"
-        android:textSize="22sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.488"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/latitude" />
-
-    <Button
-        android:id="@+id/situerCarteButton"
-        android:layout_width="170dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="4dp"
-        android:backgroundTint="@color/white"
-        android:fontFamily="@font/dosis_semibold"
-        android:text="@string/situer_carte"
-        android:textColor="@color/writing_color"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.091"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/longitude" />
+    </LinearLayout>
 
     <Button
         android:id="@+id/save_button"
@@ -186,6 +198,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/situerCarteButton" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout4" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

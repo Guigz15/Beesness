@@ -36,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setCustomView(R.layout.custom_action_bar);
         View view = getSupportActionBar().getCustomView();
 
+
+
         // To define qrCode button behavior
         ImageButton qrCodeButton = view.findViewById(R.id.action_bar_qr_code_scanner);
         qrCodeButton.setOnClickListener(v -> Toast.makeText(MainActivity.this, "QR Code Scanner", Toast.LENGTH_SHORT).show());
