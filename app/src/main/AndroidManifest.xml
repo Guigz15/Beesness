@@ -12,6 +12,20 @@
         android:supportsRtl="true"
         tools:targetApi="31">
         <activity
+            android:name=".AddRucherActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".AddRucheActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".LoginActivity"
             android:exported="true"
             android:theme="@style/AppTheme.NoActionBar">
@@ -31,9 +45,9 @@
         <activity
             android:name=".ProfileActivity"
             android:exported="false"
+            android:label="@string/account"
             android:parentActivityName=".MainActivity"
-            android:theme="@style/Theme.AppCompat.Light"
-            android:label="@string/account"/>
+            android:theme="@style/Theme.AppCompat.Light" />
     </application>
 
 </manifest>

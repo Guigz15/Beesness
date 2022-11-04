@@ -53,4 +53,20 @@
     <string name="delete">Supprimer</string>
     <string name="beehive">ruches</string>
     <string name="add">add</string>
+    <string name="ruche_name">Nom de la ruche</string>
+    <string name="ruche_type">Type de ruche</string>
+    <string name="ruche_details">Détails sur la ruche</string>
+    <string name="reine_info">Informations sur la reine</string>
+    <string name="reine_annee">Année de naissance</string>
+    <string name="reine_origine">Origine</string>
+    <string name="reine_lignee">Lignée</string>
+    <string name="rucher_name">Nom du rucher</string>
+    <string name="rucher_env">Environnement du rucher</string>
+    <string name="rucher_env_details">Forêt, Plaine, Bocage, etc...</string>
+    <string name="description">Description</string>
+    <string name="description_details">Détails sur le rucher</string>
+    <string name="coordonnees_gps_txt">Coordonnées GPS</string>
+    <string name="latitude">Latitude</string>
+    <string name="longitude">Longitude</string>
+    <string name="situer_carte">Situer sur la carte</string>
 </resources>
