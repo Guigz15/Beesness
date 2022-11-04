@@ -51,4 +51,6 @@
     <string name="delete_account_confirmation">Etes-vous sûr de vouloir supprimer votre compte ?</string>
     <string name="cancel">Annuler</string>
     <string name="delete">Supprimer</string>
+    <string name="beehive">ruches</string>
+    <string name="add">add</string>
 </resources>
