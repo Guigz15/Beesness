@@ -1,27 +1,23 @@
 package com.uqac.beesness.controller;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProvider;
-
-import android.app.ActionBar;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageButton;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
-
+import com.uqac.beesness.AddApiarieActivity;
 import com.uqac.beesness.R;
 import com.uqac.beesness.databinding.FragmentApiariesBinding;
 import com.uqac.beesness.model.ApiariesModel;
-import com.uqac.beesness.model.ApiariesViewModel;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class ApiariesFragment extends Fragment {
 
@@ -32,8 +28,12 @@ public class ApiariesFragment extends Fragment {
         binding = FragmentApiariesBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        // To custom the action bar
-        Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).setCustomView(R.layout.custom_action_bar_with_plus);
+        ImageButton addApiarieButton = requireActivity().findViewById(R.id.toolbar_add);
+        addApiarieButton.setVisibility(View.VISIBLE);
+        addApiarieButton.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), AddApiarieActivity.class);
+            startActivity(intent);
+        });
 
         RecyclerView apiariesRecyclerView = root.findViewById(R.id.apiaries_list);
 

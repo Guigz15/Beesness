@@ -12,20 +12,6 @@
         android:supportsRtl="true"
         tools:targetApi="31">
         <activity
-            android:name=".AddRucherActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".AddRucheActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
             android:name=".LoginActivity"
             android:exported="true"
             android:theme="@style/AppTheme.NoActionBar">
@@ -37,7 +23,7 @@
         <activity
             android:name=".MainActivity"
             android:exported="false"
-            android:theme="@style/CustomTheme" />
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".SubscriptionActivity"
             android:exported="false"
@@ -46,8 +32,16 @@
             android:name=".ProfileActivity"
             android:exported="false"
             android:label="@string/account"
-            android:parentActivityName=".MainActivity"
             android:theme="@style/Theme.AppCompat.Light" />
+        <activity
+            android:name=".AddApiarieActivity"
+            android:exported="false"
+            android:label="Ajouter un rucher"
+            android:theme="@style/Theme.AppCompat.Light" />
+        <activity
+            android:name=".AddBeehiveActivity"
+            android:exported="false"
+            android:theme="@style/AppTheme" />
     </application>
 
 </manifest>
