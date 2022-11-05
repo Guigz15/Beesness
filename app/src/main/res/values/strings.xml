@@ -60,7 +60,7 @@
     <string name="reine_annee">Année de naissance</string>
     <string name="reine_origine">Origine</string>
     <string name="reine_lignee">Lignée</string>
-    <string name="rucher_name">Nom du rucher</string>
+    <string name="apiarie_name">Nom du rucher</string>
     <string name="rucher_env">Environnement du rucher</string>
     <string name="rucher_env_details">Forêt, Plaine, Bocage, etc...</string>
     <string name="description">Description</string>
