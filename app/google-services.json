@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "747134709031",
+    "firebase_url": "https://beesness-fd05e-default-rtdb.firebaseio.com",
+    "project_id": "beesness-fd05e",
+    "storage_bucket": "beesness-fd05e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:747134709031:android:90d140849b6bbc36bacd02",
+        "android_client_info": {
+          "package_name": "com.uqac.beesness"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "747134709031-5cqlrcvp3bkl8qc09ursd8uvhmtgclau.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAiV7WmMDHvF3wlfT0n5tfo69Sn29CXWAI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "747134709031-5cqlrcvp3bkl8qc09ursd8uvhmtgclau.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
