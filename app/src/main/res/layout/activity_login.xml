@@ -20,7 +20,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/rucheName"
+        android:id="@+id/emailForLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
@@ -29,7 +29,7 @@
         android:ems="13"
         android:fontFamily="@font/dosis_book"
         android:hint="@string/email"
-        android:inputType="textPersonName|textEmailAddress"
+        android:inputType="textEmailAddress"
         android:textColor="@color/white"
         android:textColorHint="#BEFFFFFF"
         android:textSize="22sp"
@@ -53,7 +53,7 @@
         android:textSize="22sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rucheName" />
+        app:layout_constraintTop_toBottomOf="@+id/emailForLogin" />
 
     <TextView
         android:id="@+id/forgot_password"

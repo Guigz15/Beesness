@@ -10,7 +10,7 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
+        android:background="@android:color/transparent"
         android:minHeight="@android:dimen/app_icon_size"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         app:contentInsetEnd="5dp"
@@ -36,25 +36,28 @@
                     android:id="@+id/toolbar_qr_code_scanner"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="5dp"
                     android:background="@android:color/transparent"
                     android:contentDescription="@string/qr_code_scanner"
                     android:src="@drawable/ic_baseline_qr_code_scanner_48" />
 
                 <Space
+                    android:id="@+id/space"
                     android:layout_width="48dp"
                     android:layout_height="wrap_content" />
             </LinearLayout>
 
-            <ImageView
-                android:id="@+id/imageView_logo"
+            <TextView
+                android:id="@+id/title_text"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:contentDescription="@string/logo_beesness"
-                android:gravity="center_horizontal"
-                android:paddingTop="2dp"
-                android:paddingBottom="2dp"
-                app:srcCompat="@drawable/logo_beesness" />
+                android:background="@drawable/title_bg"
+                android:fontFamily="@font/dosis_bold"
+                android:gravity="center"
+                android:textAlignment="center"
+                android:textColor="@color/writing_color"
+                android:textSize="30sp" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -67,12 +70,13 @@
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
                     android:contentDescription="@string/add"
-                    android:src="@drawable/ic_round_add_24"/>
+                    android:src="@drawable/ic_round_add_48" />
 
                 <ImageButton
                     android:id="@+id/toolbar_more_vert"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
                     android:background="@android:color/transparent"
                     android:contentDescription="@string/menu"
                     android:src="@drawable/ic_baseline_more_vert_48" />
