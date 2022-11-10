@@ -73,4 +73,7 @@
     <string name="edit">edit</string>
     <string name="see_on_maps"><![CDATA[Voir sur la carte >]]></string>
     <string name="add_beehive">add_beehive</string>
+    <string name="title_activity_map">MapActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
 </resources>

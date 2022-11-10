@@ -11,7 +11,8 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+import com.uqac.beesness.controller.LoginActivity;
+import com.uqac.beesness.controller.ProfileActivity;
 import com.uqac.beesness.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {

@@ -10,18 +10,24 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.uqac.beesness.R;
-import com.uqac.beesness.model.ApiariesModel;
+import com.uqac.beesness.model.ApiarieModel;
 
 import java.util.ArrayList;
 
 public class ApiariesAdapter extends RecyclerView.Adapter<ApiariesAdapter.ViewHolder> {
 
-    private final Context context;
-    private final ArrayList<ApiariesModel> apiarieModelArrayList;
+    public interface OnItemClickListener {
+        void onItemClick(ApiarieModel item);
+    }
 
-    public ApiariesAdapter(Context context, ArrayList<ApiariesModel> apiarieModelArrayList) {
+    private final Context context;
+    private final ArrayList<ApiarieModel> apiarieModelArrayList;
+    private final OnItemClickListener listener;
+
+    public ApiariesAdapter(Context context, ArrayList<ApiarieModel> apiarieModelArrayList, OnItemClickListener listener) {
         this.context = context;
         this.apiarieModelArrayList = apiarieModelArrayList;
+        this.listener = listener;
     }
 
     @NonNull
@@ -35,9 +41,7 @@ public class ApiariesAdapter extends RecyclerView.Adapter<ApiariesAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull ApiariesAdapter.ViewHolder holder, int position) {
         // to set data to textviews of each card layout
-        ApiariesModel model = apiarieModelArrayList.get(position);
-        holder.apiaryName.setText(model.getName());
-        holder.beehivesNumber.setText(String.valueOf(model.getBeehivesNumber()));
+        holder.bind(apiarieModelArrayList.get(position), listener);
     }
 
     @Override
@@ -55,6 +59,12 @@ public class ApiariesAdapter extends RecyclerView.Adapter<ApiariesAdapter.ViewHo
             super(itemView);
             apiaryName = itemView.findViewById(R.id.apiarie_name);
             beehivesNumber = itemView.findViewById(R.id.beehive_number);
+        }
+
+        public void bind(final ApiarieModel item, final OnItemClickListener listener) {
+            apiaryName.setText(item.getName());
+            beehivesNumber.setText(String.valueOf(item.getBeehivesNumber()));
+            itemView.setOnClickListener(v -> listener.onItemClick(item));
         }
     }
 }
