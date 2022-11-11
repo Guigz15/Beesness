@@ -1,8 +1,13 @@
 package com.uqac.beesness.model;
 
 public class ApiariesModel {
+
     private String name;
+    private String environment;
+    private String description;
     private int beehivesNumber;
+
+    public ApiariesModel() {}
 
     public ApiariesModel(String name, int beehivesNumber) {
         this.name = name;
