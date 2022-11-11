@@ -6,16 +6,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.uqac.beesness.AddApiarieActivity;
 import com.uqac.beesness.R;
 import com.uqac.beesness.databinding.FragmentApiariesBinding;
-import com.uqac.beesness.model.ApiariesModel;
+import com.uqac.beesness.model.ApiarieModel;
 
 import java.util.ArrayList;
 
@@ -28,6 +28,9 @@ public class ApiariesFragment extends Fragment {
         binding = FragmentApiariesBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
+        requireActivity().findViewById(R.id.space).setVisibility(View.VISIBLE);
+        ((TextView) requireActivity().findViewById(R.id.title_text)).setText("Ruchers");
+
         ImageButton addApiarieButton = requireActivity().findViewById(R.id.toolbar_add);
         addApiarieButton.setVisibility(View.VISIBLE);
         addApiarieButton.setOnClickListener(v -> {
@@ -37,22 +40,22 @@ public class ApiariesFragment extends Fragment {
 
         RecyclerView apiariesRecyclerView = root.findViewById(R.id.apiaries_list);
 
-        ArrayList<ApiariesModel> apiariesList = new ArrayList<>();
-        apiariesList.add(new ApiariesModel("Rucher 1", 4));
-        apiariesList.add(new ApiariesModel("Rucher 2", 1));
-        apiariesList.add(new ApiariesModel("Rucher 3", 2));
-        apiariesList.add(new ApiariesModel("Rucher 4", 3));
-        apiariesList.add(new ApiariesModel("Rucher 5", 5));
-        apiariesList.add(new ApiariesModel("Rucher 6", 6));
+        ArrayList<ApiarieModel> apiariesList = new ArrayList<>();
+        apiariesList.add(new ApiarieModel("Rucher 1", 4));
+        apiariesList.add(new ApiarieModel("Rucher 2", 1));
+        apiariesList.add(new ApiarieModel("Rucher 3", 2));
+        apiariesList.add(new ApiarieModel("Rucher 4", 3));
+        apiariesList.add(new ApiarieModel("Rucher 5", 5));
+        apiariesList.add(new ApiarieModel("Rucher 6", 6));
 
-        // we are initializing our adapter class and passing our arraylist to it.
-        ApiariesAdapter apiarieAdapter = new ApiariesAdapter(this.getContext(), apiariesList);
+        ApiariesAdapter apiarieAdapter = new ApiariesAdapter(this.getContext(), apiariesList, listener -> {
+            Intent intent = new Intent(getActivity(), ApiarieDetailsActivity.class);
+            intent.putExtra("apiarie", listener.getName());
+            startActivity(intent);
+        });
 
-        // below line is for setting a layout manager for our recycler view.
-        // here we are creating vertical list so we will provide orientation as vertical
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this.getContext(), LinearLayoutManager.VERTICAL, false);
 
-        // in below two lines we are setting layoutmanager and adapter to our recycler view.
         apiariesRecyclerView.setLayoutManager(linearLayoutManager);
         apiariesRecyclerView.setAdapter(apiarieAdapter);
 

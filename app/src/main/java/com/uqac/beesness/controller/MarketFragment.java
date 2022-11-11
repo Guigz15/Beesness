@@ -21,6 +21,8 @@ public class MarketFragment extends Fragment {
         binding = FragmentMarketBinding.inflate(inflater, container, false);
 
         requireActivity().findViewById(R.id.toolbar_add).setVisibility(View.VISIBLE);
+        requireActivity().findViewById(R.id.space).setVisibility(View.VISIBLE);
+        ((TextView) requireActivity().findViewById(R.id.title_text)).setText("Marché");
 
         View root = binding.getRoot();
 

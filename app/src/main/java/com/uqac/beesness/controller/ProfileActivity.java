@@ -1,4 +1,4 @@
-package com.uqac.beesness;
+package com.uqac.beesness.controller;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,6 +9,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.uqac.beesness.R;
 
 public class ProfileActivity extends AppCompatActivity {
 

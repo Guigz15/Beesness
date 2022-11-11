@@ -1,14 +1,16 @@
-package com.uqac.beesness;
+package com.uqac.beesness.controller;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class AddApiarieActivity extends AppCompatActivity {
+import com.uqac.beesness.R;
+
+public class AddBeehiveActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_apiarie);
+        setContentView(R.layout.activity_add_beehive);
     }
 }
