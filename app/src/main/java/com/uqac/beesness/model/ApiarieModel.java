@@ -8,8 +8,9 @@ public class ApiarieModel {
     private String environment;
     private String description;
     private int beehivesNumber;
-    private ArrayList<BeehiveModel> beehives;
     private Location location;
+    private ArrayList<BeehiveModel> beehives;
+    private int idUser;
 
     public ApiarieModel() {
         this.name = "";
@@ -84,4 +85,10 @@ public class ApiarieModel {
     public void setLocation(Location location) {
         this.location = location;
     }
+
+    public int getIdUser() { return idUser; }
+
+    public void setIdUser(int idUser) { this.idUser = idUser; }
+
+    public void addBeehive(BeehiveModel beehive) { this.beehives.add(beehive); }
 }
