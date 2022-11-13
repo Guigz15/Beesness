@@ -6,14 +6,14 @@ import android.widget.TextView;
 
 import com.uqac.beesness.R;
 
-public class ApiarieDetailsActivity extends AppCompatActivity {
+public class ApiaryDetailsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_apiarie_details);
+        setContentView(R.layout.activity_apiary_details);
 
-        String apiarieName = getIntent().getStringExtra("apiarie");
-        ((TextView) findViewById(R.id.title_text)).setText(apiarieName);
+        String apiaryName = getIntent().getStringExtra("apiary");
+        ((TextView) findViewById(R.id.title_text)).setText(apiaryName);
     }
 }

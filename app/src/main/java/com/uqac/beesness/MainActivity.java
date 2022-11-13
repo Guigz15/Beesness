@@ -28,7 +28,10 @@ public class MainActivity extends AppCompatActivity {
 
         // To define qrCode button behavior
         ImageButton qrCodeButton = findViewById(R.id.toolbar_qr_code_scanner);
-        qrCodeButton.setOnClickListener(v -> Toast.makeText(MainActivity.this, "QR Code Scanner", Toast.LENGTH_SHORT).show());
+        qrCodeButton.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, QrCodeScannerActivity.class);
+            startActivity(intent);
+        });
 
         // To define menu items behavior
         ImageButton menuButton = findViewById(R.id.toolbar_more_vert);

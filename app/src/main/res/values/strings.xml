@@ -60,11 +60,11 @@
     <string name="queen_year">Année de naissance</string>
     <string name="queen_origin">Origine</string>
     <string name="queen_lignee">Lignée</string>
-    <string name="apiarie_name">Nom du rucher</string>
-    <string name="apiarie_env">Environnement du rucher</string>
+    <string name="apiary_name">Nom du rucher</string>
+    <string name="apiary_env">Environnement du rucher</string>
     <string name="queen_env_details">Forêt, Plaine, Bocage, etc…</string>
     <string name="description">Description</string>
-    <string name="apiarie_details">Détails sur le rucher</string>
+    <string name="apiary_details">Détails sur le rucher</string>
     <string name="gps_coordinates">Coordonnées GPS</string>
     <string name="latitude">Latitude</string>
     <string name="longitude">Longitude</string>

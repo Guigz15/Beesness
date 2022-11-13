@@ -8,7 +8,7 @@ public class UserModel {
     private String email;
     private String password;
     private String address;
-    private ArrayList<ApiarieModel> apiaries;
+    private ArrayList<ApiaryModel> apiaries;
     private ArrayList<ProductModel> products;
 
     public UserModel() {
@@ -58,15 +58,15 @@ public class UserModel {
 
     public void setAddress(String address) { this.address = address; }
 
-    public ArrayList<ApiarieModel> getApiaries() { return apiaries; }
+    public ArrayList<ApiaryModel> getApiaries() { return apiaries; }
 
-    public void setApiaries(ArrayList<ApiarieModel> apiaries) { this.apiaries = apiaries; }
+    public void setApiaries(ArrayList<ApiaryModel> apiaries) { this.apiaries = apiaries; }
 
     public ArrayList<ProductModel> getProducts() { return products; }
 
     public void setProducts(ArrayList<ProductModel> products) { this.products = products; }
 
-    public void addApiary(ApiarieModel apiary) { this.apiaries.add(apiary); }
+    public void addApiary(ApiaryModel apiary) { this.apiaries.add(apiary); }
 
     public void addProduct(ProductModel product) { this.products.add(product); }
 }

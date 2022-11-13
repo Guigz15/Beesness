@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.uqac.beesness.R;
 import com.uqac.beesness.databinding.FragmentApiariesBinding;
-import com.uqac.beesness.model.ApiarieModel;
+import com.uqac.beesness.model.ApiaryModel;
 
 import java.util.ArrayList;
 
@@ -34,30 +34,30 @@ public class ApiariesFragment extends Fragment {
         ImageButton addApiarieButton = requireActivity().findViewById(R.id.toolbar_add);
         addApiarieButton.setVisibility(View.VISIBLE);
         addApiarieButton.setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), AddApiarieActivity.class);
+            Intent intent = new Intent(getActivity(), AddApiaryActivity.class);
             startActivity(intent);
         });
 
         RecyclerView apiariesRecyclerView = root.findViewById(R.id.apiaries_list);
 
-        ArrayList<ApiarieModel> apiariesList = new ArrayList<>();
-        apiariesList.add(new ApiarieModel("Rucher 1", 4));
-        apiariesList.add(new ApiarieModel("Rucher 2", 1));
-        apiariesList.add(new ApiarieModel("Rucher 3", 2));
-        apiariesList.add(new ApiarieModel("Rucher 4", 3));
-        apiariesList.add(new ApiarieModel("Rucher 5", 5));
-        apiariesList.add(new ApiarieModel("Rucher 6", 6));
+        ArrayList<ApiaryModel> apiariesList = new ArrayList<>();
+        apiariesList.add(new ApiaryModel("Rucher 1", 4));
+        apiariesList.add(new ApiaryModel("Rucher 2", 1));
+        apiariesList.add(new ApiaryModel("Rucher 3", 2));
+        apiariesList.add(new ApiaryModel("Rucher 4", 3));
+        apiariesList.add(new ApiaryModel("Rucher 5", 5));
+        apiariesList.add(new ApiaryModel("Rucher 6", 6));
 
-        ApiariesAdapter apiarieAdapter = new ApiariesAdapter(this.getContext(), apiariesList, listener -> {
-            Intent intent = new Intent(getActivity(), ApiarieDetailsActivity.class);
-            intent.putExtra("apiarie", listener.getName());
+        ApiariesAdapter apiariesAdapter = new ApiariesAdapter(this.getContext(), apiariesList, listener -> {
+            Intent intent = new Intent(getActivity(), ApiaryDetailsActivity.class);
+            intent.putExtra("apiary", listener.getName());
             startActivity(intent);
         });
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this.getContext(), LinearLayoutManager.VERTICAL, false);
 
         apiariesRecyclerView.setLayoutManager(linearLayoutManager);
-        apiariesRecyclerView.setAdapter(apiarieAdapter);
+        apiariesRecyclerView.setAdapter(apiariesAdapter);
 
         return root;
     }

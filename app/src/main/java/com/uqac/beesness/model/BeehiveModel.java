@@ -8,7 +8,7 @@ public class BeehiveModel {
     private String type;
     private String details;
     //private String qrCode;
-    private int idApiarie;
+    private int idApiary;
     private ArrayList<HoneySuperModel> honeySupers;
     private ArrayList<VisitModel> visits;
 
@@ -24,7 +24,7 @@ public class BeehiveModel {
         this.type = type;
         this.details = details;
         //this.qrCode = qrCode;
-        this.idApiarie = idApiarie;
+        this.idApiary = idApiarie;
         this.honeySupers = new ArrayList<>();
         this.visits = new ArrayList<>();
     }
@@ -45,9 +45,9 @@ public class BeehiveModel {
     //
     // public void setQrCode(String qrCode) { this.qrCode = qrCode; }
 
-    public int getIdApiarie() { return idApiarie; }
+    public int getIdApiary() { return idApiary; }
 
-    public void setIdApiarie(int idApiarie) { this.idApiarie = idApiarie; }
+    public void setIdApiary(int idApiary) { this.idApiary = idApiary; }
 
     public ArrayList<HoneySuperModel> getHoneySupers() { return honeySupers; }
 

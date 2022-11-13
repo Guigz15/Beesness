@@ -10,23 +10,23 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.uqac.beesness.R;
-import com.uqac.beesness.model.ApiarieModel;
+import com.uqac.beesness.model.ApiaryModel;
 
 import java.util.ArrayList;
 
 public class ApiariesAdapter extends RecyclerView.Adapter<ApiariesAdapter.ViewHolder> {
 
     public interface OnItemClickListener {
-        void onItemClick(ApiarieModel item);
+        void onItemClick(ApiaryModel item);
     }
 
     private final Context context;
-    private final ArrayList<ApiarieModel> apiarieModelArrayList;
+    private final ArrayList<ApiaryModel> apiaryModelArrayList;
     private final OnItemClickListener listener;
 
-    public ApiariesAdapter(Context context, ArrayList<ApiarieModel> apiarieModelArrayList, OnItemClickListener listener) {
+    public ApiariesAdapter(Context context, ArrayList<ApiaryModel> apiaryModelArrayList, OnItemClickListener listener) {
         this.context = context;
-        this.apiarieModelArrayList = apiarieModelArrayList;
+        this.apiaryModelArrayList = apiaryModelArrayList;
         this.listener = listener;
     }
 
@@ -41,13 +41,13 @@ public class ApiariesAdapter extends RecyclerView.Adapter<ApiariesAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull ApiariesAdapter.ViewHolder holder, int position) {
         // to set data to textviews of each card layout
-        holder.bind(apiarieModelArrayList.get(position), listener);
+        holder.bind(apiaryModelArrayList.get(position), listener);
     }
 
     @Override
     public int getItemCount() {
         // this method is used for showing number of card items in recycler view
-        return apiarieModelArrayList.size();
+        return apiaryModelArrayList.size();
     }
 
     // View holder class for initializing of your views such as TextViews
@@ -57,11 +57,11 @@ public class ApiariesAdapter extends RecyclerView.Adapter<ApiariesAdapter.ViewHo
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            apiaryName = itemView.findViewById(R.id.apiarie_name);
+            apiaryName = itemView.findViewById(R.id.apiary_name);
             beehivesNumber = itemView.findViewById(R.id.beehive_number);
         }
 
-        public void bind(final ApiarieModel item, final OnItemClickListener listener) {
+        public void bind(final ApiaryModel item, final OnItemClickListener listener) {
             apiaryName.setText(item.getName());
             beehivesNumber.setText(String.valueOf(item.getBeehivesNumber()));
             itemView.setOnClickListener(v -> listener.onItemClick(item));

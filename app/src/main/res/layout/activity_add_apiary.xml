@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/main_blue"
-    tools:context=".controller.AddApiarieActivity">
+    tools:context=".controller.AddApiaryActivity">
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -30,14 +30,14 @@
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/apiarieName"
+            android:id="@+id/apiaryName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:autofillHints=""
             android:backgroundTint="@color/white2"
             android:ems="13"
             android:fontFamily="@font/dosis_book"
-            android:hint="@string/apiarie_name"
+            android:hint="@string/apiary_name"
             android:inputType="text"
             android:textColor="@color/white"
             android:textColorHint="@color/white2"
@@ -61,7 +61,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/dosis_book"
-            android:text="@string/apiarie_env"
+            android:text="@string/apiary_env"
             android:textColor="@color/white"
             android:textSize="24sp"
             android:textStyle="bold" />
@@ -111,7 +111,7 @@
             android:backgroundTint="@color/white2"
             android:ems="13"
             android:fontFamily="@font/dosis_book"
-            android:hint="@string/apiarie_details"
+            android:hint="@string/apiary_details"
             android:inputType="text"
             android:textColor="@color/white"
             android:textColorHint="@color/white2"

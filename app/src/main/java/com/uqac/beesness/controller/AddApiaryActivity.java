@@ -8,14 +8,12 @@ import android.widget.Button;
 
 import com.uqac.beesness.R;
 
-import org.osmdroid.views.MapView;
-
-public class AddApiarieActivity extends AppCompatActivity {
+public class AddApiaryActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_apiarie);
+        setContentView(R.layout.activity_add_apiary);
 
         Button pinOnMapButton = findViewById(R.id.situerCarteButton);
         pinOnMapButton.setOnClickListener(v -> {

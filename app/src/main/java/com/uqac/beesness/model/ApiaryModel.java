@@ -3,7 +3,7 @@ package com.uqac.beesness.model;
 import android.location.Location;
 import java.util.ArrayList;
 
-public class ApiarieModel {
+public class ApiaryModel {
     private String name;
     private String environment;
     private String description;
@@ -12,7 +12,7 @@ public class ApiarieModel {
     private ArrayList<BeehiveModel> beehives;
     private int idUser;
 
-    public ApiarieModel() {
+    public ApiaryModel() {
         this.name = "";
         this.environment = "";
         this.description = "";
@@ -21,7 +21,7 @@ public class ApiarieModel {
         this.location = new Location("");
     }
 
-    public ApiarieModel(String name, String environment, String description, Location location) {
+    public ApiaryModel(String name, String environment, String description, Location location) {
         this.name = name;
         this.environment = environment;
         this.description = description;
@@ -31,7 +31,7 @@ public class ApiarieModel {
     }
 
     // For test
-    public ApiarieModel(String name, int beehivesNumber) {
+    public ApiaryModel(String name, int beehivesNumber) {
         this.name = name;
         this.beehivesNumber = beehivesNumber;
         this.location = null;
