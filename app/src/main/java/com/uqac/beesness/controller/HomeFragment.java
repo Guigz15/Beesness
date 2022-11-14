@@ -17,10 +17,13 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.uqac.beesness.R;
 import com.uqac.beesness.databinding.FragmentHomeBinding;
 import com.uqac.beesness.model.UserModel;
+
+import java.util.Objects;
 
 public class HomeFragment extends Fragment {
 
@@ -33,9 +36,9 @@ public class HomeFragment extends Fragment {
         requireActivity().findViewById(R.id.space).setVisibility(View.GONE);
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users");
+        DatabaseReference userReference = FirebaseDatabase.getInstance().getReference("Users");
         if (user != null) {
-            reference.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            userReference.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     UserModel userModel = snapshot.getValue(UserModel.class);
@@ -45,10 +48,22 @@ public class HomeFragment extends Fragment {
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
-                    Toast.makeText(getContext(), "Une erreur est survenue", Toast.LENGTH_SHORT).show();
                 }
             });
         }
+
+        DatabaseReference apiariesReference = FirebaseDatabase.getInstance().getReference("Apiaries");
+        Query query = apiariesReference.orderByChild("idUser").equalTo(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid());
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                binding.apiariesNumber.setText(String.valueOf(snapshot.getChildrenCount()));
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
 
         return binding.getRoot();
     }
