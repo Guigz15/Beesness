@@ -1,37 +1,33 @@
 package com.uqac.beesness.model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class BeehiveModel {
 
-    private int idBeehive;
     private String type;
     private String details;
     //private String qrCode;
-    private int idApiary;
-    private ArrayList<HoneySuperModel> honeySupers;
-    private ArrayList<VisitModel> visits;
+    private String idApiary;
+    private List<HoneySuperModel> honeySupers;
+    private List<VisitModel> visits;
 
     public BeehiveModel() {
         this.type = "";
         this.details = "";
+        this.idApiary = "";
         this.honeySupers = new ArrayList<>();
         this.visits = new ArrayList<>();
     }
 
-    public BeehiveModel(int idBeehive, String type, String details, int idApiarie) {
-        this.idBeehive = idBeehive;
+    public BeehiveModel(String type, String details, String idApiary) {
         this.type = type;
         this.details = details;
         //this.qrCode = qrCode;
-        this.idApiary = idApiarie;
+        this.idApiary = idApiary;
         this.honeySupers = new ArrayList<>();
         this.visits = new ArrayList<>();
     }
-
-    public int getIdBeehive() { return idBeehive; }
-
-    public void setIdBeehive(int idBeehive) { this.idBeehive = idBeehive; }
 
     public String getType() { return type; }
 
@@ -45,15 +41,15 @@ public class BeehiveModel {
     //
     // public void setQrCode(String qrCode) { this.qrCode = qrCode; }
 
-    public int getIdApiary() { return idApiary; }
+    public String getIdApiary() { return idApiary; }
 
-    public void setIdApiary(int idApiary) { this.idApiary = idApiary; }
+    public void setIdApiary(String idApiary) { this.idApiary = idApiary; }
 
-    public ArrayList<HoneySuperModel> getHoneySupers() { return honeySupers; }
+    public List<HoneySuperModel> getHoneySupers() { return honeySupers; }
 
     public void setHoneySupers(ArrayList<HoneySuperModel> honeySupers) { this.honeySupers = honeySupers; }
 
-    public ArrayList<VisitModel> getVisits() { return visits; }
+    public List<VisitModel> getVisits() { return visits; }
 
     public void setVisits(ArrayList<VisitModel> visits) { this.visits = visits; }
 

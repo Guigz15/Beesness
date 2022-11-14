@@ -90,7 +90,7 @@ public class SubscriptionActivity extends AppCompatActivity {
         mAuth.createUserWithEmailAndPassword(emailText, passwordText)
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
-                        UserModel user = new UserModel(usernameText, emailText);
+                        UserModel user = new UserModel(Objects.requireNonNull(mAuth.getCurrentUser()).getUid(), usernameText, emailText);
 
                         FirebaseDatabase.getInstance().getReference("Users")
                                 .child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid())
@@ -105,12 +105,22 @@ public class SubscriptionActivity extends AppCompatActivity {
                                         password.getText().clear();
                                         passwordConfirm.getText().clear();
                                         Toast.makeText(this, "Inscription échouée", Toast.LENGTH_LONG).show();
+                                        try {
+                                            throw Objects.requireNonNull(task.getException());
+                                        } catch (Exception e) {
+                                            e.printStackTrace();
+                                        }
                                     }
                                 });
                     } else {
                         password.getText().clear();
                         passwordConfirm.getText().clear();
                         Toast.makeText(this, "Inscription échouée", Toast.LENGTH_LONG).show();
+                        try {
+                            throw Objects.requireNonNull(task.getException());
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
                 });
     }

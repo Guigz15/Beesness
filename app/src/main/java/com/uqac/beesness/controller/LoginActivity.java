@@ -52,7 +52,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onStart();
 
         // Check if user is signed in (non-null) and update UI accordingly.
-        if (mAuth.getCurrentUser() != null) {
+        if (mAuth.getCurrentUser() != null && mAuth.getCurrentUser().isEmailVerified()) {
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
             finish();

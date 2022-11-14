@@ -1,33 +1,29 @@
 package com.uqac.beesness.model;
 
-import android.location.Location;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ApiaryModel {
+    private String idApiary;
     private String name;
     private String environment;
     private String description;
     private int beehivesNumber;
-    private Location location;
-    private ArrayList<BeehiveModel> beehives;
-    private int idUser;
+    private LocationModel location;
+    private List<BeehiveModel> beehives;
+    private String idUser;
 
-    public ApiaryModel() {
-        this.name = "";
-        this.environment = "";
-        this.description = "";
-        this.beehivesNumber = 0;
-        this.beehives = new ArrayList<>();
-        this.location = new Location("");
-    }
+    public ApiaryModel() {}
 
-    public ApiaryModel(String name, String environment, String description, Location location) {
+    public ApiaryModel(String idApiary, String name, String environment, String description, LocationModel location, String idUser) {
+        this.idApiary = idApiary;
         this.name = name;
         this.environment = environment;
         this.description = description;
         this.beehivesNumber = 0;
         this.beehives = new ArrayList<>();
         this.location = location;
+        this.idUser = idUser;
     }
 
     // For test
@@ -37,6 +33,10 @@ public class ApiaryModel {
         this.location = null;
         beehives = new ArrayList<>();
     }
+
+    public String getIdApiary() { return idApiary; }
+
+    public void setIdApiary(String idApiary) { this.idApiary = idApiary; }
 
     public String getName() {
         return name;
@@ -70,7 +70,7 @@ public class ApiaryModel {
         this.beehivesNumber = beehivesNumber;
     }
 
-    public ArrayList<BeehiveModel> getBeehives() {
+    public List<BeehiveModel> getBeehives() {
         return beehives;
     }
 
@@ -78,17 +78,17 @@ public class ApiaryModel {
         this.beehives = beehives;
     }
 
-    public Location getLocation() {
+    public LocationModel getLocation() {
         return location;
     }
 
-    public void setLocation(Location location) {
+    public void setLocation(LocationModel location) {
         this.location = location;
     }
 
-    public int getIdUser() { return idUser; }
+    public String getIdUser() { return idUser; }
 
-    public void setIdUser(int idUser) { this.idUser = idUser; }
+    public void setIdUser(String idUser) { this.idUser = idUser; }
 
     public void addBeehive(BeehiveModel beehive) { this.beehives.add(beehive); }
 }

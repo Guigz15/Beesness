@@ -2,29 +2,24 @@ package com.uqac.beesness.model;
 
 public class HoneySuperModel {
 
-    private int idHoneySuper;
     private int nbFrames;
-    private int idBeehive;
+    private String idBeehive;
 
     public HoneySuperModel() {
         this.nbFrames = 0;
+        this.idBeehive = "";
     }
 
-    public HoneySuperModel(int idHoneySuper, int nbFrames, int idBeehive) {
-        this.idHoneySuper = idHoneySuper;
+    public HoneySuperModel(int nbFrames, String idBeehive) {
         this.nbFrames = nbFrames;
         this.idBeehive = idBeehive;
     }
-
-    public int getIdHoneySuper() { return idHoneySuper; }
-
-    public void setIdHoneySuper(int idHoneySuper) { this.idHoneySuper = idHoneySuper; }
 
     public int getNbFrames() { return nbFrames; }
 
     public void setNbFrames(int nbFrames) { this.nbFrames = nbFrames; }
 
-    public int getIdBeehive() { return idBeehive; }
+    public String getIdBeehive() { return idBeehive; }
 
-    public void setIdBeehive(int idBeehive) { this.idBeehive = idBeehive; }
+    public void setIdBeehive(String idBeehive) { this.idBeehive = idBeehive; }
 }

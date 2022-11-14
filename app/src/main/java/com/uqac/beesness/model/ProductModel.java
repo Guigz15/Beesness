@@ -1,6 +1,7 @@
 package com.uqac.beesness.model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ProductModel {
 
@@ -9,7 +10,8 @@ public class ProductModel {
     private int quantityProduct;
     private double price;
     private String name;
-    private ArrayList<HoneyPotModel> honeyPots;
+    private List<HoneyPotModel> honeyPots;
+    private String idUser;
 
     public ProductModel() {
         this.quantityProduct = 0;
@@ -42,7 +44,7 @@ public class ProductModel {
 
     public void setName(String name) { this.name = name; }
 
-    public ArrayList<HoneyPotModel> getHoneyPots() { return honeyPots; }
+    public List<HoneyPotModel> getHoneyPots() { return honeyPots; }
 
     public void setHoneyPots(ArrayList<HoneyPotModel> honeyPots) { this.honeyPots = honeyPots; }
 
