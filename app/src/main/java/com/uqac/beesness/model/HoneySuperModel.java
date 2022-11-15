@@ -6,8 +6,6 @@ public class HoneySuperModel {
     private String idBeehive;
 
     public HoneySuperModel() {
-        this.nbFrames = 0;
-        this.idBeehive = "";
     }
 
     public HoneySuperModel(int nbFrames, String idBeehive) {

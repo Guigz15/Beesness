@@ -21,13 +21,13 @@ public class ApiariesAdapter extends FirebaseRecyclerAdapter<ApiaryModel, Apiari
     @Override
     protected void onBindViewHolder(@NonNull ApiariesAdapter.ViewHolder holder, int position, @NonNull ApiaryModel model) {
         holder.apiaryName.setText(model.getName());
-        holder.beehiveNumber.setText(String.valueOf(model.getBeehivesNumber()));
+        holder.beehiveNumber.setText(String.valueOf(model.getBeehives().size()));
     }
 
     @NonNull
     @Override
     public ApiariesAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_layout, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_layout_apiaries, parent, false);
         ViewHolder viewHolder = new ViewHolder(view);
 
         viewHolder.setOnClickListener((view1, position) -> {

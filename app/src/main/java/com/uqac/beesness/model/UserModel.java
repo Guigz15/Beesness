@@ -1,5 +1,7 @@
 package com.uqac.beesness.model;
 
+import com.google.firebase.firestore.auth.User;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,14 +9,10 @@ public class UserModel {
     private String idUser;
     private String username;
     private String email;
-    private String password;
     private List<ApiaryModel> apiaries;
     private List<ProductModel> products;
 
     public UserModel() {
-        this.idUser = "";
-        this.username = "";
-        this.email = "";
         this.apiaries = new ArrayList<>();
         this.products = new ArrayList<>();
     }
@@ -25,6 +23,14 @@ public class UserModel {
         this.email = email;
         this.apiaries = new ArrayList<>();
         this.products = new ArrayList<>();
+    }
+
+    public UserModel(UserModel user) {
+        this.idUser = user.idUser;
+        this.username = user.username;
+        this.email = user.email;
+        this.apiaries = user.apiaries;
+        this.products = user.products;
     }
 
     public String getIdUser() { return idUser; }
@@ -47,10 +53,6 @@ public class UserModel {
         this.email = email;
     }
 
-    public String getPassword() { return password; }
-
-    public void setPassword(String password) { this.password = password; }
-
     public List<ApiaryModel> getApiaries() { return apiaries; }
 
     public void setApiaries(ArrayList<ApiaryModel> apiaries) { this.apiaries = apiaries; }
@@ -62,4 +64,21 @@ public class UserModel {
     public void addApiary(ApiaryModel apiary) { this.apiaries.add(apiary); }
 
     public void addProduct(ProductModel product) { this.products.add(product); }
+
+    public List<BeehiveModel> getBeehives() {
+        List<BeehiveModel> beehives = new ArrayList<>();
+        for (ApiaryModel apiary : apiaries) {
+            beehives.addAll(apiary.getBeehives());
+        }
+        return beehives;
+    }
+
+    public ApiaryModel getApiary(String idApiary) {
+        for (ApiaryModel apiary : apiaries) {
+            if (apiary.getIdApiary().equals(idApiary)) {
+                return apiary;
+            }
+        }
+        return null;
+    }
 }

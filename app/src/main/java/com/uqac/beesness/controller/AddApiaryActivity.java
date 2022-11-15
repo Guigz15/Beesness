@@ -13,6 +13,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.auth.User;
 import com.uqac.beesness.MainActivity;
 import com.uqac.beesness.R;
 import com.uqac.beesness.model.ApiaryModel;
@@ -78,14 +79,14 @@ public class AddApiaryActivity extends AppCompatActivity {
             DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
             String idApiary = reference.child("Apiaries").push().getKey();
 
+            ApiaryModel apiary = new ApiaryModel(idApiary, apiaryNameText, apiaryEnvironmentText, apiaryDescriptionText, location, userId);
+
             assert idApiary != null;
             reference.child("Apiaries").child(idApiary)
-                    .setValue(new ApiaryModel(idApiary, apiaryNameText, apiaryEnvironmentText, apiaryDescriptionText, location, userId))
+                    .setValue(apiary)
                     .addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
                     Toast.makeText(this, "Rucher ajouté", Toast.LENGTH_LONG).show();
-                    Intent intent = new Intent(this, MainActivity.class);
-                    startActivity(intent);
                     finish();
                 } else {
                     Toast.makeText(this, "Erreur lors de l'ajout du rucher", Toast.LENGTH_LONG).show();

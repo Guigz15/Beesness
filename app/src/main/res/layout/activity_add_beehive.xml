@@ -11,7 +11,7 @@
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="10dp"
         android:orientation="vertical"
         android:paddingStart="15dp"
         android:paddingEnd="15dp"
@@ -30,7 +30,7 @@
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/rucheName"
+            android:id="@+id/beehiveName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -45,7 +45,7 @@
             android:textSize="22sp" />
 
         <EditText
-            android:id="@+id/rucheDetails"
+            android:id="@+id/beehiveDetails"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
@@ -60,7 +60,7 @@
             android:textSize="22sp" />
 
         <EditText
-            android:id="@+id/rucheType"
+            android:id="@+id/beehiveType"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
@@ -87,21 +87,37 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
-        <TextView
-            android:id="@+id/reineInfo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/dosis_book"
-            android:text="@string/queen_info"
-            android:textColor="@color/white"
-            android:textSize="24sp"
-            android:textStyle="bold" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/queenInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/dosis_book"
+                android:text="@string/queen_info"
+                android:textColor="@color/white"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:fontFamily="@font/dosis_light"
+                android:text="@string/optional"
+                android:textColor="@color/white"
+                android:textSize="24sp" />
+        </LinearLayout>
 
         <EditText
-            android:id="@+id/reineOrigine"
+            android:id="@+id/queenOrigin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="8dp"
             android:autofillHints=""
             android:backgroundTint="@color/white2"
             android:ems="13"
@@ -113,7 +129,7 @@
             android:textSize="22sp" />
 
         <EditText
-            android:id="@+id/reineLignee"
+            android:id="@+id/queenLine"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
@@ -128,10 +144,10 @@
             android:textSize="22sp" />
 
         <EditText
-            android:id="@+id/reineAnnee"
+            android:id="@+id/queenBirthYear"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
             android:autofillHints=""
             android:backgroundTint="@color/white2"
             android:ems="13"
@@ -147,16 +163,16 @@
         android:id="@+id/save_button"
         android:layout_width="220dp"
         android:layout_height="60dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginBottom="35dp"
         android:backgroundTint="@color/main_yellow"
         android:fontFamily="@font/dosis_semibold"
         android:text="@string/save"
         android:textColor="@color/writing_color"
         android:textSize="26sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"/>
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

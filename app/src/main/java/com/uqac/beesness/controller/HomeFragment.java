@@ -1,6 +1,5 @@
 package com.uqac.beesness.controller;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -52,9 +51,10 @@ public class HomeFragment extends Fragment {
             });
         }
 
+        // Update apiaries number
         DatabaseReference apiariesReference = FirebaseDatabase.getInstance().getReference("Apiaries");
         Query query = apiariesReference.orderByChild("idUser").equalTo(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid());
-        query.addValueEventListener(new ValueEventListener() {
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 binding.apiariesNumber.setText(String.valueOf(snapshot.getChildrenCount()));
@@ -62,6 +62,7 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getContext(), "Erreur lors de la récupération des ruchers", Toast.LENGTH_SHORT).show();
             }
         });
 
