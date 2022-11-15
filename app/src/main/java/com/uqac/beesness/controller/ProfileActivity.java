@@ -29,7 +29,7 @@ import java.util.Objects;
 public class ProfileActivity extends AppCompatActivity {
 
     private EditText lastname, forename, address, beekeeper_number;
-    private String emailText;//, apiaryEnvironment, apiaryDescription, apiaryLongitude, apiaryLatitude;
+    private String emailText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

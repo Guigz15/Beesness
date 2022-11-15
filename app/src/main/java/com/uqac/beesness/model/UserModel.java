@@ -27,16 +27,6 @@ public class UserModel {
         this.products = new ArrayList<>();
     }
 
-    /*
-    public UserModel(String idUser, String lastname, String firstname, String email, String password) {
-        this.idUser = idUser;
-        this.lastname = lastname;
-        this.firstname = firstname;
-        this.email = email;
-        this.apiaries = new ArrayList<>();
-        this.products = new ArrayList<>();
-    }*/
-
     public UserModel(String idUser, String lastname, String firstname, String address, String beekeeper_number) {
         this.idUser = idUser;
         this.lastname = lastname;
