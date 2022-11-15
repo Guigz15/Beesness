@@ -155,7 +155,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:fontFamily="@font/dosis_book"
-                        android:textAlignment="center"
+                        android:textAlignment="textEnd"
                         android:textColor="@color/writing_color"
                         android:textSize="26sp" />
                 </LinearLayout>
@@ -184,7 +184,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:fontFamily="@font/dosis_book"
-                        android:textAlignment="center"
+                        android:textAlignment="textEnd"
                         android:textColor="@color/writing_color"
                         android:textSize="26sp" />
                 </LinearLayout>

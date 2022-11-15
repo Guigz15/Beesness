@@ -49,6 +49,7 @@
     <string name="save">Sauvegarder</string>
     <string name="delete_account">Supprimer mon compte</string>
     <string name="delete_account_confirmation">Etes-vous sûr de vouloir supprimer votre compte ?</string>
+    <string name="delete_apiary_confirmation">Etes-vous sûr de vouloir supprimer ce rucher ?</string>
     <string name="cancel">Annuler</string>
     <string name="delete">Supprimer</string>
     <string name="beehive">ruches</string>

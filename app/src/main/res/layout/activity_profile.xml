@@ -33,7 +33,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/dosis_semibold"
-            android:text="@string/mail_address"
             android:textColor="@android:color/darker_gray"
             android:textSize="22sp" />
     </LinearLayout>
@@ -193,7 +192,7 @@
         android:id="@+id/button"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="50dp"
+        android:layout_marginBottom="70dp"
         android:backgroundTint="@color/main_yellow"
         android:fontFamily="@font/dosis_semibold"
         android:text="@string/save"
@@ -208,6 +207,7 @@
         android:id="@+id/delete_account"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
         android:clickable="true"
         android:focusable="true"
         android:fontFamily="@font/dosis_semibold"
@@ -216,6 +216,7 @@
         android:text="@string/delete_account"
         android:textColor="@color/main_red"
         android:textSize="22sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button"

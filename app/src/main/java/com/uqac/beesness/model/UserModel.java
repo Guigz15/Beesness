@@ -8,6 +8,8 @@ public class UserModel {
     private String username;
     private String email;
     private String password;
+    private String address;
+    private String idBeekeeper;
     private List<ApiaryModel> apiaries;
     private List<ProductModel> products;
 
@@ -50,6 +52,14 @@ public class UserModel {
     public String getPassword() { return password; }
 
     public void setPassword(String password) { this.password = password; }
+
+    public String getAddress() { return address; }
+
+    public void setAddress(String address) { this.address = address; }
+
+    public String getIdBeekeeper() { return idBeekeeper; }
+
+    public void setIdBeekeeper(String idBeekeeper) { this.idBeekeeper = idBeekeeper; }
 
     public List<ApiaryModel> getApiaries() { return apiaries; }
 
