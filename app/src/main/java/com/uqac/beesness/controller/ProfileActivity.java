@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -20,7 +19,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.uqac.beesness.MainActivity;
 import com.uqac.beesness.R;
@@ -30,7 +28,8 @@ import java.util.Objects;
 
 public class ProfileActivity extends AppCompatActivity {
 
-    private EditText username;//, apiaryEnvironment, apiaryDescription, apiaryLongitude, apiaryLatitude;
+    private EditText lastname, firstname;
+    private String emailText;//, apiaryEnvironment, apiaryDescription, apiaryLongitude, apiaryLatitude;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +49,8 @@ public class ProfileActivity extends AppCompatActivity {
                     UserModel userModel = snapshot.getValue(UserModel.class);
                     assert userModel != null;
                     ((TextView) findViewById(R.id.mail_address)).setText(userModel.getEmail());
-                    ((TextView) findViewById(R.id.name)).setText(userModel.getUsername());
+                    ((TextView) findViewById(R.id.name)).setText(userModel.getLastname());
+                    ((TextView) findViewById(R.id.forename)).setText(userModel.getFirstname());
                     //((TextView) findViewById(R.id.)).setText(userModel.getPhoneNumber());
                 }
 
@@ -70,24 +70,26 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private void modify() {
-        username = findViewById(R.id.name);
-        String usernameText = username.getText().toString();
+        lastname = findViewById(R.id.name);
+        String lastnameText = lastname.getText().toString();
+        firstname = findViewById(R.id.firstname);
+        String firstnameText = firstname.getText().toString();
+        emailText = ((TextView) findViewById(R.id.mail_address)).getText().toString();
 
-        FirebaseDatabase.getInstance().getReference().child("Users").child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid()).child("username").setValue(usernameText).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if (task.isSuccessful()) {
-                    Toast.makeText(ProfileActivity.this, "Modification effectuée", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(ProfileActivity.this, MainActivity.class);
-                    startActivity(intent);
-                    finish();
-                } else {
-                    Toast.makeText(ProfileActivity.this, "Erreur lors de la modification", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-        Toast.makeText(ProfileActivity.this, "Votre compte a été modifié", Toast.LENGTH_SHORT).show();
-
+        String userId = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+        reference.child("Users").child(userId)
+                .setValue(new UserModel(userId, lastnameText, firstnameText, emailText))
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        Toast.makeText(ProfileActivity.this, "Modification effectuée", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(ProfileActivity.this, MainActivity.class);
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        Toast.makeText(ProfileActivity.this, "Erreur lors de la modification", Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
     private void showDialog() {
@@ -108,7 +110,7 @@ public class ProfileActivity extends AppCompatActivity {
                         Toast.makeText(ProfileActivity.this, "Votre compte a été supprimé", Toast.LENGTH_SHORT).show();
                         //Deconnexion
                         FirebaseAuth.getInstance().signOut();
-                        Intent intent = new Intent(ProfileActivity.this, LoginActivity.class);
+                        Intent intent = new Intent(ProfileActivity.this, SubscriptionActivity.class);
                         startActivity(intent);
                         finish();
                     } else {
