@@ -36,9 +36,6 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-
-
-
         //Set les informations de l'utilisateur dans les champs
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         DatabaseReference userReference = FirebaseDatabase.getInstance().getReference("Users");
