@@ -34,7 +34,8 @@
     <string name="subscription">Inscription</string>
     <string name="password_checking">Entrez à nouveau votre mot de passe</string>
     <string name="subscribed">S\'inscrire</string>
-    <string name="username">Nom d\'utilisateur</string>
+    <string name="lastname">Nom</string>
+    <string name="firstname">Prénom</string>
     <string name="already_account">Vous avez déjà un compte ?</string>
     <string name="connected">Connectez-vous</string>
     <string name="forgotten_password">Mot de passe oublié</string>

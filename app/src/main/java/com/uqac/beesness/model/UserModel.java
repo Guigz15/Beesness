@@ -5,7 +5,8 @@ import java.util.List;
 
 public class UserModel {
     private String idUser;
-    private String username;
+    private String lastname;
+    private String firstname;
     private String email;
     private String password;
     private String address;
@@ -15,16 +16,28 @@ public class UserModel {
 
     public UserModel() {
         this.idUser = "";
-        this.username = "";
+        this.lastname = "";
+        this.firstname = "";
         this.email = "";
         this.apiaries = new ArrayList<>();
         this.products = new ArrayList<>();
     }
 
-    public UserModel(String idUser, String username, String email) {
+    public UserModel(String idUser, String lastname, String firstname,String email) {
         this.idUser = idUser;
-        this.username = username;
+        this.lastname = lastname;
+        this.firstname = firstname;
         this.email = email;
+        this.apiaries = new ArrayList<>();
+        this.products = new ArrayList<>();
+    }
+
+    public UserModel(String idUser, String lastname, String firstname, String email, String password) {
+        this.idUser = idUser;
+        this.lastname = lastname;
+        this.firstname = firstname;
+        this.email = email;
+        this.password = password;
         this.apiaries = new ArrayList<>();
         this.products = new ArrayList<>();
     }
@@ -33,13 +46,13 @@ public class UserModel {
 
     public void setIdUser(String idUser) { this.idUser = idUser; }
 
-    public String getUsername() {
-        return username;
-    }
+    public String getLastname() { return lastname; }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+    public void setLastname(String lastname) { this.lastname = lastname; }
+
+    public String getFirstname() { return firstname; }
+
+    public void setFirstname(String firstname) { this.firstname = firstname; }
 
     public String getEmail() {
         return email;

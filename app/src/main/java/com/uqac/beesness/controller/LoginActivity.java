@@ -86,13 +86,15 @@ public class LoginActivity extends AppCompatActivity {
             email.requestFocus();
         }
 
-        mAuth.sendPasswordResetEmail(emailText).addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                Toast.makeText(this, "Un lien de réinitialisation de mot de passe a été envoyé à votre adresse courriel.", Toast.LENGTH_LONG).show();
-            } else {
-                Toast.makeText(this, "Une erreur est survenue lors de l'envoi du lien de réinitialisation de mot de passe.", Toast.LENGTH_LONG).show();
-            }
-        });
+        if(!emailText.isEmpty() && Patterns.EMAIL_ADDRESS.matcher(emailText).matches()) {
+            mAuth.sendPasswordResetEmail(emailText).addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    Toast.makeText(this, "Un lien de réinitialisation de mot de passe a été envoyé à votre adresse courriel.", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(this, "Une erreur est survenue lors de l'envoi du lien de réinitialisation de mot de passe.", Toast.LENGTH_LONG).show();
+                }
+            });
+        }
     }
 
     private void userLogin() {
@@ -114,24 +116,26 @@ public class LoginActivity extends AppCompatActivity {
             password.requestFocus();
         }
 
-        mAuth.signInWithEmailAndPassword(emailText, passwordText)
-                .addOnCompleteListener(this, task -> {
-                    if (task.isSuccessful()) {
-                        FirebaseUser user = mAuth.getCurrentUser();
-                        assert user != null;
-                        if (user.isEmailVerified()) {
-                            Toast.makeText(this, "Connexion réussie", Toast.LENGTH_LONG).show();
-                            Intent intent = new Intent(this, MainActivity.class);
-                            startActivity(intent);
-                            finish();
+        if(!emailText.isEmpty() && !passwordText.isEmpty()) {
+            mAuth.signInWithEmailAndPassword(emailText, passwordText)
+                    .addOnCompleteListener(this, task -> {
+                        if (task.isSuccessful()) {
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            assert user != null;
+                            if (user.isEmailVerified()) {
+                                Toast.makeText(this, "Connexion réussie", Toast.LENGTH_LONG).show();
+                                Intent intent = new Intent(this, MainActivity.class);
+                                startActivity(intent);
+                                finish();
+                            } else {
+                                password.getText().clear();
+                                Toast.makeText(this, "Veuillez vérifier votre adresse courriel.", Toast.LENGTH_LONG).show();
+                            }
                         } else {
                             password.getText().clear();
-                            Toast.makeText(this, "Veuillez vérifier votre adresse courriel.", Toast.LENGTH_LONG).show();
+                            Toast.makeText(this, "Courriel ou mot de passe erroné", Toast.LENGTH_SHORT).show();
                         }
-                    } else {
-                        password.getText().clear();
-                        Toast.makeText(this, "Courriel ou mot de passe erroné", Toast.LENGTH_SHORT).show();
-                    }
-                });
+                    });
+        }
     }
 }
