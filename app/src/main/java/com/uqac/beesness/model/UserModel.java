@@ -10,7 +10,7 @@ public class UserModel {
     private String email;
     private String password;
     private String address;
-    private String idBeekeeper;
+    private String beekeeper_number;
     private List<ApiaryModel> apiaries;
     private List<ProductModel> products;
 
@@ -23,7 +23,7 @@ public class UserModel {
         this.products = new ArrayList<>();
     }
 
-    public UserModel(String idUser, String lastname, String firstname,String email) {
+    public UserModel(String idUser, String lastname, String firstname, String email) {
         this.idUser = idUser;
         this.lastname = lastname;
         this.firstname = firstname;
@@ -32,12 +32,23 @@ public class UserModel {
         this.products = new ArrayList<>();
     }
 
+    /*
     public UserModel(String idUser, String lastname, String firstname, String email, String password) {
         this.idUser = idUser;
         this.lastname = lastname;
         this.firstname = firstname;
         this.email = email;
         this.password = password;
+        this.apiaries = new ArrayList<>();
+        this.products = new ArrayList<>();
+    }*/
+
+    public UserModel(String idUser, String lastname, String firstname, String address, String beekeeper_number) {
+        this.idUser = idUser;
+        this.lastname = lastname;
+        this.firstname = firstname;
+        this.address = address;
+        this.beekeeper_number = beekeeper_number;
         this.apiaries = new ArrayList<>();
         this.products = new ArrayList<>();
     }
@@ -70,9 +81,9 @@ public class UserModel {
 
     public void setAddress(String address) { this.address = address; }
 
-    public String getIdBeekeeper() { return idBeekeeper; }
+    public String getBeekeeper_number() { return beekeeper_number; }
 
-    public void setIdBeekeeper(String idBeekeeper) { this.idBeekeeper = idBeekeeper; }
+    public void setBeekeeper_number(String beekeeper_number) { this.beekeeper_number = beekeeper_number; }
 
     public List<ApiaryModel> getApiaries() { return apiaries; }
 

@@ -28,7 +28,7 @@ import java.util.Objects;
 
 public class ProfileActivity extends AppCompatActivity {
 
-    private EditText lastname, firstname;
+    private EditText lastname, forename, address, beekeeper_number;
     private String emailText;//, apiaryEnvironment, apiaryDescription, apiaryLongitude, apiaryLatitude;
 
     @Override
@@ -51,7 +51,8 @@ public class ProfileActivity extends AppCompatActivity {
                     ((TextView) findViewById(R.id.mail_address)).setText(userModel.getEmail());
                     ((TextView) findViewById(R.id.name)).setText(userModel.getLastname());
                     ((TextView) findViewById(R.id.forename)).setText(userModel.getFirstname());
-                    //((TextView) findViewById(R.id.)).setText(userModel.getPhoneNumber());
+                    ((TextView) findViewById(R.id.address)).setText(userModel.getAddress());
+                    ((TextView) findViewById(R.id.beekeeper_number)).setText(userModel.getBeekeeper_number());
                 }
 
                 @Override
@@ -72,14 +73,18 @@ public class ProfileActivity extends AppCompatActivity {
     private void modify() {
         lastname = findViewById(R.id.name);
         String lastnameText = lastname.getText().toString();
-        firstname = findViewById(R.id.firstname);
-        String firstnameText = firstname.getText().toString();
+        forename = findViewById(R.id.forename);
+        String firstnameText = forename.getText().toString();
         emailText = ((TextView) findViewById(R.id.mail_address)).getText().toString();
+        address = findViewById(R.id.address);
+        String addressText = address.getText().toString();
+        beekeeper_number = findViewById(R.id.beekeeper_number);
+        String beekeeper_numberText = beekeeper_number.getText().toString();
 
         String userId = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
         reference.child("Users").child(userId)
-                .setValue(new UserModel(userId, lastnameText, firstnameText, emailText))
+                .setValue(new UserModel(userId, lastnameText, firstnameText, addressText, beekeeper_numberText))
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         Toast.makeText(ProfileActivity.this, "Modification effectuée", Toast.LENGTH_SHORT).show();
