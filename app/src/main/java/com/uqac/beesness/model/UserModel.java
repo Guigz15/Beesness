@@ -1,14 +1,15 @@
 package com.uqac.beesness.model;
 
-import com.google.firebase.firestore.auth.User;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserModel {
     private String idUser;
-    private String username;
+    private String lastname;
+    private String firstname;
     private String email;
+    private String address;
+    private String beekeeper_number;
     private List<ApiaryModel> apiaries;
     private List<ProductModel> products;
 
@@ -17,33 +18,46 @@ public class UserModel {
         this.products = new ArrayList<>();
     }
 
-    public UserModel(String idUser, String username, String email) {
+    public UserModel(String idUser, String lastname, String firstname, String email) {
         this.idUser = idUser;
-        this.username = username;
+        this.lastname = lastname;
+        this.firstname = firstname;
         this.email = email;
         this.apiaries = new ArrayList<>();
         this.products = new ArrayList<>();
     }
 
-    public UserModel(UserModel user) {
-        this.idUser = user.idUser;
-        this.username = user.username;
-        this.email = user.email;
-        this.apiaries = user.apiaries;
-        this.products = user.products;
+    /*
+    public UserModel(String idUser, String lastname, String firstname, String email, String password) {
+        this.idUser = idUser;
+        this.lastname = lastname;
+        this.firstname = firstname;
+        this.email = email;
+        this.apiaries = new ArrayList<>();
+        this.products = new ArrayList<>();
+    }*/
+
+    public UserModel(String idUser, String lastname, String firstname, String address, String beekeeper_number) {
+        this.idUser = idUser;
+        this.lastname = lastname;
+        this.firstname = firstname;
+        this.address = address;
+        this.beekeeper_number = beekeeper_number;
+        this.apiaries = new ArrayList<>();
+        this.products = new ArrayList<>();
     }
 
     public String getIdUser() { return idUser; }
 
     public void setIdUser(String idUser) { this.idUser = idUser; }
 
-    public String getUsername() {
-        return username;
-    }
+    public String getLastname() { return lastname; }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+    public void setLastname(String lastname) { this.lastname = lastname; }
+
+    public String getFirstname() { return firstname; }
+
+    public void setFirstname(String firstname) { this.firstname = firstname; }
 
     public String getEmail() {
         return email;
@@ -52,6 +66,14 @@ public class UserModel {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public String getAddress() { return address; }
+
+    public void setAddress(String address) { this.address = address; }
+
+    public String getBeekeeper_number() { return beekeeper_number; }
+
+    public void setBeekeeper_number(String beekeeper_number) { this.beekeeper_number = beekeeper_number; }
 
     public List<ApiaryModel> getApiaries() { return apiaries; }
 

@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -42,7 +41,7 @@ public class HomeFragment extends Fragment {
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     UserModel userModel = snapshot.getValue(UserModel.class);
                     assert userModel != null;
-                    ((TextView) requireActivity().findViewById(R.id.title_text)).setText("Bienvenue " + userModel.getUsername());
+                    ((TextView) requireActivity().findViewById(R.id.title_text)).setText("Bienvenue " + userModel.getFirstname());
                 }
 
                 @Override

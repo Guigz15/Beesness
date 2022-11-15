@@ -21,7 +21,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/username"
+        android:id="@+id/lastname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
@@ -29,7 +29,7 @@
         android:backgroundTint="#BEFFFFFF"
         android:ems="13"
         android:fontFamily="@font/dosis_book"
-        android:hint="@string/username"
+        android:hint="@string/lastname"
         android:inputType="textEmailAddress"
         android:textColor="@color/white"
         android:textColorHint="#BEFFFFFF"
@@ -38,6 +38,25 @@
         app:layout_constraintHorizontal_bias="0.488"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <EditText
+        android:id="@+id/firstname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:autofillHints=""
+        android:backgroundTint="#BEFFFFFF"
+        android:ems="13"
+        android:fontFamily="@font/dosis_book"
+        android:hint="@string/firstname"
+        android:inputType="textEmailAddress"
+        android:textColor="@color/white"
+        android:textColorHint="#BEFFFFFF"
+        android:textSize="22sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.488"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lastname" />
 
     <EditText
         android:id="@+id/emailField"
@@ -56,7 +75,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.488"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/username" />
+        app:layout_constraintTop_toBottomOf="@+id/firstname" />
 
     <EditText
         android:id="@+id/password"
@@ -129,7 +148,8 @@
         android:id="@+id/connect"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="18dp"
         android:layout_marginEnd="55dp"
         android:clickable="true"
         android:focusable="true"
@@ -139,5 +159,6 @@
         android:textColor="@color/white"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView3"
         app:layout_constraintTop_toBottomOf="@+id/subscription_button" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -19,7 +19,7 @@ import java.util.regex.Pattern;
 public class SubscriptionActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
-    private EditText username, email, password, passwordConfirm;
+    private EditText lastname, firstname, email, password, passwordConfirm;
     private Button subscribeButton;
 
     @Override
@@ -30,7 +30,8 @@ public class SubscriptionActivity extends AppCompatActivity {
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
 
-        username = findViewById(R.id.username);
+        lastname = findViewById(R.id.lastname);
+        firstname = findViewById(R.id.firstname);
         email = findViewById(R.id.emailField);
         password = findViewById(R.id.password);
         passwordConfirm = findViewById(R.id.password_checking);
@@ -47,14 +48,20 @@ public class SubscriptionActivity extends AppCompatActivity {
     }
 
     private void subscribeUser() {
-        String usernameText = username.getText().toString();
+        String lastnameText = lastname.getText().toString();
+        String firstnameText = firstname.getText().toString();
         String emailText = email.getText().toString();
         String passwordText = password.getText().toString();
         String passwordConfirmText = passwordConfirm.getText().toString();
 
-        if (usernameText.isEmpty()) {
-            username.setError("Veuillez entrer un nom d'utilisateur");
-            username.requestFocus();
+        if (lastnameText.isEmpty()) {
+            lastname.setError("Veuillez entrer votre nom");
+            lastname.requestFocus();
+        }
+
+        if (firstnameText.isEmpty()) {
+            firstname.setError("Veuillez entrer votre prénom");
+            firstname.requestFocus();
         }
 
         if (emailText.isEmpty()) {
@@ -87,42 +94,44 @@ public class SubscriptionActivity extends AppCompatActivity {
             passwordConfirm.requestFocus();
         }
 
-        mAuth.createUserWithEmailAndPassword(emailText, passwordText)
-                .addOnCompleteListener(this, task -> {
-                    if (task.isSuccessful()) {
-                        UserModel user = new UserModel(Objects.requireNonNull(mAuth.getCurrentUser()).getUid(), usernameText, emailText);
+        if (!lastnameText.isEmpty() && !firstnameText.isEmpty() && !emailText.isEmpty() && !passwordText.isEmpty() && !passwordConfirmText.isEmpty() && passwordText.equals(passwordConfirmText)) {
+            mAuth.createUserWithEmailAndPassword(emailText, passwordText)
+                    .addOnCompleteListener(this, task -> {
+                        if (task.isSuccessful()) {
+                            UserModel user = new UserModel(Objects.requireNonNull(mAuth.getCurrentUser()).getUid(), lastnameText, firstnameText, emailText);
 
-                        FirebaseDatabase.getInstance().getReference("Users")
-                                .child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid())
-                                .setValue(user).addOnCompleteListener(task1 -> {
-                                    if (task1.isSuccessful()) {
-                                        Objects.requireNonNull(mAuth.getCurrentUser()).sendEmailVerification();
-                                        Toast.makeText(this, "Veuillez vérifier votre adresse courriel.", Toast.LENGTH_LONG).show();
-                                        Intent intent = new Intent(this, LoginActivity.class);
-                                        startActivity(intent);
-                                        finish();
-                                    } else {
-                                        password.getText().clear();
-                                        passwordConfirm.getText().clear();
-                                        Toast.makeText(this, "Inscription échouée", Toast.LENGTH_LONG).show();
-                                        try {
-                                            throw Objects.requireNonNull(task.getException());
-                                        } catch (Exception e) {
-                                            e.printStackTrace();
+                            FirebaseDatabase.getInstance().getReference("Users")
+                                    .child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid())
+                                    .setValue(user).addOnCompleteListener(task1 -> {
+                                        if (task1.isSuccessful()) {
+                                            Objects.requireNonNull(mAuth.getCurrentUser()).sendEmailVerification();
+                                            Toast.makeText(this, "Veuillez vérifier votre adresse courriel.", Toast.LENGTH_LONG).show();
+                                            Intent intent = new Intent(this, LoginActivity.class);
+                                            startActivity(intent);
+                                            finish();
+                                        } else {
+                                            password.getText().clear();
+                                            passwordConfirm.getText().clear();
+                                            Toast.makeText(this, "Inscription échouée", Toast.LENGTH_LONG).show();
+                                            try {
+                                                throw Objects.requireNonNull(task.getException());
+                                            } catch (Exception e) {
+                                                e.printStackTrace();
+                                            }
                                         }
-                                    }
-                                });
-                    } else {
-                        password.getText().clear();
-                        passwordConfirm.getText().clear();
-                        Toast.makeText(this, "Inscription échouée", Toast.LENGTH_LONG).show();
-                        try {
-                            throw Objects.requireNonNull(task.getException());
-                        } catch (Exception e) {
-                            e.printStackTrace();
+                                    });
+                        } else {
+                            password.getText().clear();
+                            passwordConfirm.getText().clear();
+                            Toast.makeText(this, "Inscription échouée", Toast.LENGTH_LONG).show();
+                            try {
+                                throw Objects.requireNonNull(task.getException());
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
                         }
-                    }
-                });
+                    });
+        }
     }
 
     private boolean passwordValid(String password) {
