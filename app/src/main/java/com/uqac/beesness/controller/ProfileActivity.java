@@ -81,7 +81,7 @@ public class ProfileActivity extends AppCompatActivity {
         String userId = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
         reference.child("Users").child(userId)
-                .setValue(new UserModel(userId, lastnameText, firstnameText, addressText, beekeeper_numberText))
+                .setValue(new UserModel(userId, lastnameText, firstnameText, emailText, addressText, beekeeper_numberText))
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         Toast.makeText(ProfileActivity.this, "Modification effectuée", Toast.LENGTH_SHORT).show();
