@@ -2,8 +2,10 @@ package com.uqac.beesness;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,6 +14,9 @@ import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -23,6 +28,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.uqac.beesness.controller.LoginActivity;
 import com.uqac.beesness.controller.ProfileActivity;
 import com.uqac.beesness.controller.QrCodeScannerActivity;
+import com.uqac.beesness.controller.SubscriptionActivity;
 import com.uqac.beesness.databinding.ActivityMainBinding;
 import com.uqac.beesness.model.UserModel;
 
@@ -57,10 +63,7 @@ public class MainActivity extends AppCompatActivity {
                     Intent intent = new Intent(this, ProfileActivity.class);
                     startActivity(intent);
                 } else if (menuItem.getTitle().equals("Déconnexion")) {
-                    FirebaseAuth.getInstance().signOut();
-                    Intent intent = new Intent(this, LoginActivity.class);
-                    startActivity(intent);
-                    finish();
+                    showDialog();
                 }
                 return true;
             });
@@ -70,5 +73,27 @@ public class MainActivity extends AppCompatActivity {
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment_activity_main);
         NavController navController = navHostFragment.getNavController();
         NavigationUI.setupWithNavController(binding.navView, navController);
+    }
+
+    private void showDialog() {
+        BottomSheetDialog deleteAccountDialog = new BottomSheetDialog(this, R.style.BottomSheetDialogTheme);
+        View deleteAccountView = getLayoutInflater().inflate(R.layout.user_deconnection, findViewById(R.id.bottom_sheet_container));
+
+        deleteAccountView.findViewById(R.id.disconnect_button).setOnClickListener(v -> {
+            FirebaseAuth.getInstance().signOut();
+            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+            startActivity(intent);
+            finish();
+        });
+
+
+
+
+        deleteAccountView.findViewById(R.id.cancel_button).setOnClickListener(v -> {
+            deleteAccountDialog.dismiss();
+        });
+
+        deleteAccountDialog.setContentView(deleteAccountView);
+        deleteAccountDialog.show();
     }
 }

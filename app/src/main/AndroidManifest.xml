@@ -28,11 +28,13 @@
         <activity
             android:name=".controller.ApiaryDetailsActivity"
             android:exported="false"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".controller.LoginActivity"
             android:exported="true"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -42,26 +44,31 @@
         <activity
             android:name=".MainActivity"
             android:exported="false"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".controller.SubscriptionActivity"
             android:exported="false"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".controller.ProfileActivity"
             android:exported="false"
             android:label="@string/account"
-            android:theme="@style/Theme.AppCompat.Light" />
+            android:theme="@style/Theme.AppCompat.Light"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".controller.AddApiaryActivity"
             android:exported="false"
             android:label="Ajouter un rucher"
-            android:theme="@style/Theme.AppCompat.Light" />
+            android:theme="@style/Theme.AppCompat.Light"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".controller.AddBeehiveActivity"
             android:exported="false"
             android:label="Ajouter une ruche"
-            android:theme="@style/Theme.AppCompat.Light" />
+            android:theme="@style/Theme.AppCompat.Light"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>
