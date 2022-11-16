@@ -1,29 +1,30 @@
 package com.uqac.beesness.controller;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.location.Location;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.firestore.auth.User;
-import com.uqac.beesness.MainActivity;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 import com.uqac.beesness.R;
+import com.uqac.beesness.database.DAOApiaries;
 import com.uqac.beesness.model.ApiaryModel;
 import com.uqac.beesness.model.LocationModel;
 
+import java.util.HashMap;
 import java.util.Objects;
 
-public class AddApiaryActivity extends AppCompatActivity {
+public class AddUpdateApiaryActivity extends AppCompatActivity {
 
     private EditText apiaryName, apiaryEnvironment, apiaryDescription, apiaryLongitude, apiaryLatitude;
+    private DAOApiaries daoApiaries;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +36,29 @@ public class AddApiaryActivity extends AppCompatActivity {
         apiaryDescription = findViewById(R.id.apiaryDescriptionDetails);
         apiaryLongitude = findViewById(R.id.longitude);
         apiaryLatitude = findViewById(R.id.latitude);
+
+        daoApiaries = new DAOApiaries();
+
+        if (getIntent().getStringExtra("idApiary") != null) {
+            setTitle("Modifier le rucher");
+            String idApiary = getIntent().getStringExtra("idApiary");
+            daoApiaries.find(idApiary).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    ApiaryModel apiary = snapshot.getChildren().iterator().next().getValue(ApiaryModel.class);
+                    assert apiary != null;
+                    apiaryName.setText(apiary.getName());
+                    apiaryEnvironment.setText(apiary.getEnvironment());
+                    apiaryDescription.setText(apiary.getDescription());
+                    apiaryLongitude.setText(String.valueOf(apiary.getLocation().getLongitude()));
+                    apiaryLatitude.setText(String.valueOf(apiary.getLocation().getLatitude()));
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                }
+            });
+        }
 
         Button pinOnMapButton = findViewById(R.id.situerCarteButton);
         pinOnMapButton.setOnClickListener(v -> {
@@ -76,22 +100,37 @@ public class AddApiaryActivity extends AppCompatActivity {
         String userId = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
 
         if (!apiaryNameText.isEmpty() && location != null) {
-            DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
-            String idApiary = reference.child("Apiaries").push().getKey();
+            daoApiaries = new DAOApiaries();
 
-            ApiaryModel apiary = new ApiaryModel(idApiary, apiaryNameText, apiaryEnvironmentText, apiaryDescriptionText, location, userId);
-
-            assert idApiary != null;
-            reference.child("Apiaries").child(idApiary)
-                    .setValue(apiary)
-                    .addOnCompleteListener(task -> {
-                if (task.isSuccessful()) {
-                    Toast.makeText(this, "Rucher ajouté", Toast.LENGTH_LONG).show();
-                    finish();
-                } else {
-                    Toast.makeText(this, "Erreur lors de l'ajout du rucher", Toast.LENGTH_LONG).show();
-                }
-            });
+            if (getIntent().getStringExtra("idApiary") == null) {
+                String idApiary = daoApiaries.getKey();
+                assert idApiary != null;
+                ApiaryModel apiary = new ApiaryModel(idApiary, apiaryNameText, apiaryEnvironmentText, apiaryDescriptionText, location, userId);
+                daoApiaries.add(apiary).addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        Toast.makeText(this, "Rucher ajouté", Toast.LENGTH_LONG).show();
+                        finish();
+                    } else {
+                        Toast.makeText(this, "Erreur lors de l'ajout du rucher", Toast.LENGTH_LONG).show();
+                    }
+                });
+            } else {
+                String idApiary = getIntent().getStringExtra("idApiary");
+                assert idApiary != null;
+                HashMap<String, Object> apiaryUpdateMap = new HashMap<>();
+                apiaryUpdateMap.put("name", apiaryNameText);
+                apiaryUpdateMap.put("environment", apiaryEnvironmentText);
+                apiaryUpdateMap.put("description", apiaryDescriptionText);
+                apiaryUpdateMap.put("location", location);
+                daoApiaries.update(idApiary, apiaryUpdateMap).addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        Toast.makeText(this, "Rucher modifié", Toast.LENGTH_LONG).show();
+                        finish();
+                    } else {
+                        Toast.makeText(this, "Erreur lors de la modification du rucher", Toast.LENGTH_LONG).show();
+                    }
+                });
+            }
         }
     }
 

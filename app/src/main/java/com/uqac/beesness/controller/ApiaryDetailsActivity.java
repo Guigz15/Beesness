@@ -1,60 +1,49 @@
 package com.uqac.beesness.controller;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.ImageButton;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.uqac.beesness.MainActivity;
 import com.uqac.beesness.R;
+import com.uqac.beesness.database.DAOApiaries;
 import com.uqac.beesness.model.ApiaryModel;
-
-import java.util.Objects;
 
 public class ApiaryDetailsActivity extends AppCompatActivity {
 
     private String idApiary;
-    private TextView apiaryName;
+    private TextView apiaryNameTextView;
     private ImageButton infoButton;
+    private ImageButton editButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_apiary_details);
 
-        apiaryName = findViewById(R.id.title_text);
+        apiaryNameTextView = findViewById(R.id.title_text);
 
         idApiary = getIntent().getStringExtra("idApiary");
-        DatabaseReference apiariesRef = FirebaseDatabase.getInstance().getReference("Apiaries");
-        Query query = apiariesRef.orderByChild("idApiary").equalTo(idApiary);
-        query.addValueEventListener(new ValueEventListener() {
+        DAOApiaries daoApiaries = new DAOApiaries();
+        daoApiaries.find(idApiary).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    ApiaryModel apiary = dataSnapshot.getValue(ApiaryModel.class);
-                    assert apiary != null;
-                    apiaryName.setText(apiary.getName());
-                }
+                ApiaryModel apiary = snapshot.getChildren().iterator().next().getValue(ApiaryModel.class);
+                assert apiary != null;
+                apiaryNameTextView.setText(apiary.getName());
             }
 
             @Override
@@ -86,6 +75,13 @@ public class ApiaryDetailsActivity extends AppCompatActivity {
         ImageButton deleteApiarieButton = findViewById(R.id.delete_button);
         deleteApiarieButton.setOnClickListener(v -> {
             showDialog();
+        });
+
+        editButton = findViewById(R.id.edit_button);
+        editButton.setOnClickListener(v -> {
+            Intent intent = new Intent(this, AddUpdateApiaryActivity.class);
+            intent.putExtra("idApiary", idApiary);
+            startActivity(intent);
         });
     }
 

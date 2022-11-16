@@ -22,8 +22,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.uqac.beesness.MainActivity;
 import com.uqac.beesness.R;
+import com.uqac.beesness.database.DAOUsers;
 import com.uqac.beesness.model.UserModel;
 
+import java.util.HashMap;
 import java.util.Objects;
 
 public class ProfileActivity extends AppCompatActivity {
@@ -35,6 +37,12 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+
+        emailText = ((TextView) findViewById(R.id.mail_address)).getText().toString();
+        lastname = findViewById(R.id.name);
+        forename = findViewById(R.id.forename);
+        address = findViewById(R.id.address);
+        beekeeper_number = findViewById(R.id.beekeeper_number);
 
         //Set les informations de l'utilisateur dans les champs
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -68,30 +76,33 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private void modify() {
-        lastname = findViewById(R.id.name);
+        HashMap<String, Object> updatedUserMap = new HashMap<>();
+
         String lastnameText = lastname.getText().toString();
-        forename = findViewById(R.id.forename);
+        updatedUserMap.put("lastname", lastnameText);
+
         String firstnameText = forename.getText().toString();
-        emailText = ((TextView) findViewById(R.id.mail_address)).getText().toString();
-        address = findViewById(R.id.address);
+        updatedUserMap.put("firstname", firstnameText);
+
         String addressText = address.getText().toString();
-        beekeeper_number = findViewById(R.id.beekeeper_number);
+        updatedUserMap.put("address", addressText);
+
         String beekeeper_numberText = beekeeper_number.getText().toString();
+        updatedUserMap.put("beekeeper_number", beekeeper_numberText);
 
         String userId = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
-        reference.child("Users").child(userId)
-                .setValue(new UserModel(userId, lastnameText, firstnameText, emailText, addressText, beekeeper_numberText))
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        Toast.makeText(ProfileActivity.this, "Modification effectuée", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(ProfileActivity.this, MainActivity.class);
-                        startActivity(intent);
-                        finish();
-                    } else {
-                        Toast.makeText(ProfileActivity.this, "Erreur lors de la modification", Toast.LENGTH_SHORT).show();
-                    }
-                });
+
+        DAOUsers daoUsers = new DAOUsers();
+        daoUsers.update(userId, updatedUserMap).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                Toast.makeText(ProfileActivity.this, "Modification effectuée", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(ProfileActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            } else {
+                Toast.makeText(ProfileActivity.this, "Erreur lors de la modification", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void showDialog() {
@@ -99,25 +110,24 @@ public class ProfileActivity extends AppCompatActivity {
         View deleteAccountView = getLayoutInflater().inflate(R.layout.delete_account_confirmation, findViewById(R.id.bottom_sheet_container));
 
         deleteAccountView.findViewById(R.id.delete_button).setOnClickListener(v -> {
+            DAOUsers daoUsers = new DAOUsers();
 
             //Recuperation de l'id de l'utilisateur
             String userId = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
-            DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
+
             //Suppression de l'utilisateur
-            ref.removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
-                @Override
-                public void onComplete(@NonNull Task<Void> task) {
-                    if (task.isSuccessful()) {
-                        FirebaseAuth.getInstance().getCurrentUser().delete();
-                        Toast.makeText(ProfileActivity.this, "Votre compte a été supprimé", Toast.LENGTH_SHORT).show();
-                        //Deconnexion
-                        FirebaseAuth.getInstance().signOut();
-                        Intent intent = new Intent(ProfileActivity.this, SubscriptionActivity.class);
-                        startActivity(intent);
-                        finish();
-                    } else {
-                        Toast.makeText(ProfileActivity.this, "Une erreur est survenue", Toast.LENGTH_SHORT).show();
-                    }
+            daoUsers.delete(userId).addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    FirebaseAuth.getInstance().getCurrentUser().delete();
+                    Toast.makeText(ProfileActivity.this, "Votre compte a été supprimé", Toast.LENGTH_SHORT).show();
+
+                    //Deconnexion
+                    FirebaseAuth.getInstance().signOut();
+                    Intent intent = new Intent(ProfileActivity.this, SubscriptionActivity.class);
+                    startActivity(intent);
+                    finish();
+                } else {
+                    Toast.makeText(ProfileActivity.this, "Une erreur est survenue", Toast.LENGTH_SHORT).show();
                 }
             });
         });

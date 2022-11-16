@@ -12,6 +12,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.uqac.beesness.MainActivity;
 import com.uqac.beesness.R;
+import com.uqac.beesness.database.DAOBeehives;
 import com.uqac.beesness.model.BeeQueenModel;
 import com.uqac.beesness.model.BeehiveModel;
 import com.uqac.beesness.model.UserModel;
@@ -55,23 +56,21 @@ public class AddBeehiveActivity extends AppCompatActivity {
         }
 
         if (!beehiveNameText.isEmpty()) {
-            DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
-            String idBeehive = reference.child("Beehives").push().getKey();
+            DAOBeehives daoBeehives = new DAOBeehives();
+            String idBeehive = daoBeehives.getKey();
 
             BeeQueenModel queen = new BeeQueenModel(queenOriginText, queenLineText, queenBirthYearText);
             BeehiveModel beehive = new BeehiveModel(idBeehive, beehiveNameText, beehiveTypeText, beehiveDetailsText, idApiary, queen);
 
             assert idBeehive != null;
-            reference.child("Beehives").child(idBeehive)
-                    .setValue(beehive)
-                    .addOnCompleteListener(task -> {
-                        if (task.isSuccessful()) {
-                            Toast.makeText(this, "Ruche ajoutée", Toast.LENGTH_LONG).show();
-                            finish();
-                        } else {
-                            Toast.makeText(this, "Erreur lors de l'ajout de la ruche", Toast.LENGTH_LONG).show();
-                        }
-                    });
+            daoBeehives.add(beehive).addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    Toast.makeText(this, "Ruche ajoutée", Toast.LENGTH_LONG).show();
+                    finish();
+                } else {
+                    Toast.makeText(this, "Erreur lors de l'ajout de la ruche", Toast.LENGTH_LONG).show();
+                }
+            });
         }
     }
 }

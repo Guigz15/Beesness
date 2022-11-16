@@ -13,16 +13,11 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.uqac.beesness.R;
+import com.uqac.beesness.database.DAOApiaries;
 import com.uqac.beesness.databinding.FragmentApiariesBinding;
 import com.uqac.beesness.model.ApiariesViewModel;
 import com.uqac.beesness.model.ApiaryModel;
-
-import java.util.Objects;
 
 public class ApiariesFragment extends Fragment {
 
@@ -42,18 +37,16 @@ public class ApiariesFragment extends Fragment {
         ImageButton addApiarieButton = requireActivity().findViewById(R.id.toolbar_add);
         addApiarieButton.setVisibility(View.VISIBLE);
         addApiarieButton.setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), AddApiaryActivity.class);
+            Intent intent = new Intent(getActivity(), AddUpdateApiaryActivity.class);
             startActivity(intent);
         });
 
-        DatabaseReference apiariesRef = FirebaseDatabase.getInstance().getReference("Apiaries");
-        Query query = apiariesRef.orderByChild("idUser").equalTo(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid());
-
+        DAOApiaries daoApiaries = new DAOApiaries();
         RecyclerView apiariesRecyclerView = root.findViewById(R.id.apiaries_list);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this.getContext());
         apiariesRecyclerView.setItemAnimator(null);
         FirebaseRecyclerOptions<ApiaryModel> options = new FirebaseRecyclerOptions.Builder<ApiaryModel>()
-                .setQuery(query, ApiaryModel.class)
+                .setQuery(daoApiaries.findAll(), ApiaryModel.class)
                 .build();
         adapter = new ApiariesAdapter(options);
 

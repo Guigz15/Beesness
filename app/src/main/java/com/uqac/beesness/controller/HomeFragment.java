@@ -17,8 +17,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.uqac.beesness.R;
+import com.uqac.beesness.database.DAOApiaries;
+import com.uqac.beesness.database.DAOBeehives;
 import com.uqac.beesness.databinding.FragmentHomeBinding;
+import com.uqac.beesness.model.ApiaryModel;
 import com.uqac.beesness.model.UserModel;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class HomeFragment extends Fragment {
@@ -49,9 +55,8 @@ public class HomeFragment extends Fragment {
         }
 
         // Update apiaries number
-        DatabaseReference apiariesReference = FirebaseDatabase.getInstance().getReference("Apiaries");
-        Query query = apiariesReference.orderByChild("idUser").equalTo(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid());
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
+        DAOApiaries daoApiaries = new DAOApiaries();
+        daoApiaries.findAll().addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 binding.apiariesNumber.setText(String.valueOf(snapshot.getChildrenCount()));

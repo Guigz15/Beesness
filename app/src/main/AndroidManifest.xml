@@ -23,7 +23,7 @@
             android:name=".controller.MapActivity"
             android:exported="false"
             android:label="Positionner votre rucher"
-            android:parentActivityName=".controller.AddApiaryActivity"
+            android:parentActivityName=".controller.AddUpdateApiaryActivity"
             android:theme="@style/Theme.AppCompat.Light" />
         <activity
             android:name=".controller.ApiaryDetailsActivity"
@@ -53,7 +53,7 @@
             android:label="@string/account"
             android:theme="@style/Theme.AppCompat.Light" />
         <activity
-            android:name=".controller.AddApiaryActivity"
+            android:name=".controller.AddUpdateApiaryActivity"
             android:exported="false"
             android:label="Ajouter un rucher"
             android:theme="@style/Theme.AppCompat.Light" />

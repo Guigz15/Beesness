@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 import com.uqac.beesness.R;
+import com.uqac.beesness.database.DAOUsers;
 import com.uqac.beesness.model.UserModel;
 
 import java.util.Objects;
@@ -99,27 +100,26 @@ public class SubscriptionActivity extends AppCompatActivity {
                     .addOnCompleteListener(this, task -> {
                         if (task.isSuccessful()) {
                             UserModel user = new UserModel(Objects.requireNonNull(mAuth.getCurrentUser()).getUid(), lastnameText, firstnameText, emailText);
+                            DAOUsers daoUsers = new DAOUsers();
 
-                            FirebaseDatabase.getInstance().getReference("Users")
-                                    .child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid())
-                                    .setValue(user).addOnCompleteListener(task1 -> {
-                                        if (task1.isSuccessful()) {
-                                            Objects.requireNonNull(mAuth.getCurrentUser()).sendEmailVerification();
-                                            Toast.makeText(this, "Veuillez vérifier votre adresse courriel.", Toast.LENGTH_LONG).show();
-                                            Intent intent = new Intent(this, LoginActivity.class);
-                                            startActivity(intent);
-                                            finish();
-                                        } else {
-                                            password.getText().clear();
-                                            passwordConfirm.getText().clear();
-                                            Toast.makeText(this, "Inscription échouée", Toast.LENGTH_LONG).show();
-                                            try {
-                                                throw Objects.requireNonNull(task.getException());
-                                            } catch (Exception e) {
-                                                e.printStackTrace();
-                                            }
-                                        }
-                                    });
+                            daoUsers.add(user).addOnCompleteListener(task1 -> {
+                                if (task1.isSuccessful()) {
+                                    Objects.requireNonNull(mAuth.getCurrentUser()).sendEmailVerification();
+                                    Toast.makeText(this, "Veuillez vérifier votre adresse courriel.", Toast.LENGTH_LONG).show();
+                                    Intent intent = new Intent(this, LoginActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                } else {
+                                    password.getText().clear();
+                                    passwordConfirm.getText().clear();
+                                    Toast.makeText(this, "Inscription échouée", Toast.LENGTH_LONG).show();
+                                    try {
+                                        throw Objects.requireNonNull(task.getException());
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            });
                         } else {
                             password.getText().clear();
                             passwordConfirm.getText().clear();

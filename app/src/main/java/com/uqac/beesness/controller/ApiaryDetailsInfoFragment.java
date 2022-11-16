@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.uqac.beesness.database.DAOApiaries;
 import com.uqac.beesness.databinding.FragmentApiaryDetailsInfoBinding;
 
 import java.util.Objects;
