@@ -5,10 +5,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -20,7 +19,6 @@ import com.google.firebase.database.ValueEventListener;
 import com.uqac.beesness.R;
 import com.uqac.beesness.databinding.FragmentHomeBinding;
 import com.uqac.beesness.model.UserModel;
-
 import java.util.Objects;
 
 public class HomeFragment extends Fragment {
@@ -50,9 +48,10 @@ public class HomeFragment extends Fragment {
             });
         }
 
+        // Update apiaries number
         DatabaseReference apiariesReference = FirebaseDatabase.getInstance().getReference("Apiaries");
         Query query = apiariesReference.orderByChild("idUser").equalTo(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid());
-        query.addValueEventListener(new ValueEventListener() {
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 binding.apiariesNumber.setText(String.valueOf(snapshot.getChildrenCount()));
@@ -60,6 +59,7 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getContext(), "Erreur lors de la récupération des ruchers", Toast.LENGTH_SHORT).show();
             }
         });
 

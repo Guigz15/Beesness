@@ -14,9 +14,6 @@ public class ProductModel {
     private String idUser;
 
     public ProductModel() {
-        this.quantityProduct = 0;
-        this.price = 0.0;
-        this.name = "";
         this.honeyPots = new ArrayList<>();
     }
 

@@ -56,8 +56,8 @@
     <string name="beehive">ruches</string>
     <string name="add">add</string>
     <string name="beehive_name">Nom de la ruche</string>
-    <string name="beehive_type">Type de ruche</string>
-    <string name="beehive_details">Détails sur la ruche</string>
+    <string name="beehive_type">Type de ruche - facultatif</string>
+    <string name="beehive_details">Détails sur la ruche - facultatif</string>
     <string name="queen_info">Informations sur la reine</string>
     <string name="queen_year">Année de naissance</string>
     <string name="queen_origin">Origine</string>
@@ -80,4 +80,5 @@
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="optional">- facultatif</string>
     <string name="informations">informations</string>
+    <string name="honey_super">hausses</string>
 </resources>

@@ -16,7 +16,7 @@
         android:supportsRtl="true"
         tools:targetApi="31">
         <activity
-            android:name=".QrCodeScannerActivity"
+            android:name=".controller.QrCodeScannerActivity"
             android:exported="false"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
@@ -60,7 +60,8 @@
         <activity
             android:name=".controller.AddBeehiveActivity"
             android:exported="false"
-            android:theme="@style/AppTheme" />
+            android:label="Ajouter une ruche"
+            android:theme="@style/Theme.AppCompat.Light" />
     </application>
 
 </manifest>

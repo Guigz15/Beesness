@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,6 +13,7 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -22,7 +22,11 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.uqac.beesness.controller.LoginActivity;
 import com.uqac.beesness.controller.ProfileActivity;
+import com.uqac.beesness.controller.QrCodeScannerActivity;
 import com.uqac.beesness.databinding.ActivityMainBinding;
+import com.uqac.beesness.model.UserModel;
+
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 

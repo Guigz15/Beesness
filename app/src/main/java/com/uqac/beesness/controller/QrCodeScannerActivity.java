@@ -1,7 +1,9 @@
-package com.uqac.beesness;
+package com.uqac.beesness.controller;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.uqac.beesness.R;
 
 public class QrCodeScannerActivity extends AppCompatActivity {
 

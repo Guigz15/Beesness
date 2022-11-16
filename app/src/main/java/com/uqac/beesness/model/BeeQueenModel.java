@@ -5,19 +5,14 @@ public class BeeQueenModel {
     private String birthYear;
     private String origin;
     private String bloodline;
-    private int idBeehive;
 
     public BeeQueenModel() {
-        this.birthYear = "";
-        this.origin = "";
-        this.bloodline = "";
     }
 
-    public BeeQueenModel(String birthYear, String origin, String bloodline, int idBeehive) {
-        this.birthYear = birthYear;
+    public BeeQueenModel(String origin, String bloodline, String birthYear) {
         this.origin = origin;
         this.bloodline = bloodline;
-        this.idBeehive = idBeehive;
+        this.birthYear = birthYear;
     }
 
     public String getBirthYear() { return birthYear; }
@@ -31,8 +26,4 @@ public class BeeQueenModel {
     public String getBloodline() { return bloodline; }
 
     public void setBloodline(String bloodline) { this.bloodline = bloodline; }
-
-    public int getIdBeehive() { return idBeehive; }
-
-    public void setIdBeehive(int idBeehive) { this.idBeehive = idBeehive; }
 }
