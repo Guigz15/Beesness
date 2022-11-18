@@ -78,9 +78,14 @@
     <string name="see_on_maps"><![CDATA[Voir sur la carte >]]></string>
     <string name="add_beehive">add_beehive</string>
     <string name="title_activity_map">MapActivity</string>
-    <string name="dummy_button">Dummy Button</string>
-    <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="optional">- facultatif</string>
     <string name="informations">informations</string>
     <string name="honey_super">hausses</string>
+    <string name="qr_code_manager">qr_code_manager</string>
+    <string name="pictures">Photos</string>
+    <string name="add_pictures">addPictures</string>
+    <string name="add_honey_super">add_honey_super</string>
+    <string name="visites">Visites</string>
+    <string name="frame">cadres</string>
+    <string name="visit_image">visit_image</string>
 </resources>

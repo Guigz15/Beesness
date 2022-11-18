@@ -1,5 +1,6 @@
 package com.uqac.beesness.controller;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,7 +32,9 @@ public class BeehivesAdapter extends FirebaseRecyclerAdapter<BeehiveModel, Beehi
         BeehivesAdapter.ViewHolder viewHolder = new BeehivesAdapter.ViewHolder(view);
 
         viewHolder.setOnClickListener((view1, position) -> {
-            Toast.makeText(view1.getContext(), "Beehive details", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(view1.getContext(), BeehiveDetailsActivity.class);
+            intent.putExtra("idBeehive", getItem(position).getIdBeehive());
+            view1.getContext().startActivity(intent);
         });
 
         return viewHolder;

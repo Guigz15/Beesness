@@ -1,6 +1,9 @@
 package com.uqac.beesness.model;
 
+import android.net.Uri;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class BeehiveModel {
@@ -9,6 +12,7 @@ public class BeehiveModel {
     private String name;
     private String type;
     private String details;
+    private HashMap<String, String> picturesUrl;
     //private String qrCode;
     private String idApiary;
     private List<HoneySuperModel> honeySupers;
@@ -16,6 +20,7 @@ public class BeehiveModel {
     private BeeQueenModel beeQueen;
 
     public BeehiveModel() {
+        picturesUrl = new HashMap<>();
         honeySupers = new ArrayList<>();
         visits = new ArrayList<>();
     }
@@ -55,6 +60,10 @@ public class BeehiveModel {
     public String getDetails() { return details; }
 
     public void setDetails(String details) { this.details = details; }
+
+    public HashMap<String, String> getPicturesUrl() { return picturesUrl; }
+
+    public void setPicturesUrl(HashMap<String, String> picturesUrl) { this.picturesUrl = picturesUrl; }
 
     // public String getQrCode() { return qrCode; }
     //

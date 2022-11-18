@@ -54,22 +54,17 @@ public class ApiaryDetailsActivity extends AppCompatActivity {
         infoButton.setOnClickListener(v -> {
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
 
             ApiaryDetailsMainFragment apiaryDetailsMainFragment = (ApiaryDetailsMainFragment) fragmentManager.findFragmentByTag("main");
             if (apiaryDetailsMainFragment != null && apiaryDetailsMainFragment.isVisible()) {
                 infoButton.setImageResource(R.drawable.ic_baseline_info_48);
-                fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
                 fragmentTransaction.replace(R.id.fragmentContainerView, new ApiaryDetailsInfoFragment(), "info");
-                fragmentTransaction.commit();
-            }
-
-            ApiaryDetailsInfoFragment apiaryDetailsInfoFragment = (ApiaryDetailsInfoFragment) fragmentManager.findFragmentByTag("info");
-            if (apiaryDetailsInfoFragment != null && apiaryDetailsInfoFragment.isVisible()) {
+            } else {
                 infoButton.setImageResource(R.drawable.ic_outline_info_48);
-                fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
                 fragmentTransaction.replace(R.id.fragmentContainerView, new ApiaryDetailsMainFragment(), "main");
-                fragmentTransaction.commit();
             }
+            fragmentTransaction.commit();
         });
 
         ImageButton deleteApiarieButton = findViewById(R.id.delete_button);
