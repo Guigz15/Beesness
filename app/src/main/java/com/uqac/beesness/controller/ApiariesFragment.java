@@ -46,7 +46,7 @@ public class ApiariesFragment extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this.getContext());
         apiariesRecyclerView.setItemAnimator(null);
         FirebaseRecyclerOptions<ApiaryModel> options = new FirebaseRecyclerOptions.Builder<ApiaryModel>()
-                .setQuery(daoApiaries.findAll(), ApiaryModel.class)
+                .setQuery(daoApiaries.findAllForUser(), ApiaryModel.class)
                 .build();
         adapter = new ApiariesAdapter(options);
 

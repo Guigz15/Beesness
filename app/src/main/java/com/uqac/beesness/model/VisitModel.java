@@ -2,25 +2,42 @@ package com.uqac.beesness.model;
 
 public class VisitModel {
 
-    private String type;
+    private String idVisit;
+    private String date;
     private String description;
     private String idBeehive;
 
     public VisitModel() {
-        this.type = "";
-        this.description = "";
-        this.idBeehive = "";
     }
 
-    public VisitModel(String type, String description, String idBeehive) {
-        this.type = type;
+    public VisitModel(String idVisit, String date, String description, String idBeehive) {
+        this.idVisit = idVisit;
+        this.date = date;
         this.description = description;
         this.idBeehive = idBeehive;
     }
 
-    public String getType() { return type; }
+    public VisitModel(String idVisit, String date, String idBeehive) {
+        this.idVisit = idVisit;
+        this.date = date;
+        this.idBeehive = idBeehive;
+    }
 
-    public void setType(String type) { this.type = type; }
+    public String getIdVisit() {
+        return idVisit;
+    }
+
+    public void setIdVisit(String idVisit) {
+        this.idVisit = idVisit;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
 
     public String getDescription() { return description; }
 

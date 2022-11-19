@@ -20,6 +20,7 @@ import com.google.firebase.storage.UploadTask;
 import com.uqac.beesness.MainActivity;
 import com.uqac.beesness.model.ApiaryModel;
 import com.uqac.beesness.model.BeehiveModel;
+import com.uqac.beesness.model.HoneySuperModel;
 
 import java.io.ByteArrayOutputStream;
 import java.util.HashMap;
@@ -51,6 +52,10 @@ public class DAOBeehives {
 
     public Query find(String id) {
         return dbReference.orderByChild("idBeehive").equalTo(id);
+    }
+
+    public Query findAllForApiary(String idApiary) {
+        return dbReference.orderByChild("idApiary").equalTo(idApiary);
     }
 
     public void addPictureFromGallery(String idBeehive, Uri selectedImageUri) {

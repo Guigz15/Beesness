@@ -3,6 +3,8 @@ package com.uqac.beesness.controller;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -18,7 +20,8 @@ public class HoneySuperAdapter extends FirebaseRecyclerAdapter<HoneySuperModel, 
 
     @Override
     public void onBindViewHolder(@NonNull HoneySuperAdapter.ViewHolder holder, int position, @NonNull HoneySuperModel model) {
-
+        holder.honeySuperName.setText(model.getName());
+        holder.honeySuperFrameNumber.setText(String.valueOf(model.getNbFrames()));
     }
 
     @NonNull
@@ -32,8 +35,13 @@ public class HoneySuperAdapter extends FirebaseRecyclerAdapter<HoneySuperModel, 
 
     static class ViewHolder extends RecyclerView.ViewHolder {
 
+        private final TextView honeySuperName;
+        private final TextView honeySuperFrameNumber;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            honeySuperName = itemView.findViewById(R.id.honey_super_name);
+            honeySuperFrameNumber = itemView.findViewById(R.id.frame_number);
         }
     }
 }

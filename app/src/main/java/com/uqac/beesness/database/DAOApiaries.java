@@ -7,7 +7,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.uqac.beesness.model.ApiaryModel;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Objects;
 
 public class DAOApiaries {
@@ -37,7 +36,7 @@ public class DAOApiaries {
         return dbReference.orderByChild("idApiary").equalTo(id);
     }
 
-    public Query findAll() {
+    public Query findAllForUser() {
         return dbReference.orderByChild("idUser").equalTo(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid());
     }
 }

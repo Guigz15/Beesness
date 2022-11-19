@@ -9,7 +9,12 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 import com.uqac.beesness.R;
+import com.uqac.beesness.database.DAOApiaries;
+import com.uqac.beesness.database.DAOBeehives;
 import com.uqac.beesness.model.ApiaryModel;
 
 public class ApiariesAdapter extends FirebaseRecyclerAdapter<ApiaryModel, ApiariesAdapter.ViewHolder> {
@@ -21,7 +26,17 @@ public class ApiariesAdapter extends FirebaseRecyclerAdapter<ApiaryModel, Apiari
     @Override
     protected void onBindViewHolder(@NonNull ApiariesAdapter.ViewHolder holder, int position, @NonNull ApiaryModel model) {
         holder.apiaryName.setText(model.getName());
-        holder.beehiveNumber.setText(String.valueOf(model.getBeehives().size()));
+
+        DAOBeehives daoBeehives = new DAOBeehives();
+        daoBeehives.findAllForApiary(model.getIdApiary()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                holder.beehiveNumber.setText(String.valueOf(snapshot.getChildrenCount()));
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) { }
+        });
     }
 
     @NonNull

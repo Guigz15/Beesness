@@ -5,17 +5,24 @@ import static android.provider.MediaStore.Images.Media.insertImage;
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -23,29 +30,42 @@ import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.models.SlideModel;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.uqac.beesness.R;
 import com.uqac.beesness.database.DAOBeehives;
+import com.uqac.beesness.database.DAOHoneySuper;
+import com.uqac.beesness.database.DAOVisits;
 import com.uqac.beesness.databinding.FragmentBeehiveDetailsMainBinding;
 import com.uqac.beesness.model.BeehiveModel;
+import com.uqac.beesness.model.HoneySuperModel;
+import com.uqac.beesness.model.VisitModel;
 
-import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class BeehiveDetailsMainFragment extends Fragment {
 
+    private final String[] MONTHS = {"JAN.", "FEV.", "MAR.", "AVR.", "MAI.", "JUIN.", "JUIL.", "AOU.", "SEP.", "OCT.", "NOV.", "DEC."};
+
     private FragmentBeehiveDetailsMainBinding binding;
     private ImageSlider imageSlider;
-    private ImageButton addPictureButton;
+    private ImageButton addPictureButton, addHoneySuperButton, addVisitButton;
     private DAOBeehives daoBeehives;
     private String idBeehive;
+    private HoneySuperAdapter honeySuperAdapter;
+    private DAOHoneySuper daoHoneySuper;
+    private VisitsAdapter visitsAdapter;
+    private DAOVisits daoVisits;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -57,10 +77,8 @@ public class BeehiveDetailsMainFragment extends Fragment {
 
         addPictureButton = binding.addPictures;
         addPictureButton.setOnClickListener(v -> selectImage(getContext()));
-
         imageSlider = binding.imageSlider;
         List<SlideModel> slideModels = new ArrayList<>();
-
         daoBeehives.find(idBeehive).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -72,9 +90,9 @@ public class BeehiveDetailsMainFragment extends Fragment {
                     binding.imageSlider.setVisibility(View.VISIBLE);
                     slideModels.clear();
                     beehive.getPicturesUrl().forEach((key, value) ->
-                        slideModels.add(new SlideModel(value, ScaleTypes.FIT))
+                        slideModels.add(new SlideModel(value, ScaleTypes.CENTER_CROP))
                     );
-                    imageSlider.setImageList(slideModels, ScaleTypes.FIT);
+                    imageSlider.setImageList(slideModels, ScaleTypes.CENTER_CROP);
                 }
             }
 
@@ -83,6 +101,34 @@ public class BeehiveDetailsMainFragment extends Fragment {
 
             }
         });
+
+        addHoneySuperButton = binding.addHoneySuper;
+        addHoneySuperButton.setOnClickListener(v -> addHoneySuperDialog(requireActivity()));
+        daoHoneySuper = new DAOHoneySuper();
+        Query query = daoHoneySuper.findAllForBeehive(idBeehive);
+        RecyclerView honeySuperRecyclerView = root.findViewById(R.id.honey_super_list);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        honeySuperRecyclerView.setItemAnimator(null);
+        FirebaseRecyclerOptions<HoneySuperModel> options = new FirebaseRecyclerOptions.Builder<HoneySuperModel>()
+                .setQuery(query, HoneySuperModel.class)
+                .build();
+        honeySuperAdapter = new HoneySuperAdapter(options);
+        honeySuperRecyclerView.setLayoutManager(linearLayoutManager);
+        honeySuperRecyclerView.setAdapter(honeySuperAdapter);
+
+        addVisitButton = binding.addVisit;
+        addVisitButton.setOnClickListener(v -> addVisitDialog(requireActivity()));
+        daoVisits = new DAOVisits();
+        Query queryVisits = daoVisits.findAllForBeehive(idBeehive);
+        RecyclerView visitsRecyclerView = root.findViewById(R.id.visit_list);
+        LinearLayoutManager linearLayoutManagerVisit = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        visitsRecyclerView.setItemAnimator(null);
+        FirebaseRecyclerOptions<VisitModel> visitsOptions = new FirebaseRecyclerOptions.Builder<VisitModel>()
+                .setQuery(queryVisits, VisitModel.class)
+                .build();
+        visitsAdapter = new VisitsAdapter(visitsOptions);
+        visitsRecyclerView.setLayoutManager(linearLayoutManagerVisit);
+        visitsRecyclerView.setAdapter(visitsAdapter);
 
         return root;
     }
@@ -127,14 +173,85 @@ public class BeehiveDetailsMainFragment extends Fragment {
         }
     );
 
+    private void addHoneySuperDialog(Activity activity) {
+        final Dialog dialog = new Dialog(activity);
+        dialog.setContentView(R.layout.dialog_add_honey_super);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        final EditText honeySuperName = dialog.findViewById(R.id.honey_super_name_value);
+        final EditText honeySuperFrameNumber = dialog.findViewById(R.id.add_frame_number);
+
+        Button addHoneySuperButton = dialog.findViewById(R.id.add_honey_super_button);
+        addHoneySuperButton.setOnClickListener(v -> {
+            String name = honeySuperName.getText().toString();
+            String frameNumber = honeySuperFrameNumber.getText().toString();
+
+            if (name.isEmpty() || frameNumber.isEmpty()) {
+                honeySuperName.setError("Veuillez entrer un nom");
+                honeySuperFrameNumber.setError("Veuillez entrer un nombre de cadres");
+            } else {
+                DAOHoneySuper daoHoneySuper = new DAOHoneySuper();
+                String idHoneySuper = daoHoneySuper.getKey();
+                HoneySuperModel honeySuper = new HoneySuperModel(idHoneySuper, name, Integer.parseInt(frameNumber), idBeehive);
+                daoHoneySuper.add(honeySuper).addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        Toast.makeText(activity, "Hausse ajouté", Toast.LENGTH_SHORT).show();
+                        dialog.dismiss();
+                    } else {
+                        Toast.makeText(activity, "Erreur lors de l'ajout de la hausse", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
+
+        Button cancelButton = dialog.findViewById(R.id.cancel_honey_super_button);
+        cancelButton.setOnClickListener(v -> dialog.dismiss());
+
+        dialog.show();
+    }
+
+    private void addVisitDialog(Activity activity) {
+        final Dialog dialog = new Dialog(activity);
+        dialog.setContentView(R.layout.dialog_add_visit);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        final DatePicker visitDate = dialog.findViewById(R.id.visit_date);
+
+        Button addVisitButton = dialog.findViewById(R.id.add_visit_button);
+        addVisitButton.setOnClickListener(v -> {
+            String date = visitDate.getDayOfMonth() + " " + MONTHS[visitDate.getMonth()];
+            //TODO visit description
+            DAOVisits daoVisit = new DAOVisits();
+            String idVisit = daoVisit.getKey();
+            VisitModel visit = new VisitModel(idVisit, date, idBeehive);
+            daoVisit.add(visit).addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    Toast.makeText(activity, "Visite ajoutée", Toast.LENGTH_SHORT).show();
+                    dialog.dismiss();
+                } else {
+                    Toast.makeText(activity, "Erreur lors de l'ajout de la visite", Toast.LENGTH_SHORT).show();
+                }
+            });
+        });
+
+        Button cancelButton = dialog.findViewById(R.id.cancel_visit_button);
+        cancelButton.setOnClickListener(v -> dialog.dismiss());
+
+        dialog.show();
+    }
+
     @Override
     public void onStart() {
         super.onStart();
+        honeySuperAdapter.startListening();
+        visitsAdapter.startListening();
     }
 
     @Override
     public void onStop() {
         super.onStop();
+        honeySuperAdapter.stopListening();
+        visitsAdapter.stopListening();
     }
 
     @Override

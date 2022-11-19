@@ -88,4 +88,9 @@
     <string name="visites">Visites</string>
     <string name="frame">cadres</string>
     <string name="visit_image">visit_image</string>
+    <string name="add_honey_super_title">Ajouter une hausse</string>
+    <string name="honey_super_name_hint">Nom de la hausse</string>
+    <string name="frame_number_hint">Nombre de cadre</string>
+    <string name="add_honey_super_button">Ajouter</string>
+    <string name="cancel_honey_super_button">Annuler</string>
 </resources>

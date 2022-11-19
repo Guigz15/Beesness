@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="4dp"
+    app:cardMaxElevation="5dp"
+    app:cardPreventCornerOverlap="true"
+    app:cardUseCompatPadding="true"
+    app:contentPadding="5dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/add_honey_super_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/dosis_bold"
+            android:text="@string/add_honey_super_title"
+            android:textAlignment="center"
+            android:textColor="@color/writing_color"
+            android:textSize="26sp" />
+
+        <EditText
+            android:id="@+id/honey_super_name_value"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_margin="5dp"
+            android:backgroundTint="@color/writing_color"
+            android:ems="10"
+            android:fontFamily="@font/dosis_book"
+            android:hint="@string/honey_super_name_hint"
+            android:inputType="textPersonName"
+            android:textColor="@color/writing_color"
+            android:textColorHint="@color/writing_color"
+            android:textSize="20sp"
+            android:autofillHints="" />
+
+        <EditText
+            android:id="@+id/add_frame_number"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_margin="5dp"
+            android:backgroundTint="@color/writing_color"
+            android:ems="10"
+            android:fontFamily="@font/dosis_book"
+            android:hint="@string/frame_number_hint"
+            android:inputType="numberSigned"
+            android:textColor="@color/writing_color"
+            android:textColorHint="@color/writing_color"
+            android:textSize="20sp"
+            android:autofillHints="" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:orientation="horizontal">
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <Button
+                android:id="@+id/cancel_honey_super_button"
+                android:layout_width="120dp"
+                android:layout_height="48dp"
+                android:backgroundTint="@color/main_red"
+                android:fontFamily="@font/dosis_bold"
+                android:text="@string/cancel_honey_super_button"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <Button
+                android:id="@+id/add_honey_super_button"
+                android:layout_width="120dp"
+                android:layout_height="48dp"
+                android:backgroundTint="@color/main_blue"
+                android:fontFamily="@font/dosis_bold"
+                android:text="@string/add_honey_super_button"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
