@@ -93,4 +93,7 @@
     <string name="frame_number_hint">Nombre de cadre</string>
     <string name="add_honey_super_button">Ajouter</string>
     <string name="cancel_honey_super_button">Annuler</string>
+    <string name="details_beehive">Détails sur la ruche</string>
+    <string name="type">Type</string>
+    <string name="queen">Reine</string>
 </resources>

@@ -12,20 +12,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerOptions;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
 import com.uqac.beesness.R;
 import com.uqac.beesness.databinding.FragmentApiaryDetailsMainBinding;
 import com.uqac.beesness.model.BeehiveModel;
-
-import java.util.Objects;
 
 public class ApiaryDetailsMainFragment extends Fragment {
 
@@ -42,7 +36,7 @@ public class ApiaryDetailsMainFragment extends Fragment {
 
         addBeehiveButton = binding.imageButton;
         addBeehiveButton.setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), AddBeehiveActivity.class);
+            Intent intent = new Intent(getActivity(), AddUpdateBeehiveActivity.class);
             intent.putExtra("idApiary", idApiary);
             startActivity(intent);
         });

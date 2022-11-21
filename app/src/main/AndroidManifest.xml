@@ -66,7 +66,7 @@
             android:label="Ajouter un rucher"
             android:theme="@style/Theme.AppCompat.Light" />
         <activity
-            android:name=".controller.AddBeehiveActivity"
+            android:name=".controller.AddUpdateBeehiveActivity"
             android:exported="false"
             android:label="Ajouter une ruche"
             android:theme="@style/Theme.AppCompat.Light" />
