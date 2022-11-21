@@ -1,6 +1,7 @@
 package com.uqac.beesness.controller;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -30,6 +31,8 @@ public class AddUpdateApiaryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_apiary);
+
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
         apiaryName = findViewById(R.id.apiaryName);
         apiaryEnvironment = findViewById(R.id.apiaryEnvironmentDetails);
@@ -68,6 +71,12 @@ public class AddUpdateApiaryActivity extends AppCompatActivity {
 
         Button saveButton = findViewById(R.id.save_button);
         saveButton.setOnClickListener(v -> saveApiary());
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
     }
 
     private void saveApiary() {

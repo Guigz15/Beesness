@@ -22,7 +22,7 @@ public class BeehiveDetailsActivity extends AppCompatActivity {
 
     private String idBeehive;
     private TextView beehiveNameTextView;
-    private ImageButton infoButton, editButton;
+    private ImageButton infoButton, editButton, backButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +68,9 @@ public class BeehiveDetailsActivity extends AppCompatActivity {
             intent.putExtra("idBeehive", idBeehive);
             startActivity(intent);
         });
+
+        backButton = findViewById(R.id.back_button);
+        backButton.setOnClickListener(v -> finish());
     }
 
     public String getIdBeehive() {

@@ -17,6 +17,7 @@ import com.uqac.beesness.model.BeeQueenModel;
 import com.uqac.beesness.model.BeehiveModel;
 
 import java.util.HashMap;
+import java.util.Objects;
 
 public class AddUpdateBeehiveActivity extends AppCompatActivity {
 
@@ -28,6 +29,8 @@ public class AddUpdateBeehiveActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_beehive);
+
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
         idApiary = getIntent().getStringExtra("idApiary");
 
@@ -65,6 +68,12 @@ public class AddUpdateBeehiveActivity extends AppCompatActivity {
                 }
             });
         }
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
     }
 
     private void saveBeehive() {

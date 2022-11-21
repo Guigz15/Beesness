@@ -59,6 +59,7 @@
             android:name=".controller.ProfileActivity"
             android:exported="false"
             android:label="@string/account"
+            android:parentActivityName=".MainActivity"
             android:theme="@style/Theme.AppCompat.Light" />
         <activity
             android:name=".controller.AddUpdateApiaryActivity"

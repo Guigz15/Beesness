@@ -26,8 +26,7 @@ public class ApiaryDetailsActivity extends AppCompatActivity {
 
     private String idApiary;
     private TextView apiaryNameTextView;
-    private ImageButton infoButton;
-    private ImageButton editButton;
+    private ImageButton infoButton, editButton, backButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +77,9 @@ public class ApiaryDetailsActivity extends AppCompatActivity {
             intent.putExtra("idApiary", idApiary);
             startActivity(intent);
         });
+
+        backButton = findViewById(R.id.back);
+        backButton.setOnClickListener(v -> finish());
     }
 
     private void showDialog() {
