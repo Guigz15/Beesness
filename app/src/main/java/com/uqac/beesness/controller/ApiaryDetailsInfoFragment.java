@@ -50,10 +50,12 @@ public class ApiaryDetailsInfoFragment extends Fragment {
             }
         });
 
+        String apiaryName = ((ApiaryDetailsActivity) requireActivity()).getApiaryName();
+
         binding.seeOnMaps.setOnClickListener(v -> {
-            Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
-                    Uri.parse("http://maps.google.com/maps?saddr=" + binding.latitudeValue.getText().toString()
-                            + "&daddr=" + binding.longitudeValue.getText().toString()));
+            String geoUri = "http://maps.google.com/maps?q=loc:" + binding.latitudeValue.getText().toString()
+                    + "," + binding.longitudeValue.getText().toString() + " (" + apiaryName + ")";
+            Intent intent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse(geoUri));
             startActivity(intent);
         });
 

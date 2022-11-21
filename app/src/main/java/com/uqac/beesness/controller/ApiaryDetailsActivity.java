@@ -112,4 +112,8 @@ public class ApiaryDetailsActivity extends AppCompatActivity {
     public String getIdApiary() {
         return idApiary;
     }
+
+    public String getApiaryName() {
+        return apiaryNameTextView.getText().toString();
+    }
 }
