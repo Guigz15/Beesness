@@ -1,5 +1,7 @@
 package com.uqac.beesness.controller;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -46,6 +48,13 @@ public class ApiaryDetailsInfoFragment extends Fragment {
                     binding.descriptionLinearLayout.setVisibility(View.GONE);
                 }
             }
+        });
+
+        binding.seeOnMaps.setOnClickListener(v -> {
+            Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
+                    Uri.parse("http://maps.google.com/maps?saddr=" + binding.latitudeValue.getText().toString()
+                            + "&daddr=" + binding.longitudeValue.getText().toString()));
+            startActivity(intent);
         });
 
         return root;

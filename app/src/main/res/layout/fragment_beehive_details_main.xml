@@ -70,7 +70,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/textView5"
+                android:id="@+id/see_on_maps"
                 android:layout_width="0dp"
                 android:layout_height="48dp"
                 android:layout_weight="1"
