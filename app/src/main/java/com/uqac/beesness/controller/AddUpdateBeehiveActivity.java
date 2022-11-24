@@ -53,14 +53,16 @@ public class AddUpdateBeehiveActivity extends AppCompatActivity {
             daoBeehives.find(idBeehive).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    BeehiveModel beehive = snapshot.getChildren().iterator().next().getValue(BeehiveModel.class);
-                    assert beehive != null;
-                    beehiveName.setText(beehive.getName());
-                    beehiveDetails.setText(beehive.getDetails());
-                    beehiveType.setText(beehive.getType());
-                    queenOrigin.setText(beehive.getBeeQueen().getOrigin());
-                    queenLine.setText(beehive.getBeeQueen().getBloodline());
-                    queenBirthYear.setText(String.valueOf(beehive.getBeeQueen().getBirthYear()));
+                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                        BeehiveModel beehive = dataSnapshot.getValue(BeehiveModel.class);
+                        assert beehive != null;
+                        beehiveName.setText(beehive.getName());
+                        beehiveDetails.setText(beehive.getDetails());
+                        beehiveType.setText(beehive.getType());
+                        queenOrigin.setText(beehive.getBeeQueen().getOrigin());
+                        queenLine.setText(beehive.getBeeQueen().getBloodline());
+                        queenBirthYear.setText(String.valueOf(beehive.getBeeQueen().getBirthYear()));
+                    }
                 }
 
                 @Override

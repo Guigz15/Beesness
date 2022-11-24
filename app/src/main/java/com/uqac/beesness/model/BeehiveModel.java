@@ -34,6 +34,7 @@ public class BeehiveModel {
         this.idApiary = idApiary;
         this.honeySupers = new ArrayList<>();
         this.visits = new ArrayList<>();
+        this.picturesUrl = new HashMap<>();
         this.beeQueen = beeQueen;
     }
 

@@ -82,17 +82,19 @@ public class BeehiveDetailsMainFragment extends Fragment {
         daoBeehives.find(idBeehive).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                BeehiveModel beehive = snapshot.getChildren().iterator().next().getValue(BeehiveModel.class);
-                assert beehive != null;
-                if (beehive.getPicturesUrl().isEmpty())
-                    binding.imageSlider.setVisibility(View.GONE);
-                else {
-                    binding.imageSlider.setVisibility(View.VISIBLE);
-                    slideModels.clear();
-                    beehive.getPicturesUrl().forEach((key, value) ->
-                        slideModels.add(new SlideModel(value, ScaleTypes.CENTER_CROP))
-                    );
-                    imageSlider.setImageList(slideModels, ScaleTypes.CENTER_CROP);
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    BeehiveModel beehive = dataSnapshot.getValue(BeehiveModel.class);
+                    assert beehive != null;
+                    if (beehive.getPicturesUrl().isEmpty())
+                        binding.imageSlider.setVisibility(View.GONE);
+                    else {
+                        binding.imageSlider.setVisibility(View.VISIBLE);
+                        slideModels.clear();
+                        beehive.getPicturesUrl().forEach((key, value) ->
+                                slideModels.add(new SlideModel(value, ScaleTypes.CENTER_CROP))
+                        );
+                        imageSlider.setImageList(slideModels, ScaleTypes.CENTER_CROP);
+                    }
                 }
             }
 
@@ -186,8 +188,9 @@ public class BeehiveDetailsMainFragment extends Fragment {
             String name = honeySuperName.getText().toString();
             String frameNumber = honeySuperFrameNumber.getText().toString();
 
-            if (name.isEmpty() || frameNumber.isEmpty()) {
+            if (name.isEmpty()) {
                 honeySuperName.setError("Veuillez entrer un nom");
+            } else if (frameNumber.isEmpty()) {
                 honeySuperFrameNumber.setError("Veuillez entrer un nombre de cadres");
             } else {
                 DAOHoneySuper daoHoneySuper = new DAOHoneySuper();

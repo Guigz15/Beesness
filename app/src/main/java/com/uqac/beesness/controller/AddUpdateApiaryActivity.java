@@ -48,13 +48,15 @@ public class AddUpdateApiaryActivity extends AppCompatActivity {
             daoApiaries.find(idApiary).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    ApiaryModel apiary = snapshot.getChildren().iterator().next().getValue(ApiaryModel.class);
-                    assert apiary != null;
-                    apiaryName.setText(apiary.getName());
-                    apiaryEnvironment.setText(apiary.getEnvironment());
-                    apiaryDescription.setText(apiary.getDescription());
-                    apiaryLongitude.setText(String.valueOf(apiary.getLocation().getLongitude()));
-                    apiaryLatitude.setText(String.valueOf(apiary.getLocation().getLatitude()));
+                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                        ApiaryModel apiary = dataSnapshot.getValue(ApiaryModel.class);
+                        assert apiary != null;
+                        apiaryName.setText(apiary.getName());
+                        apiaryEnvironment.setText(apiary.getEnvironment());
+                        apiaryDescription.setText(apiary.getDescription());
+                        apiaryLongitude.setText(String.valueOf(apiary.getLocation().getLongitude()));
+                        apiaryLatitude.setText(String.valueOf(apiary.getLocation().getLatitude()));
+                    }
                 }
 
                 @Override

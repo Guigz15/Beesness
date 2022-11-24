@@ -24,8 +24,8 @@ public class DAOHoneySuper {
         return dbReference.child(key).setValue(obj);
     }
 
-    public Task<Void> delete(HoneySuperModel obj) {
-        return dbReference.child(obj.getIdHoneySuper()).removeValue();
+    public Task<Void> delete(String key) {
+        return dbReference.child(key).removeValue();
     }
 
     public String getKey() {

@@ -11,6 +11,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
@@ -23,6 +24,7 @@ import com.uqac.beesness.model.BeehiveModel;
 import com.uqac.beesness.model.HoneySuperModel;
 
 import java.io.ByteArrayOutputStream;
+import java.sql.SQLOutput;
 import java.util.HashMap;
 import java.util.Objects;
 
@@ -42,8 +44,34 @@ public class DAOBeehives {
         return dbReference.child(key).updateChildren(obj);
     }
 
-    public Task<Void> delete(BeehiveModel obj) {
-        return dbReference.child(obj.getIdBeehive()).removeValue();
+    public Task<Void> delete(String key) {
+        DAOHoneySuper daoHoneySuper = new DAOHoneySuper();
+        daoHoneySuper.findAllForBeehive(key).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                for (DataSnapshot snapshot : task.getResult().getChildren()) {
+                    daoHoneySuper.delete(snapshot.getKey());
+                }
+            }
+        });
+
+        DAOVisits daoVisits = new DAOVisits();
+        daoVisits.findAllForBeehive(key).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                for (DataSnapshot snapshot : task.getResult().getChildren()) {
+                    daoVisits.delete(snapshot.getKey());
+                }
+            }
+        });
+
+        dbReference.child(key).child("picturesUrl").get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                for (DataSnapshot snapshot : task.getResult().getChildren()) {
+                    FirebaseStorage.getInstance().getReferenceFromUrl(Objects.requireNonNull(snapshot.getValue()).toString()).delete();
+                }
+            }
+        });
+
+        return dbReference.child(key).removeValue();
     }
 
     public String getKey() {
@@ -62,7 +90,7 @@ public class DAOBeehives {
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference storageRef = storage.getReference();
 
-        StorageReference childRef = storageRef.child(selectedImageUri.getPath());
+        StorageReference childRef = storageRef.child(idBeehive + "_" + selectedImageUri.getPath());
 
         // uploading the image
         UploadTask uploadTask = childRef.putFile(selectedImageUri);
@@ -100,5 +128,20 @@ public class DAOBeehives {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
         return stream.toByteArray();
+    }
+
+    private HashMap<String, String> getPictures(String key) {
+        HashMap<String, String> pictures = new HashMap<>();
+        find(key).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                BeehiveModel beehive = task.getResult().getValue(BeehiveModel.class);
+                pictures.putAll(Objects.requireNonNull(beehive).getPicturesUrl());
+                pictures.forEach((key1, value) -> System.out.println(key1 + " " + value));
+            } else {
+                Objects.requireNonNull(task.getException()).printStackTrace();
+            }
+        });
+
+        return pictures;
     }
 }

@@ -2,6 +2,7 @@ package com.uqac.beesness.database;
 
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
@@ -24,8 +25,17 @@ public class DAOApiaries {
         return dbReference.child(key).updateChildren(obj);
     }
 
-    public Task<Void> delete(ApiaryModel obj) {
-        return dbReference.child(obj.getIdApiary()).removeValue();
+    public Task<Void> delete(String key) {
+        DAOBeehives daoBeehives = new DAOBeehives();
+        daoBeehives.findAllForApiary(key).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                for (DataSnapshot snapshot : task.getResult().getChildren()) {
+                    daoBeehives.delete(snapshot.getKey());
+                }
+            }
+        });
+
+        return dbReference.child(key).removeValue();
     }
 
     public String getKey() {
