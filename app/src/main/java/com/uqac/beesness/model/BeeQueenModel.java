@@ -26,8 +26,4 @@ public class BeeQueenModel {
     public String getBloodline() { return bloodline; }
 
     public void setBloodline(String bloodline) { this.bloodline = bloodline; }
-
-    public boolean isEmpty() {
-        return birthYear.isEmpty() && origin.isEmpty() && bloodline.isEmpty();
-    }
 }

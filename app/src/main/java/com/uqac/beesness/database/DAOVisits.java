@@ -24,8 +24,8 @@ public class DAOVisits {
         return dbReference.child(key).setValue(obj);
     }
 
-    public Task<Void> delete(VisitModel obj) {
-        return dbReference.child(obj.getIdVisit()).removeValue();
+    public Task<Void> delete(String key) {
+        return dbReference.child(key).removeValue();
     }
 
     public String getKey() {

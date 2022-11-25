@@ -17,6 +17,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.uqac.beesness.R;
 import com.uqac.beesness.database.DAOApiaries;
+import com.uqac.beesness.database.DAOBeehives;
+import com.uqac.beesness.database.DAOHoneySuper;
 import com.uqac.beesness.databinding.FragmentHomeBinding;
 import com.uqac.beesness.model.UserModel;
 
@@ -58,6 +60,34 @@ public class HomeFragment extends Fragment {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 Toast.makeText(getContext(), "Erreur lors de la récupération des ruchers", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        // Update beehives number
+        DAOBeehives daoBeehives = new DAOBeehives();
+        daoBeehives.findAllForUser().addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                binding.beehivesNumber.setText(String.valueOf(snapshot.getChildrenCount()));
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getContext(), "Erreur lors de la récupération des ruches", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        // Update honeysuper number
+        DAOHoneySuper daoHoneySuper = new DAOHoneySuper();
+        daoHoneySuper.findAllForUser().addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                binding.honeySupersNumber.setText(String.valueOf(snapshot.getChildrenCount()));
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getContext(), "Erreur lors de la récupération des hausses", Toast.LENGTH_SHORT).show();
             }
         });
 

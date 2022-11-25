@@ -7,9 +7,12 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
@@ -22,7 +25,9 @@ public class BeehiveDetailsActivity extends AppCompatActivity {
 
     private String idBeehive;
     private TextView beehiveNameTextView;
-    private ImageButton infoButton, editButton;
+    private ImageButton infoButton, editButton, backButton, deleteButton;
+    private DAOBeehives daoBeehives;
+    private BottomSheetDialog deleteBeehiveDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,13 +38,15 @@ public class BeehiveDetailsActivity extends AppCompatActivity {
         infoButton = findViewById(R.id.informations);
 
         idBeehive = getIntent().getStringExtra("idBeehive");
-        DAOBeehives daoBeehives = new DAOBeehives();
+        daoBeehives = new DAOBeehives();
         daoBeehives.find(idBeehive).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                BeehiveModel beehive = snapshot.getChildren().iterator().next().getValue(BeehiveModel.class);
-                assert beehive != null;
-                beehiveNameTextView.setText(beehive.getName());
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    BeehiveModel beehive = dataSnapshot.getValue(BeehiveModel.class);
+                    assert beehive != null;
+                    beehiveNameTextView.setText(beehive.getName());
+                }
             }
 
             @Override
@@ -68,6 +75,61 @@ public class BeehiveDetailsActivity extends AppCompatActivity {
             intent.putExtra("idBeehive", idBeehive);
             startActivity(intent);
         });
+
+        deleteButton = findViewById(R.id.delete_button);
+        deleteButton.setOnClickListener(v -> {
+            showDialog();
+        });
+
+        backButton = findViewById(R.id.back_button);
+        backButton.setOnClickListener(v -> finish());
+    }
+
+    private void showDialog() {
+        deleteBeehiveDialog = new BottomSheetDialog(this, R.style.BottomSheetDialogTheme);
+        View deleteBeehiveView = getLayoutInflater().inflate(R.layout.delete_beehive_confirmation, findViewById(R.id.bottom_sheet_container));
+
+        deleteBeehiveView.findViewById(R.id.delete_button).setOnClickListener(v -> {
+            daoBeehives.delete(idBeehive).addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    Toast.makeText(this, "La ruche a été supprimé", Toast.LENGTH_SHORT).show();
+                    finish();
+                } else {
+                    Toast.makeText(this, "Une erreur est survenue", Toast.LENGTH_SHORT).show();
+                }
+            });
+        });
+
+        deleteBeehiveView.findViewById(R.id.cancel_button).setOnClickListener(v -> {
+            deleteBeehiveDialog.dismiss();
+        });
+
+        deleteBeehiveDialog.setContentView(deleteBeehiveView);
+        deleteBeehiveDialog.show();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (deleteBeehiveDialog != null) {
+            deleteBeehiveDialog.dismiss();
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (deleteBeehiveDialog != null) {
+            deleteBeehiveDialog.show();
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (deleteBeehiveDialog != null) {
+            deleteBeehiveDialog.dismiss();
+        }
     }
 
     public String getIdBeehive() {

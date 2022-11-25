@@ -96,4 +96,5 @@
     <string name="details_beehive">Détails sur la ruche</string>
     <string name="type">Type</string>
     <string name="queen">Reine</string>
+    <string name="delete_beehive_confirmation">Êtes-vous sûr de vouloir supprimer cette ruche ?</string>
 </resources>

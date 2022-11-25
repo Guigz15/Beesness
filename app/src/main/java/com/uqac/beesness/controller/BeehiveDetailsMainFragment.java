@@ -37,6 +37,7 @@ import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.models.SlideModel;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.Query;
@@ -52,6 +53,7 @@ import com.uqac.beesness.model.VisitModel;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class BeehiveDetailsMainFragment extends Fragment {
 
@@ -82,17 +84,19 @@ public class BeehiveDetailsMainFragment extends Fragment {
         daoBeehives.find(idBeehive).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                BeehiveModel beehive = snapshot.getChildren().iterator().next().getValue(BeehiveModel.class);
-                assert beehive != null;
-                if (beehive.getPicturesUrl().isEmpty())
-                    binding.imageSlider.setVisibility(View.GONE);
-                else {
-                    binding.imageSlider.setVisibility(View.VISIBLE);
-                    slideModels.clear();
-                    beehive.getPicturesUrl().forEach((key, value) ->
-                        slideModels.add(new SlideModel(value, ScaleTypes.CENTER_CROP))
-                    );
-                    imageSlider.setImageList(slideModels, ScaleTypes.CENTER_CROP);
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    BeehiveModel beehive = dataSnapshot.getValue(BeehiveModel.class);
+                    assert beehive != null;
+                    if (beehive.getPicturesUrl().isEmpty())
+                        binding.imageSlider.setVisibility(View.GONE);
+                    else {
+                        binding.imageSlider.setVisibility(View.VISIBLE);
+                        slideModels.clear();
+                        beehive.getPicturesUrl().forEach((key, value) ->
+                                slideModels.add(new SlideModel(value, ScaleTypes.CENTER_CROP))
+                        );
+                        imageSlider.setImageList(slideModels, ScaleTypes.CENTER_CROP);
+                    }
                 }
             }
 
@@ -186,13 +190,14 @@ public class BeehiveDetailsMainFragment extends Fragment {
             String name = honeySuperName.getText().toString();
             String frameNumber = honeySuperFrameNumber.getText().toString();
 
-            if (name.isEmpty() || frameNumber.isEmpty()) {
+            if (name.isEmpty()) {
                 honeySuperName.setError("Veuillez entrer un nom");
+            } else if (frameNumber.isEmpty()) {
                 honeySuperFrameNumber.setError("Veuillez entrer un nombre de cadres");
             } else {
                 DAOHoneySuper daoHoneySuper = new DAOHoneySuper();
                 String idHoneySuper = daoHoneySuper.getKey();
-                HoneySuperModel honeySuper = new HoneySuperModel(idHoneySuper, name, Integer.parseInt(frameNumber), idBeehive);
+                HoneySuperModel honeySuper = new HoneySuperModel(idHoneySuper, name, Integer.parseInt(frameNumber), idBeehive, Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid());
                 daoHoneySuper.add(honeySuper).addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         Toast.makeText(activity, "Hausse ajouté", Toast.LENGTH_SHORT).show();

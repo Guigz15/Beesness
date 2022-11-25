@@ -1,6 +1,7 @@
 package com.uqac.beesness.controller;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -31,6 +32,8 @@ public class AddUpdateApiaryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_apiary);
 
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+
         apiaryName = findViewById(R.id.apiaryName);
         apiaryEnvironment = findViewById(R.id.apiaryEnvironmentDetails);
         apiaryDescription = findViewById(R.id.apiaryDescriptionDetails);
@@ -45,13 +48,15 @@ public class AddUpdateApiaryActivity extends AppCompatActivity {
             daoApiaries.find(idApiary).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    ApiaryModel apiary = snapshot.getChildren().iterator().next().getValue(ApiaryModel.class);
-                    assert apiary != null;
-                    apiaryName.setText(apiary.getName());
-                    apiaryEnvironment.setText(apiary.getEnvironment());
-                    apiaryDescription.setText(apiary.getDescription());
-                    apiaryLongitude.setText(String.valueOf(apiary.getLocation().getLongitude()));
-                    apiaryLatitude.setText(String.valueOf(apiary.getLocation().getLatitude()));
+                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                        ApiaryModel apiary = dataSnapshot.getValue(ApiaryModel.class);
+                        assert apiary != null;
+                        apiaryName.setText(apiary.getName());
+                        apiaryEnvironment.setText(apiary.getEnvironment());
+                        apiaryDescription.setText(apiary.getDescription());
+                        apiaryLongitude.setText(String.valueOf(apiary.getLocation().getLongitude()));
+                        apiaryLatitude.setText(String.valueOf(apiary.getLocation().getLatitude()));
+                    }
                 }
 
                 @Override
@@ -68,6 +73,12 @@ public class AddUpdateApiaryActivity extends AppCompatActivity {
 
         Button saveButton = findViewById(R.id.save_button);
         saveButton.setOnClickListener(v -> saveApiary());
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
     }
 
     private void saveApiary() {

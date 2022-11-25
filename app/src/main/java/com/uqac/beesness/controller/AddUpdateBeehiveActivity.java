@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
@@ -17,6 +18,7 @@ import com.uqac.beesness.model.BeeQueenModel;
 import com.uqac.beesness.model.BeehiveModel;
 
 import java.util.HashMap;
+import java.util.Objects;
 
 public class AddUpdateBeehiveActivity extends AppCompatActivity {
 
@@ -28,6 +30,8 @@ public class AddUpdateBeehiveActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_beehive);
+
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
         idApiary = getIntent().getStringExtra("idApiary");
 
@@ -50,14 +54,16 @@ public class AddUpdateBeehiveActivity extends AppCompatActivity {
             daoBeehives.find(idBeehive).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    BeehiveModel beehive = snapshot.getChildren().iterator().next().getValue(BeehiveModel.class);
-                    assert beehive != null;
-                    beehiveName.setText(beehive.getName());
-                    beehiveDetails.setText(beehive.getDetails());
-                    beehiveType.setText(beehive.getType());
-                    queenOrigin.setText(beehive.getBeeQueen().getOrigin());
-                    queenLine.setText(beehive.getBeeQueen().getBloodline());
-                    queenBirthYear.setText(String.valueOf(beehive.getBeeQueen().getBirthYear()));
+                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                        BeehiveModel beehive = dataSnapshot.getValue(BeehiveModel.class);
+                        assert beehive != null;
+                        beehiveName.setText(beehive.getName());
+                        beehiveDetails.setText(beehive.getDetails());
+                        beehiveType.setText(beehive.getType());
+                        queenOrigin.setText(beehive.getBeeQueen().getOrigin());
+                        queenLine.setText(beehive.getBeeQueen().getBloodline());
+                        queenBirthYear.setText(String.valueOf(beehive.getBeeQueen().getBirthYear()));
+                    }
                 }
 
                 @Override
@@ -65,6 +71,12 @@ public class AddUpdateBeehiveActivity extends AppCompatActivity {
                 }
             });
         }
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
     }
 
     private void saveBeehive() {
@@ -86,7 +98,7 @@ public class AddUpdateBeehiveActivity extends AppCompatActivity {
                 String idBeehive = daoBeehives.getKey();
                 assert idBeehive != null;
                 BeeQueenModel queen = new BeeQueenModel(queenOriginText, queenLineText, queenBirthYearText);
-                BeehiveModel beehive = new BeehiveModel(idBeehive, beehiveNameText, beehiveTypeText, beehiveDetailsText, idApiary, queen);
+                BeehiveModel beehive = new BeehiveModel(idBeehive, beehiveNameText, beehiveTypeText, beehiveDetailsText, idApiary, queen, Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid());
                 daoBeehives.add(beehive).addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         Toast.makeText(this, "Ruche ajoutée", Toast.LENGTH_LONG).show();

@@ -6,15 +6,17 @@ public class HoneySuperModel {
     private String name;
     private int nbFrames;
     private String idBeehive;
+    private String idUser;
 
     public HoneySuperModel() {
     }
 
-    public HoneySuperModel(String idHoneySuper, String name, int nbFrames, String idBeehive) {
+    public HoneySuperModel(String idHoneySuper, String name, int nbFrames, String idBeehive, String idUser) {
         this.idHoneySuper = idHoneySuper;
         this.name = name;
         this.nbFrames = nbFrames;
         this.idBeehive = idBeehive;
+        this.idUser = idUser;
     }
 
     public String getIdHoneySuper() {
@@ -43,5 +45,13 @@ public class HoneySuperModel {
 
     public void setIdBeehive(String idBeehive) {
         this.idBeehive = idBeehive;
+    }
+
+    public String getIdUser() {
+        return idUser;
+    }
+
+    public void setIdUser(String idUser) {
+        this.idUser = idUser;
     }
 }
