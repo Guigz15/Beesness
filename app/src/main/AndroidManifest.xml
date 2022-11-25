@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" android:required="true" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-feature android:name="android.hardware.camera" android:required="true" />
@@ -14,31 +15,35 @@
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:screenOrientation="portrait"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         tools:targetApi="31">
         <activity
             android:name=".controller.BeehiveDetailsActivity"
+            android:screenOrientation="portrait"
             android:exported="false"
             android:theme="@style/AppTheme">
         </activity>
         <activity
             android:name=".controller.QrCodeScannerActivity"
+            android:screenOrientation="portrait"
             android:exported="false"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name=".controller.MapActivity"
+            android:screenOrientation="portrait"
             android:exported="false"
             android:label="Positionner votre rucher"
             android:parentActivityName=".controller.AddUpdateApiaryActivity"
             android:theme="@style/Theme.AppCompat.Light" />
         <activity
             android:name=".controller.ApiaryDetailsActivity"
+            android:screenOrientation="portrait"
             android:exported="false"
             android:theme="@style/AppTheme" />
         <activity
             android:name=".controller.LoginActivity"
+            android:screenOrientation="portrait"
             android:exported="true"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -49,24 +54,29 @@
         </activity>
         <activity
             android:name=".MainActivity"
+            android:screenOrientation="portrait"
             android:exported="false"
             android:theme="@style/AppTheme" />
         <activity
             android:name=".controller.SubscriptionActivity"
+            android:screenOrientation="portrait"
             android:exported="false"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".controller.ProfileActivity"
+            android:screenOrientation="portrait"
             android:exported="false"
             android:label="@string/account"
             android:theme="@style/Theme.AppCompat.Light" />
         <activity
             android:name=".controller.AddUpdateApiaryActivity"
+            android:screenOrientation="portrait"
             android:exported="false"
             android:label="Ajouter un rucher"
             android:theme="@style/Theme.AppCompat.Light" />
         <activity
             android:name=".controller.AddUpdateBeehiveActivity"
+            android:screenOrientation="portrait"
             android:exported="false"
             android:label="Ajouter une ruche"
             android:theme="@style/Theme.AppCompat.Light" />

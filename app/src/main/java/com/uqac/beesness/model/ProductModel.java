@@ -5,8 +5,8 @@ import java.util.List;
 
 public class ProductModel {
 
-    //private String photo;
-    private int idProduct;
+    private String pictureUrl;
+    private String idProduct;
     private int quantityProduct;
     private double price;
     private String name;
@@ -17,7 +17,7 @@ public class ProductModel {
         this.honeyPots = new ArrayList<>();
     }
 
-    public ProductModel(int idProduct, int quantityProduct, double price, String name) {
+    public ProductModel(String idProduct, int quantityProduct, double price, String name) {
         this.idProduct = idProduct;
         this.quantityProduct = quantityProduct;
         this.price = price;
@@ -25,9 +25,13 @@ public class ProductModel {
         this.honeyPots = new ArrayList<>();
     }
 
-    public int getIdProduct() { return idProduct; }
+    public String getIdProduct() { return idProduct; }
 
-    public void setIdProduct(int idProduct) { this.idProduct = idProduct; }
+    public void setIdProduct(String idProduct) { this.idProduct = idProduct; }
+
+    public String getPictureUrl() { return pictureUrl; }
+
+    public void setPictureUrl(String pictureUrl) { this.pictureUrl = pictureUrl; }
 
     public int getQuantityProduct() { return quantityProduct; }
 
@@ -40,6 +44,10 @@ public class ProductModel {
     public String getName() { return name; }
 
     public void setName(String name) { this.name = name; }
+
+    public String getIdUser() { return idUser; }
+
+    public void setIdUser(String idUser) { this.idUser = idUser; }
 
     public List<HoneyPotModel> getHoneyPots() { return honeyPots; }
 
