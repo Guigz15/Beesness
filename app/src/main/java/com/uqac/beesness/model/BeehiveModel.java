@@ -18,6 +18,7 @@ public class BeehiveModel {
     private List<HoneySuperModel> honeySupers;
     private List<VisitModel> visits;
     private BeeQueenModel beeQueen;
+    private String idUser;
 
     public BeehiveModel() {
         picturesUrl = new HashMap<>();
@@ -25,7 +26,7 @@ public class BeehiveModel {
         visits = new ArrayList<>();
     }
 
-    public BeehiveModel(String idBeehive, String name, String type, String details, String idApiary, BeeQueenModel beeQueen) {
+    public BeehiveModel(String idBeehive, String name, String type, String details, String idApiary, BeeQueenModel beeQueen, String idUser) {
         this.idBeehive = idBeehive;
         this.name = name;
         this.type = type;
@@ -36,6 +37,7 @@ public class BeehiveModel {
         this.visits = new ArrayList<>();
         this.picturesUrl = new HashMap<>();
         this.beeQueen = beeQueen;
+        this.idUser = idUser;
     }
 
     public String getIdBeehive() {
@@ -80,6 +82,8 @@ public class BeehiveModel {
 
     public List<VisitModel> getVisits() { return visits; }
 
+    public void setVisits(ArrayList<VisitModel> visits) { this.visits = visits; }
+
     public BeeQueenModel getBeeQueen() {
         return beeQueen;
     }
@@ -88,9 +92,11 @@ public class BeehiveModel {
         this.beeQueen = beeQueen;
     }
 
-    public void setVisits(ArrayList<VisitModel> visits) { this.visits = visits; }
+    public String getIdUser() {
+        return idUser;
+    }
 
-    public void addHoneySuper(HoneySuperModel honeySuper) { this.honeySupers.add(honeySuper); }
-
-    public void addVisit(VisitModel visit) { this.visits.add(visit); }
+    public void setIdUser(String idUser) {
+        this.idUser = idUser;
+    }
 }

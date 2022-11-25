@@ -1,12 +1,14 @@
 package com.uqac.beesness.database;
 
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.uqac.beesness.model.HoneySuperModel;
 
 import java.util.HashMap;
+import java.util.Objects;
 
 public class DAOHoneySuper {
 
@@ -38,5 +40,9 @@ public class DAOHoneySuper {
 
     public Query findAllForBeehive(String idBeehive) {
         return dbReference.orderByChild("idBeehive").equalTo(idBeehive);
+    }
+
+    public Query findAllForUser() {
+        return dbReference.orderByChild("idUser").equalTo(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid());
     }
 }

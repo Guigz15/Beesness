@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
@@ -97,7 +98,7 @@ public class AddUpdateBeehiveActivity extends AppCompatActivity {
                 String idBeehive = daoBeehives.getKey();
                 assert idBeehive != null;
                 BeeQueenModel queen = new BeeQueenModel(queenOriginText, queenLineText, queenBirthYearText);
-                BeehiveModel beehive = new BeehiveModel(idBeehive, beehiveNameText, beehiveTypeText, beehiveDetailsText, idApiary, queen);
+                BeehiveModel beehive = new BeehiveModel(idBeehive, beehiveNameText, beehiveTypeText, beehiveDetailsText, idApiary, queen, Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid());
                 daoBeehives.add(beehive).addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         Toast.makeText(this, "Ruche ajoutée", Toast.LENGTH_LONG).show();

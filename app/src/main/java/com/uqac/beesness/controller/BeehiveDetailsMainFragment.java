@@ -37,6 +37,7 @@ import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.models.SlideModel;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.Query;
@@ -52,6 +53,7 @@ import com.uqac.beesness.model.VisitModel;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class BeehiveDetailsMainFragment extends Fragment {
 
@@ -195,7 +197,7 @@ public class BeehiveDetailsMainFragment extends Fragment {
             } else {
                 DAOHoneySuper daoHoneySuper = new DAOHoneySuper();
                 String idHoneySuper = daoHoneySuper.getKey();
-                HoneySuperModel honeySuper = new HoneySuperModel(idHoneySuper, name, Integer.parseInt(frameNumber), idBeehive);
+                HoneySuperModel honeySuper = new HoneySuperModel(idHoneySuper, name, Integer.parseInt(frameNumber), idBeehive, Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid());
                 daoHoneySuper.add(honeySuper).addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         Toast.makeText(activity, "Hausse ajouté", Toast.LENGTH_SHORT).show();

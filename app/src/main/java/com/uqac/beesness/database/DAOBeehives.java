@@ -86,6 +86,10 @@ public class DAOBeehives {
         return dbReference.orderByChild("idApiary").equalTo(idApiary);
     }
 
+    public Query findAllForUser() {
+        return dbReference.orderByChild("idUser").equalTo(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid());
+    }
+
     public void addPictureFromGallery(String idBeehive, Uri selectedImageUri) {
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference storageRef = storage.getReference();
