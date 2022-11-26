@@ -18,10 +18,12 @@ import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -52,8 +54,10 @@ import com.uqac.beesness.model.HoneySuperModel;
 import com.uqac.beesness.model.VisitModel;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class BeehiveDetailsMainFragment extends Fragment {
 
@@ -221,14 +225,49 @@ public class BeehiveDetailsMainFragment extends Fragment {
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
         final DatePicker visitDate = dialog.findViewById(R.id.visit_date);
+        final Spinner spinner = dialog.findViewById(R.id.spinner_visit_type);
+        final EditText visitReason = dialog.findViewById(R.id.visitReason);
+        final VisitModel.VisitType[] visitType = new VisitModel.VisitType[1];
+
+        final List<String> visitTypes = Arrays.asList("Contrôle sanitaire", "Nourrissement", "Récolte", "Autre");
+        final int[] visitImages = {R.drawable.heart_dropdown, R.drawable.beefeed, R.drawable.harvest, R.drawable.other};
+        SpinnerAdapter adapter = new SpinnerAdapter(getContext(), visitTypes, visitImages);
+        adapter.setDropDownViewResource(R.layout.dropdown_item);
+        spinner.setAdapter(adapter);
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                switch (i) {
+                    case 0:
+                        visitType[0] = VisitModel.VisitType.SANITARY_CONTROL;
+                        visitReason.setVisibility(View.GONE);
+                        break;
+                    case 1:
+                        visitType[0] = VisitModel.VisitType.FEEDING;
+                        visitReason.setVisibility(View.GONE);
+                        break;
+                    case 2:
+                        visitType[0] = VisitModel.VisitType.HARVESTING;
+                        visitReason.setVisibility(View.GONE);
+                        break;
+                    default:
+                        visitType[0] = VisitModel.VisitType.OTHER;
+                        visitReason.setVisibility(View.VISIBLE);
+                        break;
+                }
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {}
+        });
 
         Button addVisitButton = dialog.findViewById(R.id.add_visit_button);
         addVisitButton.setOnClickListener(v -> {
             String date = visitDate.getDayOfMonth() + " " + MONTHS[visitDate.getMonth()];
-            //TODO visit description
+            String reason = visitReason.getText().toString();
             DAOVisits daoVisit = new DAOVisits();
             String idVisit = daoVisit.getKey();
-            VisitModel visit = new VisitModel(idVisit, date, idBeehive);
+            VisitModel visit = new VisitModel(idVisit, date, reason, visitType[0], idBeehive);
             daoVisit.add(visit).addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
                     Toast.makeText(activity, "Visite ajoutée", Toast.LENGTH_SHORT).show();

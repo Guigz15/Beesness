@@ -35,17 +35,11 @@ public class ApiaryDetailsInfoFragment extends Fragment {
                 binding.latitudeValue.setText(Objects.requireNonNull(task.getResult().child("location").child("latitude").getValue()).toString());
 
                 if (!Objects.requireNonNull(task.getResult().child("environment").getValue()).toString().isEmpty()) {
-                    binding.envLinearLayout.setVisibility(View.VISIBLE);
                     binding.apiaryEnvironmentText.setText(Objects.requireNonNull(task.getResult().child("environment").getValue()).toString());
-                } else {
-                    binding.envLinearLayout.setVisibility(View.GONE);
                 }
 
                 if (!Objects.requireNonNull(task.getResult().child("description").getValue()).toString().isEmpty()) {
-                    binding.descriptionLinearLayout.setVisibility(View.VISIBLE);
                     binding.apiaryDescriptionText.setText(Objects.requireNonNull(task.getResult().child("description").getValue()).toString());
-                } else {
-                    binding.descriptionLinearLayout.setVisibility(View.GONE);
                 }
             }
         });

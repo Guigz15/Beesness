@@ -26,6 +26,38 @@
             android:headerBackground="@color/main_blue"
             android:yearListSelectorColor="@color/main_blue" />
 
+        <Spinner
+            android:id="@+id/spinner_visit_type"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="13dp"
+            android:layout_marginEnd="13dp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/spinner_visit_bg"
+            android:contentDescription="@string/visit_type"
+            android:minHeight="48dp" />
+
+        <EditText
+            android:id="@+id/visitReason"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="13dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="13dp"
+            android:layout_marginBottom="10dp"
+            android:autofillHints=""
+            android:backgroundTint="@color/writing_color"
+            android:ems="10"
+            android:fontFamily="@font/dosis_book"
+            android:hint="@string/visit_reason_hint"
+            android:inputType="text"
+            android:minHeight="48dp"
+            android:singleLine="true"
+            android:textColor="@color/writing_color"
+            android:textColorHint="@color/writing_color"
+            android:textSize="20sp" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
