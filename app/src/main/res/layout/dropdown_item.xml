@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/visit_type_image"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="15dp"
+        android:contentDescription="@string/visit_type_image"
+        android:padding="10dp"
+        android:scaleType="centerInside" />
+
+    <TextView
+        android:id="@+id/visit_type_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_toEndOf="@+id/visit_type_image"
+        android:fontFamily="@font/dosis_book"
+        android:textColor="@color/writing_color"
+        android:textSize="16sp" />
+
+</RelativeLayout>

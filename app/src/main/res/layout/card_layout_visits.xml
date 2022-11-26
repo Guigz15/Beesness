@@ -39,15 +39,16 @@
                 android:layout_marginEnd="5dp"
                 android:layout_marginBottom="5dp"
                 android:fontFamily="@font/dosis_book"
+                android:textAlignment="center"
                 android:textColor="@color/writing_color"
                 android:textSize="20sp" />
 
             <ImageView
                 android:id="@+id/visit_image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:contentDescription="@string/visit_image"
-                android:visibility="gone" />
+                android:scaleType="centerInside" />
         </RelativeLayout>
 
     </LinearLayout>

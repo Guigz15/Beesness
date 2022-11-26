@@ -102,4 +102,8 @@
     <string name="product_name">Nom du produit</string>
     <string name="product_quantity">Quantité totale du produit</string>
     <string name="delete_beehive_confirmation">Êtes-vous sûr de vouloir supprimer cette ruche ?</string>
+    <string name="visit_type">visit_type</string>
+    <string name="visit_type_prompt">Type de visite</string>
+    <string name="visit_type_image">visit_type_image</string>
+    <string name="visit_reason_hint">Motif de la visite</string>
 </resources>
