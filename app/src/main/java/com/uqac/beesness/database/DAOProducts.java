@@ -48,25 +48,6 @@ public class DAOProducts {
         return dbReference.orderByChild("idUser").equalTo(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid());
     }
 
-    public void addPictureFromGallery(String idProduct, Uri selectedImageUri) {
-        FirebaseStorage storage = FirebaseStorage.getInstance();
-        StorageReference storageRef = storage.getReference();
-
-        StorageReference childRef = storageRef.child(idProduct + "_" + selectedImageUri.getPath());
-
-        // uploading the image
-        UploadTask uploadTask = childRef.putFile(selectedImageUri);
-
-        uploadTask.addOnSuccessListener(taskSnapshot ->
-                uploadTask.continueWithTask(task ->
-                        childRef.getDownloadUrl()).addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        Uri downloadUri = task.getResult();
-                        dbReference.child(idProduct).child("pictureUrl").setValue(downloadUri.toString());
-                    }
-                }));
-    }
-
     public void addPictureFromCamera(String idProduct, Bitmap bitmap) {
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference storageRef = storage.getReference();

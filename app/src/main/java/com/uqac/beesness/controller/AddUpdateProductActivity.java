@@ -62,6 +62,12 @@ public class AddUpdateProductActivity extends AppCompatActivity {
         saveButton.setOnClickListener(v -> saveProduct());
     }
 
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
+    }
+
     private void saveProduct() {
         String nameText = productName.getText().toString();
         String quantityText = productQuantity.getText().toString();
@@ -72,10 +78,6 @@ public class AddUpdateProductActivity extends AppCompatActivity {
             productName.requestFocus();
         }
 
-
-           // Uri uri = productImage.getDrawable().getConstantState().getResources().getUri();
-            //daoProducts.addPictureFromGallery(idProduct, uri);
-
 /*
         if (quantityText.isEmpty()) {
             productQuantity.setError("Veuillez entrer une quantité");
@@ -83,7 +85,7 @@ public class AddUpdateProductActivity extends AppCompatActivity {
         }*/
         String userId = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
 
-        if (!nameText.isEmpty()) {
+        if (!nameText.isEmpty() && !quantityText.isEmpty() && !productImage.getDrawable().equals(null)) {
             daoProducts = new DAOProducts();
 
             if (getIntent().getStringExtra("idProduct") == null) {
@@ -95,7 +97,6 @@ public class AddUpdateProductActivity extends AppCompatActivity {
                         if((productImage.getDrawable()) instanceof BitmapDrawable) {
                             Bitmap bitmap = ((BitmapDrawable) productImage.getDrawable()).getBitmap();
                             daoProducts.addPictureFromCamera(idProduct, bitmap);
-
                         }
                         Toast.makeText(this, "Produit ajouté", Toast.LENGTH_LONG).show();
                         finish();
@@ -151,10 +152,8 @@ public class AddUpdateProductActivity extends AppCompatActivity {
                             } catch (FileNotFoundException e) {
                                 e.printStackTrace();
                             }
-                            Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
-                            //pictureUrl = selectedImageUri.toString();
-                            productImage.setImageBitmap(selectedImage);
-                            //Glide.with(productImage.getContext()).load(pictureUrl).into(productImage);
+                            Bitmap bitmap = BitmapFactory.decodeStream(imageStream);
+                            productImage.setImageBitmap(bitmap);
                         }
                     }
                 }

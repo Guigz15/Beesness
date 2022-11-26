@@ -10,6 +10,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
@@ -53,6 +54,8 @@ import com.uqac.beesness.model.BeehiveModel;
 import com.uqac.beesness.model.HoneySuperModel;
 import com.uqac.beesness.model.VisitModel;
 
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -174,7 +177,14 @@ public class BeehiveDetailsMainFragment extends Fragment {
                         daoBeehives.addPictureFromCamera(idBeehive, bitmap);
                     } else {
                         Uri selectedImageUri = data.getData();
-                        daoBeehives.addPictureFromGallery(idBeehive, selectedImageUri);
+                        InputStream imageStream = null;
+                        try {
+                            imageStream = requireActivity().getContentResolver().openInputStream(selectedImageUri);
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        }
+                        Bitmap bitmap = BitmapFactory.decodeStream(imageStream);
+                        daoBeehives.addPictureFromCamera(idBeehive, bitmap);
                     }
                 }
             }
