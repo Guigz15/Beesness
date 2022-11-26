@@ -72,8 +72,8 @@ public class ApiaryDetailsActivity extends AppCompatActivity {
             fragmentTransaction.commit();
         });
 
-        ImageButton deleteApiarieButton = findViewById(R.id.delete_button);
-        deleteApiarieButton.setOnClickListener(v -> showDialog());
+        ImageButton deleteApiaryButton = findViewById(R.id.delete_button);
+        deleteApiaryButton.setOnClickListener(v -> showDialog());
 
         editButton = findViewById(R.id.edit_button);
         editButton.setOnClickListener(v -> {

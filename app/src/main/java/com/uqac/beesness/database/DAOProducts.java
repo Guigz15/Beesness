@@ -1,11 +1,19 @@
 package com.uqac.beesness.database;
 
+import android.graphics.Bitmap;
+import android.net.Uri;
+
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.uqac.beesness.model.ProductModel;
+
+import java.io.ByteArrayOutputStream;
 import java.util.HashMap;
 import java.util.Objects;
 
@@ -24,8 +32,8 @@ public class DAOProducts {
         return dbReference.child(key).updateChildren(obj);
     }
 
-    public Task<Void> delete(ProductModel obj) {
-        return dbReference.child(obj.getIdProduct()).removeValue();
+    public Task<Void> delete(String key) {
+        return dbReference.child(key).removeValue();
     }
 
     public String getKey() {
@@ -38,5 +46,49 @@ public class DAOProducts {
 
     public Query findAllForUser() {
         return dbReference.orderByChild("idUser").equalTo(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid());
+    }
+
+    public void addPictureFromGallery(String idProduct, Uri selectedImageUri) {
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference storageRef = storage.getReference();
+
+        StorageReference childRef = storageRef.child(idProduct + "_" + selectedImageUri.getPath());
+
+        // uploading the image
+        UploadTask uploadTask = childRef.putFile(selectedImageUri);
+
+        uploadTask.addOnSuccessListener(taskSnapshot ->
+                uploadTask.continueWithTask(task ->
+                        childRef.getDownloadUrl()).addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        Uri downloadUri = task.getResult();
+                        dbReference.child(idProduct).child("pictureUrl").setValue(downloadUri.toString());
+                    }
+                }));
+    }
+
+    public void addPictureFromCamera(String idProduct, Bitmap bitmap) {
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference storageRef = storage.getReference();
+
+        StorageReference childRef = storageRef.child(bitmap.toString());
+
+        // uploading the image
+        UploadTask uploadTask = childRef.putBytes(bitmapToByteArray(bitmap));
+
+        uploadTask.addOnSuccessListener(taskSnapshot ->
+                uploadTask.continueWithTask(task ->
+                        childRef.getDownloadUrl()).addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        Uri downloadUri = task.getResult();
+                        dbReference.child(idProduct).child("pictureUrl").setValue(downloadUri.toString());
+                    }
+                }));
+    }
+
+    private byte[] bitmapToByteArray(Bitmap bitmap) {
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+        return stream.toByteArray();
     }
 }

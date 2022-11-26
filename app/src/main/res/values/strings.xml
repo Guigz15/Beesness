@@ -52,6 +52,7 @@
     <string name="user_deconnection">Etes-vous sûr de vouloir vous déconnecter ?</string>
     <string name="delete_account_confirmation">Etes-vous sûr de vouloir supprimer votre compte ?</string>
     <string name="delete_apiary_confirmation">Etes-vous sûr de vouloir supprimer ce rucher ?</string>
+    <string name="delete_product_confirmation">Etes-vous sûr de vouloir supprimer ce produit ?</string>
     <string name="cancel">Annuler</string>
     <string name="delete">Supprimer</string>
     <string name="deconnection">Déconnexion</string>
@@ -83,6 +84,7 @@
     <string name="honey_super">hausses</string>
     <string name="qr_code_manager">qr_code_manager</string>
     <string name="pictures">Photos</string>
+    <string name="picture">Photo</string>
     <string name="add_pictures">addPictures</string>
     <string name="add_honey_super">add_honey_super</string>
     <string name="visites">Visites</string>
@@ -96,5 +98,8 @@
     <string name="details_beehive">Détails sur la ruche</string>
     <string name="type">Type</string>
     <string name="queen">Reine</string>
+    <string name="product_image">Image du produit</string>
+    <string name="product_name">Nom du produit</string>
+    <string name="product_quantity">Quantité totale du produit</string>
     <string name="delete_beehive_confirmation">Êtes-vous sûr de vouloir supprimer cette ruche ?</string>
 </resources>

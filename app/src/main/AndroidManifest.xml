@@ -42,6 +42,11 @@
             android:exported="false"
             android:theme="@style/AppTheme" />
         <activity
+            android:name=".controller.ProductDetailsActivity"
+            android:screenOrientation="portrait"
+            android:exported="false"
+            android:theme="@style/AppTheme" />
+        <activity
             android:name=".controller.LoginActivity"
             android:screenOrientation="portrait"
             android:exported="true"
@@ -80,6 +85,12 @@
             android:screenOrientation="portrait"
             android:exported="false"
             android:label="Ajouter une ruche"
+            android:theme="@style/Theme.AppCompat.Light" />
+        <activity
+            android:name=".controller.AddUpdateProductActivity"
+            android:screenOrientation="portrait"
+            android:exported="false"
+            android:label="Ajouter un produit"
             android:theme="@style/Theme.AppCompat.Light" />
     </application>
 

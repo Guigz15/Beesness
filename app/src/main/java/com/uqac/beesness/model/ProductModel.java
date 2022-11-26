@@ -17,6 +17,14 @@ public class ProductModel {
         this.honeyPots = new ArrayList<>();
     }
 
+    public ProductModel(String idProduct, String name, int quantityProduct, String idUser) {
+        this.idProduct = idProduct;
+        this.name = name;
+        this.quantityProduct = quantityProduct;
+        this.idUser = idUser;
+        this.honeyPots = new ArrayList<>();
+    }
+
     public ProductModel(String idProduct, int quantityProduct, double price, String name) {
         this.idProduct = idProduct;
         this.quantityProduct = quantityProduct;
