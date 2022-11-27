@@ -16,6 +16,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
+import com.uqac.beesness.MainActivity;
 import com.uqac.beesness.R;
 import com.uqac.beesness.database.DAOBeehives;
 import com.uqac.beesness.model.BeeQueenModel;

@@ -76,9 +76,6 @@ public class MainActivity extends AppCompatActivity {
             finish();
         });
 
-
-
-
         deleteAccountView.findViewById(R.id.cancel_button).setOnClickListener(v -> {
             deleteAccountDialog.dismiss();
         });

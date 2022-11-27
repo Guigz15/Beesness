@@ -26,13 +26,15 @@ public class ApiaryDetailsMainFragment extends Fragment {
     private FragmentApiaryDetailsMainBinding binding;
     private ImageButton addBeehiveButton;
     private BeehivesAdapter adapter;
+    private RecyclerView beehivesRecyclerView;
+    private String idApiary;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentApiaryDetailsMainBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        String idApiary = ((ApiaryDetailsActivity) requireActivity()).getIdApiary();
+        idApiary = ((ApiaryDetailsActivity) requireActivity()).getIdApiary();
 
         addBeehiveButton = binding.imageButton;
         addBeehiveButton.setOnClickListener(v -> {
@@ -41,19 +43,7 @@ public class ApiaryDetailsMainFragment extends Fragment {
             startActivity(intent);
         });
 
-        DatabaseReference beehivesRef = FirebaseDatabase.getInstance().getReference("Beehives");
-        Query query = beehivesRef.orderByChild("idApiary").equalTo(idApiary);
-
-        RecyclerView beehivesRecyclerView = root.findViewById(R.id.beehives_list);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this.getContext());
-        beehivesRecyclerView.setItemAnimator(null);
-        FirebaseRecyclerOptions<BeehiveModel> options = new FirebaseRecyclerOptions.Builder<BeehiveModel>()
-                .setQuery(query, BeehiveModel.class)
-                .build();
-        adapter = new BeehivesAdapter(options);
-
-        beehivesRecyclerView.setLayoutManager(linearLayoutManager);
-        beehivesRecyclerView.setAdapter(adapter);
+        beehivesRecyclerView = root.findViewById(R.id.beehives_list);
 
         return root;
     }
@@ -61,6 +51,18 @@ public class ApiaryDetailsMainFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+
+        DatabaseReference beehivesRef = FirebaseDatabase.getInstance().getReference("Beehives");
+        Query query = beehivesRef.orderByChild("idApiary").equalTo(idApiary);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this.getContext());
+        beehivesRecyclerView.setItemAnimator(null);
+        FirebaseRecyclerOptions<BeehiveModel> options = new FirebaseRecyclerOptions.Builder<BeehiveModel>()
+                .setQuery(query, BeehiveModel.class)
+                .build();
+        adapter = new BeehivesAdapter(options);
+        beehivesRecyclerView.setLayoutManager(linearLayoutManager);
+        beehivesRecyclerView.setAdapter(adapter);
+
         adapter.startListening();
     }
 
