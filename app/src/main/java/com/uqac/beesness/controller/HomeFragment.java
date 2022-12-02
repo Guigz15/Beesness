@@ -8,23 +8,33 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.uqac.beesness.R;
 import com.uqac.beesness.database.DAOApiaries;
 import com.uqac.beesness.database.DAOBeehives;
 import com.uqac.beesness.database.DAOHoneySuper;
+import com.uqac.beesness.database.DAOVisits;
 import com.uqac.beesness.databinding.FragmentHomeBinding;
 import com.uqac.beesness.model.UserModel;
+import com.uqac.beesness.model.VisitModel;
 
 public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding binding;
+    private PlanningAdapter healthCheckAdapter;
+    private PlanningAdapter feedingAdapter;
+    private PlanningAdapter harvestAdapter;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
@@ -91,7 +101,57 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        DAOVisits daoVisits = new DAOVisits();
+        Query healthCheckQuery = daoVisits.findAllForCurrentUserAndType("SANITARY_CONTROL");
+        RecyclerView healthCheckRecyclerView = binding.healthCheckList;
+        healthCheckRecyclerView.setItemAnimator(null);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        FirebaseRecyclerOptions<VisitModel> healthCheckOptions = new FirebaseRecyclerOptions.Builder<VisitModel>()
+                .setQuery(healthCheckQuery, VisitModel.class)
+                .build();
+        healthCheckAdapter = new PlanningAdapter(healthCheckOptions);
+        healthCheckRecyclerView.setLayoutManager(linearLayoutManager);
+        healthCheckRecyclerView.setAdapter(healthCheckAdapter);
+
+        Query feedingQuery = daoVisits.findAllForCurrentUserAndType("FEEDING");
+        RecyclerView feedingRecyclerView = binding.feedingList;
+        feedingRecyclerView.setItemAnimator(null);
+        LinearLayoutManager linearLayoutManager2 = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        FirebaseRecyclerOptions<VisitModel> feedingOptions = new FirebaseRecyclerOptions.Builder<VisitModel>()
+                .setQuery(feedingQuery, VisitModel.class)
+                .build();
+        feedingAdapter = new PlanningAdapter(feedingOptions);
+        feedingRecyclerView.setLayoutManager(linearLayoutManager2);
+        feedingRecyclerView.setAdapter(feedingAdapter);
+
+        Query harvestingQuery = daoVisits.findAllForCurrentUserAndType("HARVESTING");
+        RecyclerView harvestingRecyclerView = binding.harvestingList;
+        harvestingRecyclerView.setItemAnimator(null);
+        LinearLayoutManager linearLayoutManager3 = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        FirebaseRecyclerOptions<VisitModel> harvestOptions = new FirebaseRecyclerOptions.Builder<VisitModel>()
+                .setQuery(harvestingQuery, VisitModel.class)
+                .build();
+        harvestAdapter = new PlanningAdapter(harvestOptions);
+        harvestingRecyclerView.setLayoutManager(linearLayoutManager3);
+        harvestingRecyclerView.setAdapter(harvestAdapter);
+
         return binding.getRoot();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        healthCheckAdapter.startListening();
+        feedingAdapter.startListening();
+        harvestAdapter.startListening();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        healthCheckAdapter.stopListening();
+        feedingAdapter.stopListening();
+        harvestAdapter.stopListening();
     }
 
     @Override

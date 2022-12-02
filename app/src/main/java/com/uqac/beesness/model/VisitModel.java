@@ -14,16 +14,18 @@ public class VisitModel {
     private String description;
     private VisitType visitType;
     private String idBeehive;
+    private String idUser_visitType;
 
     public VisitModel() {
     }
 
-    public VisitModel(String idVisit, String date, String description, VisitType visitType, String idBeehive) {
+    public VisitModel(String idVisit, String date, String description, VisitType visitType, String idBeehive, String idUser_visitType) {
         this.idVisit = idVisit;
         this.date = date;
         this.description = description;
         this.visitType = visitType;
         this.idBeehive = idBeehive;
+        this.idUser_visitType = idUser_visitType;
     }
 
     public VisitModel(String idVisit, String date, VisitType visitType, String idBeehive) {
@@ -64,4 +66,8 @@ public class VisitModel {
     public String getIdBeehive() { return idBeehive; }
 
     public void setIdBeehive(String idBeehive) { this.idBeehive = idBeehive; }
+
+    public String getIdUser_visitType() { return idUser_visitType; }
+
+    public void setIdUser_visitType(String idUser_visitType) { this.idUser_visitType = idUser_visitType; }
 }

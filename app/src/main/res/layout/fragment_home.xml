@@ -202,181 +202,230 @@
                 android:id="@+id/planning"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
                 android:fontFamily="@font/dosis_book"
                 android:text="@string/planning"
                 android:textColor="@color/white"
                 android:textSize="26sp" />
 
-            <Space
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="10dp" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:orientation="vertical">
+                android:layout_height="wrap_content">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/health_checking"
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:id="@+id/layout_health"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/dosis_book"
-                        android:text="@string/health_checking"
-                        android:textColor="@color/white"
-                        android:textSize="22sp" />
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/health_checking"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/dosis_book"
+                                android:text="@string/health_checking"
+                                android:textColor="@color/white"
+                                android:textSize="22sp" />
+
+                            <Space
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1" />
+
+                            <ImageView
+                                android:id="@+id/heart"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:contentDescription="@string/heart"
+                                android:src="@drawable/heart" />
+                        </LinearLayout>
+
+                        <View
+                            android:id="@+id/divider"
+                            android:layout_width="match_parent"
+                            android:layout_height="2dp"
+                            android:layout_marginTop="2dp"
+                            android:layout_marginBottom="5dp"
+                            android:background="@color/white" />
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/health_check_list"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                            </androidx.recyclerview.widget.RecyclerView>
+
+                            <TextView
+                                android:id="@+id/health_events"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/dosis_extralight"
+                                android:text="@string/health_events"
+                                android:textColor="@color/white"
+                                android:textSize="20sp"
+                                android:visibility="gone" />
+
+                        </RelativeLayout>
+
+                    </LinearLayout>
 
                     <Space
-                        android:layout_width="0dp"
+                        android:id="@+id/space_health_feeding"
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp" />
+
+                    <LinearLayout
+                        android:id="@+id/layout_feeding"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1" />
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:orientation="vertical">
 
-                    <ImageView
-                        android:id="@+id/heart"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:contentDescription="@string/heart"
-                        android:src="@drawable/heart" />
-                </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal">
 
-                <View
-                    android:id="@+id/divider"
-                    android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:layout_marginTop="2dp"
-                    android:layout_marginBottom="5dp"
-                    android:background="@color/white" />
+                            <TextView
+                                android:id="@+id/feeding"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/dosis_book"
+                                android:text="@string/feeding"
+                                android:textColor="@color/white"
+                                android:textSize="22sp" />
 
-                <TextView
-                    android:id="@+id/healt_events"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/dosis_extralight"
-                    android:text="@string/health_events"
-                    android:textColor="@color/white"
-                    android:textSize="20sp" />
+                            <Space
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1" />
 
-            </LinearLayout>
+                            <ImageView
+                                android:id="@+id/food"
+                                android:layout_width="35dp"
+                                android:layout_height="30dp"
+                                android:contentDescription="@string/feeding"
+                                android:src="@drawable/beefeed" />
+                        </LinearLayout>
 
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="35dp" />
+                        <View
+                            android:id="@+id/divider1"
+                            android:layout_width="match_parent"
+                            android:layout_height="2dp"
+                            android:layout_marginTop="2dp"
+                            android:layout_marginBottom="5dp"
+                            android:background="@color/white" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:orientation="vertical">
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/feeding_list"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content" />
 
-                    <TextView
-                        android:id="@+id/feeding"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/dosis_book"
-                        android:text="@string/feeding"
-                        android:textColor="@color/white"
-                        android:textSize="22sp" />
+                            <TextView
+                                android:id="@+id/feed_events"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/dosis_extralight"
+                                android:text="@string/feed_events"
+                                android:textColor="@color/white"
+                                android:textSize="20sp"
+                                android:visibility="gone" />
+                        </RelativeLayout>
+
+                    </LinearLayout>
 
                     <Space
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1" />
+                        android:id="@+id/space_feeding_harvesting"
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp" />
 
-                    <ImageView
-                        android:id="@+id/food"
-                        android:layout_width="35dp"
-                        android:layout_height="30dp"
-                        android:contentDescription="@string/feeding"
-                        android:src="@drawable/beefeed" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/harvesting"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/dosis_book"
+                                android:text="@string/harvesting"
+                                android:textColor="@color/white"
+                                android:textSize="22sp" />
+
+                            <Space
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1" />
+
+                            <ImageView
+                                android:id="@+id/harvest"
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:contentDescription="@string/harvesting"
+                                android:src="@drawable/harvest" />
+                        </LinearLayout>
+
+                        <View
+                            android:id="@+id/divider2"
+                            android:layout_width="match_parent"
+                            android:layout_height="2dp"
+                            android:layout_marginTop="2dp"
+                            android:layout_marginBottom="5dp"
+                            android:background="@color/white" />
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/harvesting_list"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent" />
+
+                            <TextView
+                                android:id="@+id/harvest_events"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/dosis_extralight"
+                                android:text="@string/harvest_events"
+                                android:textColor="@color/white"
+                                android:textSize="20sp"
+                                android:visibility="gone" />
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
                 </LinearLayout>
-
-                <View
-                    android:id="@+id/divider1"
-                    android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:layout_marginTop="2dp"
-                    android:layout_marginBottom="5dp"
-                    android:background="@color/white" />
-
-                <TextView
-                    android:id="@+id/feed_events"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/dosis_extralight"
-                    android:text="@string/feed_events"
-                    android:textColor="@color/white"
-                    android:textSize="20sp" />
-
-            </LinearLayout>
-
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="35dp" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/harvesting"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/dosis_book"
-                        android:text="@string/harvesting"
-                        android:textColor="@color/white"
-                        android:textSize="22sp" />
-
-                    <Space
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1" />
-
-                    <ImageView
-                        android:id="@+id/harvest"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:contentDescription="@string/harvesting"
-                        android:src="@drawable/harvest" />
-                </LinearLayout>
-
-                <View
-                    android:id="@+id/divider2"
-                    android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:layout_marginTop="2dp"
-                    android:layout_marginBottom="5dp"
-                    android:background="@color/white" />
-
-                <TextView
-                    android:id="@+id/harvest_events"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/dosis_extralight"
-                    android:text="@string/harvest_events"
-                    android:textColor="@color/white"
-                    android:textSize="20sp" />
-
-            </LinearLayout>
+            </ScrollView>
 
         </LinearLayout>
     </LinearLayout>

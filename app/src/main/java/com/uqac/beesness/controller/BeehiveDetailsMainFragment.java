@@ -277,7 +277,7 @@ public class BeehiveDetailsMainFragment extends Fragment {
             String reason = visitReason.getText().toString();
             DAOVisits daoVisit = new DAOVisits();
             String idVisit = daoVisit.getKey();
-            VisitModel visit = new VisitModel(idVisit, date, reason, visitType[0], idBeehive);
+            VisitModel visit = new VisitModel(idVisit, date, reason, visitType[0], idBeehive, Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid() + "_" + visitType[0]);
             daoVisit.add(visit).addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
                     Toast.makeText(activity, "Visite ajoutée", Toast.LENGTH_SHORT).show();
