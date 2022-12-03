@@ -424,8 +424,8 @@ public class BeehiveDetailsMainFragment extends Fragment {
             String idVisit = visit.getIdVisit();
             HashMap<String, Object> map = new HashMap<>();
             map.put("date", date);
-            map.put("reason", reason);
-            map.put("type", visitType[0]);
+            map.put("description", reason);
+            map.put("visitType", visitType[0]);
             daoVisit.update(idVisit, map).addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
                     Toast.makeText(activity, "Visite modifiée", Toast.LENGTH_SHORT).show();
