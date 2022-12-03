@@ -22,8 +22,8 @@ public class DAOVisits {
         return dbReference.child(obj.getIdVisit()).setValue(obj);
     }
 
-    public Task<Void> update(String key, HashMap<String, String> obj) {
-        return dbReference.child(key).setValue(obj);
+    public Task<Void> update(String key, HashMap<String, Object> obj) {
+        return dbReference.child(key).updateChildren(obj);
     }
 
     public Task<Void> delete(String key) {

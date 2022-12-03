@@ -17,6 +17,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -58,6 +59,9 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -142,6 +146,35 @@ public class BeehiveDetailsMainFragment extends Fragment {
         visitsRecyclerView.setAdapter(visitsAdapter);
 
         return root;
+    }
+
+    @Override
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case 0:
+                editHoneySuperDialog(requireActivity(), honeySuperAdapter.getItem(item.getGroupId()));
+                break;
+            case 1:
+                daoHoneySuper.delete(honeySuperAdapter.getItem(item.getGroupId()).getIdHoneySuper()).addOnCompleteListener(task -> {
+                    if (task.isSuccessful())
+                        Toast.makeText(getContext(), "Suppression réussie", Toast.LENGTH_SHORT).show();
+                    else
+                        Toast.makeText(getContext(), "Erreur lors de la suppression", Toast.LENGTH_SHORT).show();
+                });
+                break;
+            case 2:
+                editVisitDialog(requireActivity(), visitsAdapter.getItem(item.getGroupId()));
+                break;
+            case 3:
+                daoVisits.delete(visitsAdapter.getItem(item.getGroupId()).getIdVisit()).addOnCompleteListener(task -> {
+                    if (task.isSuccessful())
+                        Toast.makeText(getContext(), "Suppression réussie", Toast.LENGTH_SHORT).show();
+                    else
+                        Toast.makeText(getContext(), "Erreur lors de la suppression", Toast.LENGTH_SHORT).show();
+                });
+                break;
+        }
+        return super.onContextItemSelected(item);
     }
 
     private void selectImage(Context context) {
@@ -229,6 +262,49 @@ public class BeehiveDetailsMainFragment extends Fragment {
         dialog.show();
     }
 
+    private void editHoneySuperDialog(Activity activity, HoneySuperModel honeySuper) {
+        final Dialog dialog = new Dialog(activity);
+        dialog.setContentView(R.layout.dialog_add_honey_super);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        final EditText honeySuperName = dialog.findViewById(R.id.honey_super_name_value);
+        honeySuperName.setText(honeySuper.getName());
+        final EditText honeySuperFrameNumber = dialog.findViewById(R.id.add_frame_number);
+        honeySuperFrameNumber.setText(String.valueOf(honeySuper.getNbFrames()));
+
+        Button editHoneySuperButton = dialog.findViewById(R.id.add_honey_super_button);
+        editHoneySuperButton.setText("Modifier");
+        editHoneySuperButton.setOnClickListener(v -> {
+            String name = honeySuperName.getText().toString();
+            String frameNumber = honeySuperFrameNumber.getText().toString();
+
+            if (name.isEmpty()) {
+                honeySuperName.setError("Veuillez entrer un nom");
+            } else if (frameNumber.isEmpty()) {
+                honeySuperFrameNumber.setError("Veuillez entrer un nombre de cadres");
+            } else {
+                DAOHoneySuper daoHoneySuper = new DAOHoneySuper();
+                String idHoneySuper = honeySuper.getIdHoneySuper();
+                HashMap<String, Object> map = new HashMap<>();
+                map.put("name", name);
+                map.put("nbFrames", Integer.parseInt(frameNumber));
+                daoHoneySuper.update(idHoneySuper, map).addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        Toast.makeText(activity, "Hausse modifié", Toast.LENGTH_SHORT).show();
+                        dialog.dismiss();
+                    } else {
+                        Toast.makeText(activity, "Erreur lors de la modification de la hausse", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
+
+        Button cancelButton = dialog.findViewById(R.id.cancel_honey_super_button);
+        cancelButton.setOnClickListener(v -> dialog.dismiss());
+
+        dialog.show();
+    }
+
     private void addVisitDialog(Activity activity) {
         final Dialog dialog = new Dialog(activity);
         dialog.setContentView(R.layout.dialog_add_visit);
@@ -284,6 +360,78 @@ public class BeehiveDetailsMainFragment extends Fragment {
                     dialog.dismiss();
                 } else {
                     Toast.makeText(activity, "Erreur lors de l'ajout de la visite", Toast.LENGTH_SHORT).show();
+                }
+            });
+        });
+
+        Button cancelButton = dialog.findViewById(R.id.cancel_visit_button);
+        cancelButton.setOnClickListener(v -> dialog.dismiss());
+
+        dialog.show();
+    }
+
+    private void editVisitDialog(Activity activity, VisitModel visit) {
+        final Dialog dialog = new Dialog(activity);
+        dialog.setContentView(R.layout.dialog_add_visit);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        final DatePicker visitDate = dialog.findViewById(R.id.visit_date);
+        visitDate.updateDate(Calendar.getInstance().get(Calendar.YEAR), Arrays.asList(MONTHS).indexOf(visit.getDate().split(" ")[1]), Integer.parseInt(visit.getDate().split(" ")[0]));
+        final Spinner spinner = dialog.findViewById(R.id.spinner_visit_type);
+        final EditText visitReason = dialog.findViewById(R.id.visitReason);
+        visitReason.setText(visit.getDescription());
+        final VisitModel.VisitType[] visitType = new VisitModel.VisitType[1];
+
+        final List<String> visitTypes = Arrays.asList("Contrôle sanitaire", "Nourrissement", "Récolte", "Autre");
+        final int[] visitImages = {R.drawable.heart_dropdown, R.drawable.beefeed, R.drawable.harvest, R.drawable.other};
+        SpinnerAdapter adapter = new SpinnerAdapter(getContext(), visitTypes, visitImages);
+        adapter.setDropDownViewResource(R.layout.dropdown_item);
+        spinner.setAdapter(adapter);
+        spinner.setSelection(visit.getVisitType().ordinal());
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                switch (i) {
+                    case 0:
+                        visitType[0] = VisitModel.VisitType.SANITARY_CONTROL;
+                        visitReason.setVisibility(View.GONE);
+                        break;
+                    case 1:
+                        visitType[0] = VisitModel.VisitType.FEEDING;
+                        visitReason.setVisibility(View.GONE);
+                        break;
+                    case 2:
+                        visitType[0] = VisitModel.VisitType.HARVESTING;
+                        visitReason.setVisibility(View.GONE);
+                        break;
+                    default:
+                        visitType[0] = VisitModel.VisitType.OTHER;
+                        visitReason.setVisibility(View.VISIBLE);
+                        break;
+                }
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {}
+        });
+
+        Button editVisitButton = dialog.findViewById(R.id.add_visit_button);
+        editVisitButton.setText("Modifier");
+        editVisitButton.setOnClickListener(v -> {
+            String date = visitDate.getDayOfMonth() + " " + MONTHS[visitDate.getMonth()];
+            String reason = visitReason.getText().toString();
+            DAOVisits daoVisit = new DAOVisits();
+            String idVisit = visit.getIdVisit();
+            HashMap<String, Object> map = new HashMap<>();
+            map.put("date", date);
+            map.put("reason", reason);
+            map.put("type", visitType[0]);
+            daoVisit.update(idVisit, map).addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    Toast.makeText(activity, "Visite modifiée", Toast.LENGTH_SHORT).show();
+                    dialog.dismiss();
+                } else {
+                    Toast.makeText(activity, "Erreur lors de la modification de la visite", Toast.LENGTH_SHORT).show();
                 }
             });
         });

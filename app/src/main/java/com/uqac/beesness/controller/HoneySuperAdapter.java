@@ -1,11 +1,13 @@
 package com.uqac.beesness.controller;
 
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -28,20 +30,29 @@ public class HoneySuperAdapter extends FirebaseRecyclerAdapter<HoneySuperModel, 
     @Override
     public HoneySuperAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_layout_honey_supers, parent, false);
-        HoneySuperAdapter.ViewHolder viewHolder = new HoneySuperAdapter.ViewHolder(view);
 
-        return viewHolder;
+        return new ViewHolder(view);
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder {
+    static class ViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
 
         private final TextView honeySuperName;
         private final TextView honeySuperFrameNumber;
+        private final CardView honeySuperCard;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             honeySuperName = itemView.findViewById(R.id.honey_super_name);
             honeySuperFrameNumber = itemView.findViewById(R.id.frame_number);
+            honeySuperCard = itemView.findViewById(R.id.card_view);
+            honeySuperCard.setOnCreateContextMenuListener(this);
+        }
+
+        @Override
+        public void onCreateContextMenu(@NonNull ContextMenu contextMenu, View view, ContextMenu.ContextMenuInfo contextMenuInfo) {
+            contextMenu.setHeaderTitle("Sélectionnez une action");
+            contextMenu.add(getAbsoluteAdapterPosition(), 0, 0, "Modifier");
+            contextMenu.add(getAbsoluteAdapterPosition(), 1, 1, "Supprimer");
         }
     }
 }
