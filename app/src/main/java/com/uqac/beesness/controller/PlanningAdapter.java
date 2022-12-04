@@ -18,7 +18,11 @@ import com.uqac.beesness.database.DAOBeehives;
 import com.uqac.beesness.model.BeehiveModel;
 import com.uqac.beesness.model.VisitModel;
 
+import java.util.Calendar;
+
 public class PlanningAdapter extends FirebaseRecyclerAdapter<VisitModel, PlanningAdapter.ViewHolder> {
+
+    private final String[] MONTHS = {"JAN.", "FEV.", "MAR.", "AVR.", "MAI.", "JUIN.", "JUIL.", "AOU.", "SEP.", "OCT.", "NOV.", "DEC."};
 
     public PlanningAdapter(@NonNull FirebaseRecyclerOptions<VisitModel> options) {
         super(options);
@@ -26,7 +30,7 @@ public class PlanningAdapter extends FirebaseRecyclerAdapter<VisitModel, Plannin
 
     @Override
     public void onBindViewHolder(@NonNull PlanningAdapter.ViewHolder holder, int position, @NonNull VisitModel model) {
-        holder.dateTextView.setText(model.getDate());
+        holder.dateTextView.setText(model.getDate().split("-")[2] + " " + MONTHS[Integer.parseInt(model.getDate().split("-")[1])]);
 
         DAOBeehives daoBeehives = new DAOBeehives();
         daoBeehives.find(model.getIdBeehive()).addValueEventListener(new ValueEventListener() {

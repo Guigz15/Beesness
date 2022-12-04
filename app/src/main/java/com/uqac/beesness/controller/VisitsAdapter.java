@@ -16,7 +16,11 @@ import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.uqac.beesness.R;
 import com.uqac.beesness.model.VisitModel;
 
+import java.util.Calendar;
+
 public class VisitsAdapter extends FirebaseRecyclerAdapter<VisitModel, VisitsAdapter.ViewHolder> {
+
+    private final String[] MONTHS = {"JAN.", "FEV.", "MAR.", "AVR.", "MAI.", "JUIN.", "JUIL.", "AOU.", "SEP.", "OCT.", "NOV.", "DEC."};
 
     public VisitsAdapter(@NonNull FirebaseRecyclerOptions<VisitModel> options) {
         super(options);
@@ -24,7 +28,7 @@ public class VisitsAdapter extends FirebaseRecyclerAdapter<VisitModel, VisitsAda
 
     @Override
     public void onBindViewHolder(@NonNull VisitsAdapter.ViewHolder holder, int position, @NonNull VisitModel model) {
-        holder.dateTextView.setText(model.getDate());
+        holder.dateTextView.setText(model.getDate().split("-")[2] + " " + MONTHS[Integer.parseInt(model.getDate().split("-")[1])]);
 
         if (model.getVisitType().equals(VisitModel.VisitType.SANITARY_CONTROL)) {
             holder.visitTextView.setVisibility(View.GONE);

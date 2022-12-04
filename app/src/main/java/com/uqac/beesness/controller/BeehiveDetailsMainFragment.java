@@ -68,8 +68,6 @@ import java.util.stream.Collectors;
 
 public class BeehiveDetailsMainFragment extends Fragment {
 
-    private final String[] MONTHS = {"JAN.", "FEV.", "MAR.", "AVR.", "MAI.", "JUIN.", "JUIL.", "AOU.", "SEP.", "OCT.", "NOV.", "DEC."};
-
     private FragmentBeehiveDetailsMainBinding binding;
     private ImageSlider imageSlider;
     private ImageButton addPictureButton, addHoneySuperButton, addVisitButton;
@@ -349,7 +347,7 @@ public class BeehiveDetailsMainFragment extends Fragment {
 
         Button addVisitButton = dialog.findViewById(R.id.add_visit_button);
         addVisitButton.setOnClickListener(v -> {
-            String date = visitDate.getDayOfMonth() + " " + MONTHS[visitDate.getMonth()];
+            String date = visitDate.getYear() + "-" + visitDate.getMonth() + "-" + visitDate.getDayOfMonth();
             String reason = visitReason.getText().toString();
             DAOVisits daoVisit = new DAOVisits();
             String idVisit = daoVisit.getKey();
@@ -376,7 +374,7 @@ public class BeehiveDetailsMainFragment extends Fragment {
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
         final DatePicker visitDate = dialog.findViewById(R.id.visit_date);
-        visitDate.updateDate(Calendar.getInstance().get(Calendar.YEAR), Arrays.asList(MONTHS).indexOf(visit.getDate().split(" ")[1]), Integer.parseInt(visit.getDate().split(" ")[0]));
+        visitDate.updateDate(Integer.parseInt(visit.getDate().split("-")[0]), Integer.parseInt(visit.getDate().split("-")[1]), Integer.parseInt(visit.getDate().split("-")[2]));
         final Spinner spinner = dialog.findViewById(R.id.spinner_visit_type);
         final EditText visitReason = dialog.findViewById(R.id.visitReason);
         visitReason.setText(visit.getDescription());
@@ -418,7 +416,7 @@ public class BeehiveDetailsMainFragment extends Fragment {
         Button editVisitButton = dialog.findViewById(R.id.add_visit_button);
         editVisitButton.setText("Modifier");
         editVisitButton.setOnClickListener(v -> {
-            String date = visitDate.getDayOfMonth() + " " + MONTHS[visitDate.getMonth()];
+            String date = visitDate.getYear() + "-" + visitDate.getMonth() + "-" + visitDate.getDayOfMonth();
             String reason = visitReason.getText().toString();
             DAOVisits daoVisit = new DAOVisits();
             String idVisit = visit.getIdVisit();
