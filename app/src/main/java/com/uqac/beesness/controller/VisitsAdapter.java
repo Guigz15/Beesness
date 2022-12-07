@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -53,8 +54,13 @@ public class VisitsAdapter extends FirebaseRecyclerAdapter<VisitModel, VisitsAda
     @Override
     public VisitsAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_layout_visits, parent, false);
+        VisitsAdapter.ViewHolder viewHolder = new ViewHolder(view);
 
-        return new ViewHolder(view);
+        viewHolder.setOnClickListener((view1, position) -> {
+            Toast.makeText(view1.getContext(), "Appuyez longtemps pour modifier ou supprimer la visite", Toast.LENGTH_LONG).show();
+        });
+
+        return viewHolder;
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
@@ -71,8 +77,19 @@ public class VisitsAdapter extends FirebaseRecyclerAdapter<VisitModel, VisitsAda
             visitImageView = itemView.findViewById(R.id.visit_image);
             visitCard = itemView.findViewById(R.id.cardView);
             visitCard.setOnCreateContextMenuListener(this);
+
+            itemView.setOnClickListener(v -> mClickListener.onItemClick(v, getAbsoluteAdapterPosition()));
         }
 
+        private VisitsAdapter.ViewHolder.ClickListener mClickListener;
+
+        public interface ClickListener{
+            void onItemClick(View view, int position);
+        }
+
+        public void setOnClickListener(VisitsAdapter.ViewHolder.ClickListener clickListener){
+            mClickListener = clickListener;
+        }
 
         @Override
         public void onCreateContextMenu(@NonNull ContextMenu contextMenu, View view, ContextMenu.ContextMenuInfo contextMenuInfo) {

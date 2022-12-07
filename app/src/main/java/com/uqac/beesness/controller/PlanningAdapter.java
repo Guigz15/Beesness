@@ -1,5 +1,6 @@
 package com.uqac.beesness.controller;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,8 +53,15 @@ public class PlanningAdapter extends FirebaseRecyclerAdapter<VisitModel, Plannin
     @Override
     public PlanningAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_layout_planning_visit, parent, false);
+        PlanningAdapter.ViewHolder viewHolder = new PlanningAdapter.ViewHolder(view);
 
-        return new ViewHolder(view);
+        viewHolder.setOnClickListener((view1, position) -> {
+            Intent intent = new Intent(view1.getContext(), BeehiveDetailsActivity.class);
+            intent.putExtra("idBeehive", getItem(position).getIdBeehive());
+            view1.getContext().startActivity(intent);
+        });
+
+        return viewHolder;
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
@@ -66,6 +74,18 @@ public class PlanningAdapter extends FirebaseRecyclerAdapter<VisitModel, Plannin
 
             dateTextView = itemView.findViewById(R.id.visit_date);
             beehiveTextView = itemView.findViewById(R.id.beehive_name_text);
+
+            itemView.setOnClickListener(v -> mClickListener.onItemClick(v, getAbsoluteAdapterPosition()));
+        }
+
+        private PlanningAdapter.ViewHolder.ClickListener mClickListener;
+
+        public interface ClickListener{
+            void onItemClick(View view, int position);
+        }
+
+        public void setOnClickListener(PlanningAdapter.ViewHolder.ClickListener clickListener){
+            mClickListener = clickListener;
         }
     }
 }

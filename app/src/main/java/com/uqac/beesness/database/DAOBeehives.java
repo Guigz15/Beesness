@@ -2,13 +2,7 @@ package com.uqac.beesness.database;
 
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-
-import com.google.android.gms.tasks.Continuation;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -18,15 +12,12 @@ import com.google.firebase.database.Query;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.uqac.beesness.MainActivity;
-import com.uqac.beesness.model.ApiaryModel;
 import com.uqac.beesness.model.BeehiveModel;
-import com.uqac.beesness.model.HoneySuperModel;
 
 import java.io.ByteArrayOutputStream;
-import java.sql.SQLOutput;
 import java.util.HashMap;
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class DAOBeehives {
 

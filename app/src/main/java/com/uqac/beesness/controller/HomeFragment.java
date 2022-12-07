@@ -35,6 +35,7 @@ public class HomeFragment extends Fragment {
     private PlanningAdapter healthCheckAdapter;
     private PlanningAdapter feedingAdapter;
     private PlanningAdapter harvestAdapter;
+    private PlanningAdapter otherAdapter;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
@@ -135,6 +136,17 @@ public class HomeFragment extends Fragment {
         harvestingRecyclerView.setLayoutManager(linearLayoutManager3);
         harvestingRecyclerView.setAdapter(harvestAdapter);
 
+        Query otherQuery = daoVisits.findAllForCurrentUserAndType("OTHER");
+        RecyclerView otherRecyclerView = binding.otherList;
+        otherRecyclerView.setItemAnimator(null);
+        LinearLayoutManager linearLayoutManager4 = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        FirebaseRecyclerOptions<VisitModel> otherOptions = new FirebaseRecyclerOptions.Builder<VisitModel>()
+                .setQuery(otherQuery, VisitModel.class)
+                .build();
+        otherAdapter = new PlanningAdapter(otherOptions);
+        otherRecyclerView.setLayoutManager(linearLayoutManager4);
+        otherRecyclerView.setAdapter(otherAdapter);
+
         return binding.getRoot();
     }
 
@@ -144,6 +156,7 @@ public class HomeFragment extends Fragment {
         healthCheckAdapter.startListening();
         feedingAdapter.startListening();
         harvestAdapter.startListening();
+        otherAdapter.startListening();
     }
 
     @Override
@@ -152,6 +165,7 @@ public class HomeFragment extends Fragment {
         healthCheckAdapter.stopListening();
         feedingAdapter.stopListening();
         harvestAdapter.stopListening();
+        otherAdapter.stopListening();
     }
 
     @Override

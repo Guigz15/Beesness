@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -30,8 +31,13 @@ public class HoneySuperAdapter extends FirebaseRecyclerAdapter<HoneySuperModel, 
     @Override
     public HoneySuperAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_layout_honey_supers, parent, false);
+        HoneySuperAdapter.ViewHolder viewHolder = new ViewHolder(view);
 
-        return new ViewHolder(view);
+        viewHolder.setOnClickListener((view1, position) -> {
+            Toast.makeText(view1.getContext(), "Appuyez longtemps pour modifier ou supprimer la hausse", Toast.LENGTH_LONG).show();
+        });
+
+        return viewHolder;
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
@@ -46,6 +52,18 @@ public class HoneySuperAdapter extends FirebaseRecyclerAdapter<HoneySuperModel, 
             honeySuperFrameNumber = itemView.findViewById(R.id.frame_number);
             honeySuperCard = itemView.findViewById(R.id.card_view);
             honeySuperCard.setOnCreateContextMenuListener(this);
+
+            itemView.setOnClickListener(v -> mClickListener.onItemClick(v, getAbsoluteAdapterPosition()));
+        }
+
+        private HoneySuperAdapter.ViewHolder.ClickListener mClickListener;
+
+        public interface ClickListener{
+            void onItemClick(View view, int position);
+        }
+
+        public void setOnClickListener(HoneySuperAdapter.ViewHolder.ClickListener clickListener){
+            mClickListener = clickListener;
         }
 
         @Override
