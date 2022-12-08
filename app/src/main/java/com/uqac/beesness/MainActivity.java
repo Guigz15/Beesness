@@ -66,21 +66,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showDialog() {
-        BottomSheetDialog deleteAccountDialog = new BottomSheetDialog(this, R.style.BottomSheetDialogTheme);
-        View deleteAccountView = getLayoutInflater().inflate(R.layout.user_deconnection, findViewById(R.id.bottom_sheet_container));
+        BottomSheetDialog logoutDialog = new BottomSheetDialog(this, R.style.BottomSheetDialogTheme);
+        View logoutView = getLayoutInflater().inflate(R.layout.user_deconnection, findViewById(R.id.bottom_sheet_container));
 
-        deleteAccountView.findViewById(R.id.disconnect_button).setOnClickListener(v -> {
+        logoutView.findViewById(R.id.disconnect_button).setOnClickListener(v -> {
             FirebaseAuth.getInstance().signOut();
             Intent intent = new Intent(MainActivity.this, LoginActivity.class);
             startActivity(intent);
             finish();
         });
 
-        deleteAccountView.findViewById(R.id.cancel_button).setOnClickListener(v -> {
-            deleteAccountDialog.dismiss();
+        logoutView.findViewById(R.id.cancel_button).setOnClickListener(v -> {
+            logoutDialog.dismiss();
         });
 
-        deleteAccountDialog.setContentView(deleteAccountView);
-        deleteAccountDialog.show();
+        logoutDialog.setContentView(logoutView);
+        logoutDialog.show();
     }
 }

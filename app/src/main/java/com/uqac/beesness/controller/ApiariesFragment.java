@@ -16,7 +16,6 @@ import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.uqac.beesness.R;
 import com.uqac.beesness.database.DAOApiaries;
 import com.uqac.beesness.databinding.FragmentApiariesBinding;
-import com.uqac.beesness.model.ApiariesViewModel;
 import com.uqac.beesness.model.ApiaryModel;
 
 public class ApiariesFragment extends Fragment {
@@ -26,8 +25,6 @@ public class ApiariesFragment extends Fragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        ApiariesViewModel apiariesViewModel = new ViewModelProvider(this).get(ApiariesViewModel.class);
-
         binding = FragmentApiariesBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 

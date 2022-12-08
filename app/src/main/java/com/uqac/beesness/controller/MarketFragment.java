@@ -1,7 +1,5 @@
 package com.uqac.beesness.controller;
 
-import androidx.lifecycle.ViewModelProvider;
-
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
@@ -19,7 +17,6 @@ import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.uqac.beesness.R;
 import com.uqac.beesness.database.DAOProducts;
 import com.uqac.beesness.databinding.FragmentMarketBinding;
-import com.uqac.beesness.model.MarketViewModel;
 import com.uqac.beesness.model.ProductModel;
 
 public class MarketFragment extends Fragment {
@@ -28,7 +25,6 @@ public class MarketFragment extends Fragment {
     private ProductAdapter adapter;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        MarketViewModel marketViewModel = new ViewModelProvider(this).get(MarketViewModel.class);
         binding = FragmentMarketBinding.inflate(inflater, container, false);
 
         requireActivity().findViewById(R.id.toolbar_add).setVisibility(View.VISIBLE);

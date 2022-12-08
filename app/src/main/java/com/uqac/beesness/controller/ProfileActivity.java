@@ -38,6 +38,8 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+
         emailText = ((TextView) findViewById(R.id.mail_address)).getText().toString();
         lastname = findViewById(R.id.name);
         forename = findViewById(R.id.forename);
@@ -73,6 +75,15 @@ public class ProfileActivity extends AppCompatActivity {
         deleteAccount.setOnClickListener(v -> {
            showDialog();
         });
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        if (getIntent().getStringExtra("transition") != null) {
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+        }
+        return true;
     }
 
     private void modify() {
