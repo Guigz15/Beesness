@@ -1,11 +1,12 @@
 package com.uqac.beesness.controller;
 
-import static android.provider.MediaStore.Images.Media.insertImage;
+import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -14,7 +15,9 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.CalendarContract;
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -27,7 +30,6 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
-
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
@@ -36,7 +38,6 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.models.SlideModel;
@@ -46,25 +47,26 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.uqac.beesness.R;
+import com.uqac.beesness.database.DAOApiaries;
 import com.uqac.beesness.database.DAOBeehives;
 import com.uqac.beesness.database.DAOHoneySuper;
 import com.uqac.beesness.database.DAOVisits;
 import com.uqac.beesness.databinding.FragmentBeehiveDetailsMainBinding;
+import com.uqac.beesness.model.ApiaryModel;
 import com.uqac.beesness.model.BeehiveModel;
 import com.uqac.beesness.model.HoneySuperModel;
 import com.uqac.beesness.model.VisitModel;
-
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
+import android.provider.CalendarContract.Events;
 
 public class BeehiveDetailsMainFragment extends Fragment {
 
@@ -303,6 +305,29 @@ public class BeehiveDetailsMainFragment extends Fragment {
         dialog.show();
     }
 
+    private void addEvent(String title, String description, String location, long startDate) {
+        Intent intent = new Intent(Intent.ACTION_INSERT)
+                .setData(Events.CONTENT_URI)
+                .putExtra(Events.TITLE, title)
+                .putExtra(Events.DESCRIPTION, description)
+                .putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, startDate)
+                .putExtra(Events.ALL_DAY, true)
+                .putExtra(Events.EVENT_LOCATION, location);
+        startActivity(intent);
+    }
+
+    private boolean checkPermission(String... permissionsId) {
+        boolean permissions = true;
+        for (String p : permissionsId) {
+            permissions = permissions && ContextCompat.checkSelfPermission(requireContext(), p) == PERMISSION_GRANTED;
+        }
+
+        if (!permissions)
+            ActivityCompat.requestPermissions(requireActivity(), permissionsId, 42);
+
+        return permissions;
+    }
+
     private void addVisitDialog(Activity activity) {
         final Dialog dialog = new Dialog(activity);
         dialog.setContentView(R.layout.dialog_add_visit);
@@ -356,6 +381,33 @@ public class BeehiveDetailsMainFragment extends Fragment {
                 if (task.isSuccessful()) {
                     Toast.makeText(activity, "Visite ajoutée", Toast.LENGTH_SHORT).show();
                     dialog.dismiss();
+                    DAOBeehives daoBeehives = new DAOBeehives();
+                    daoBeehives.find(idBeehive).get().addOnCompleteListener(task1 -> {
+                        if (task1.isSuccessful()) {
+                            for (DataSnapshot snapshot : task1.getResult().getChildren()) {
+                                BeehiveModel beehive = snapshot.getValue(BeehiveModel.class);
+                                if (beehive != null) {
+                                    DAOApiaries daoApiaries = new DAOApiaries();
+                                    daoApiaries.find(beehive.getIdApiary()).get().addOnCompleteListener(task2 -> {
+                                        if (task2.isSuccessful()) {
+                                            for (DataSnapshot snapshot1 : task2.getResult().getChildren()) {
+                                                ApiaryModel apiary = snapshot1.getValue(ApiaryModel.class);
+                                                if (apiary != null) {
+                                                    String title = "Visite de " + beehive.getName();
+                                                    String description = visitTypes.get(visitType[0].ordinal());
+                                                    String location = apiary.getLocation().toString();
+                                                    Calendar calendar = Calendar.getInstance();
+                                                    calendar.set(visitDate.getYear(), visitDate.getMonth(), visitDate.getDayOfMonth());
+                                                    if (checkPermission(Manifest.permission.WRITE_CALENDAR, Manifest.permission.READ_CALENDAR))
+                                                        addEvent(title, description, location, calendar.getTimeInMillis());
+                                                }
+                                            }
+                                        }
+                                    });
+                                }
+                            }
+                        }
+                    });
                 } else {
                     Toast.makeText(activity, "Erreur lors de l'ajout de la visite", Toast.LENGTH_SHORT).show();
                 }

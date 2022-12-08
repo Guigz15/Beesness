@@ -1,5 +1,7 @@
 package com.uqac.beesness.model;
 
+import androidx.annotation.NonNull;
+
 public class LocationModel {
     private double latitude;
     private double longitude;
@@ -25,5 +27,11 @@ public class LocationModel {
 
     public void setLongitude(double longitude) {
         this.longitude = longitude;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return latitude + ", " + longitude;
     }
 }
