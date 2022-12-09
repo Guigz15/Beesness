@@ -58,44 +58,28 @@ public class SubscriptionActivity extends AppCompatActivity {
         if (lastnameText.isEmpty()) {
             lastname.setError("Veuillez entrer votre nom");
             lastname.requestFocus();
-        }
-
-        if (firstnameText.isEmpty()) {
+        } else if (firstnameText.isEmpty()) {
             firstname.setError("Veuillez entrer votre prénom");
             firstname.requestFocus();
-        }
-
-        if (emailText.isEmpty()) {
+        } else if (emailText.isEmpty()) {
             email.setError("Veuillez entrer une adresse email");
             email.requestFocus();
-        }
-
-        if (!Patterns.EMAIL_ADDRESS.matcher(emailText).matches()) {
+        } else if (!Patterns.EMAIL_ADDRESS.matcher(emailText).matches()) {
             email.setError("Veuillez entrer une adresse email valide");
             email.requestFocus();
-        }
-
-        if (passwordText.isEmpty()) {
+        } else if (passwordText.isEmpty()) {
             password.setError("Veuillez entrer un mot de passe");
             password.requestFocus();
-        }
-
-        if (!passwordValid(passwordText)) {
+        } else if (!passwordValid(passwordText)) {
             password.setError("Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule et un chiffre");
             password.requestFocus();
-        }
-
-        if (passwordConfirmText.isEmpty()) {
+        } else if (passwordConfirmText.isEmpty()) {
             passwordConfirm.setError("Veuillez confirmer votre mot de passe");
             passwordConfirm.requestFocus();
-        }
-
-        if (!passwordText.equals(passwordConfirmText)) {
+        } else if (!passwordText.equals(passwordConfirmText)) {
             passwordConfirm.setError("Les mots de passe ne correspondent pas");
             passwordConfirm.requestFocus();
-        }
-
-        if (!lastnameText.isEmpty() && !firstnameText.isEmpty() && !emailText.isEmpty() && !passwordText.isEmpty() && !passwordConfirmText.isEmpty() && passwordText.equals(passwordConfirmText)) {
+        } else {
             mAuth.createUserWithEmailAndPassword(emailText, passwordText)
                     .addOnCompleteListener(this, task -> {
                         if (task.isSuccessful()) {

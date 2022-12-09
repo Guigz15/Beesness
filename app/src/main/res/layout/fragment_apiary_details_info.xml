@@ -62,16 +62,16 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/latitude_title"
+                        android:id="@+id/longitude_title"
                         android:layout_width="110dp"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/dosis_book"
-                        android:text="@string/latitude"
+                        android:text="@string/longitude"
                         android:textColor="@color/writing_color"
                         android:textSize="26sp" />
 
                     <TextView
-                        android:id="@+id/latitude_value"
+                        android:id="@+id/longitude_value"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -91,16 +91,16 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/longitude_title"
+                        android:id="@+id/latitude_title"
                         android:layout_width="110dp"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/dosis_book"
-                        android:text="@string/longitude"
+                        android:text="@string/latitude"
                         android:textColor="@color/writing_color"
                         android:textSize="26sp" />
 
                     <TextView
-                        android:id="@+id/longitude_value"
+                        android:id="@+id/latitude_value"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
