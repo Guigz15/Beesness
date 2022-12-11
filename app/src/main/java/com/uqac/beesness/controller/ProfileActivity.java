@@ -31,7 +31,6 @@ import java.util.Objects;
 public class ProfileActivity extends AppCompatActivity {
 
     private EditText lastname, forename, address, beekeeper_number;
-    private String emailText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +39,6 @@ public class ProfileActivity extends AppCompatActivity {
 
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
-        emailText = ((TextView) findViewById(R.id.mail_address)).getText().toString();
         lastname = findViewById(R.id.name);
         forename = findViewById(R.id.forename);
         address = findViewById(R.id.address);
@@ -56,10 +54,10 @@ public class ProfileActivity extends AppCompatActivity {
                     UserModel userModel = snapshot.getValue(UserModel.class);
                     assert userModel != null;
                     ((TextView) findViewById(R.id.mail_address)).setText(userModel.getEmail());
-                    ((TextView) findViewById(R.id.name)).setText(userModel.getLastname());
-                    ((TextView) findViewById(R.id.forename)).setText(userModel.getFirstname());
-                    ((TextView) findViewById(R.id.address)).setText(userModel.getAddress());
-                    ((TextView) findViewById(R.id.beekeeper_number)).setText(userModel.getBeekeeper_number());
+                    ((TextView) lastname).setText(userModel.getLastname());
+                    ((TextView) forename).setText(userModel.getFirstname());
+                    ((TextView) address).setText(userModel.getAddress());
+                    ((TextView) beekeeper_number).setText(userModel.getBeekeeper_number());
                 }
 
                 @Override
@@ -72,9 +70,7 @@ public class ProfileActivity extends AppCompatActivity {
         modifyAccount.setOnClickListener(v -> modify());
 
         TextView deleteAccount = findViewById(R.id.delete_account);
-        deleteAccount.setOnClickListener(v -> {
-           showDialog();
-        });
+        deleteAccount.setOnClickListener(v -> showDialog());
     }
 
     @Override
@@ -131,6 +127,7 @@ public class ProfileActivity extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     FirebaseAuth.getInstance().getCurrentUser().delete();
                     Toast.makeText(ProfileActivity.this, "Votre compte a été supprimé", Toast.LENGTH_SHORT).show();
+                    deleteAccountDialog.dismiss();
 
                     //Deconnexion
                     FirebaseAuth.getInstance().signOut();
@@ -144,11 +141,7 @@ public class ProfileActivity extends AppCompatActivity {
         });
 
 
-
-
-        deleteAccountView.findViewById(R.id.cancel_button).setOnClickListener(v -> {
-            deleteAccountDialog.dismiss();
-        });
+        deleteAccountView.findViewById(R.id.cancel_button).setOnClickListener(v -> deleteAccountDialog.dismiss());
 
         deleteAccountDialog.setContentView(deleteAccountView);
         deleteAccountDialog.show();

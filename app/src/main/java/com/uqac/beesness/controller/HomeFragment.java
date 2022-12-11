@@ -1,5 +1,6 @@
 package com.uqac.beesness.controller;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -47,6 +48,7 @@ public class HomeFragment extends Fragment {
         DatabaseReference userReference = FirebaseDatabase.getInstance().getReference("Users");
         if (user != null) {
             userReference.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                @SuppressLint("SetTextI18n")
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     UserModel userModel = snapshot.getValue(UserModel.class);
@@ -102,6 +104,13 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        return binding.getRoot();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
         DAOVisits daoVisits = new DAOVisits();
         Query healthCheckQuery = daoVisits.findAllForCurrentUserAndType("SANITARY_CONTROL");
         RecyclerView healthCheckRecyclerView = binding.healthCheckList;
@@ -147,12 +156,6 @@ public class HomeFragment extends Fragment {
         otherRecyclerView.setLayoutManager(linearLayoutManager4);
         otherRecyclerView.setAdapter(otherAdapter);
 
-        return binding.getRoot();
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
         healthCheckAdapter.startListening();
         feedingAdapter.startListening();
         harvestAdapter.startListening();

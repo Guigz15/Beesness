@@ -3,6 +3,7 @@ package com.uqac.beesness.controller;
 import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -72,7 +73,6 @@ public class BeehiveDetailsMainFragment extends Fragment {
 
     private FragmentBeehiveDetailsMainBinding binding;
     private ImageSlider imageSlider;
-    private ImageButton addPictureButton, addHoneySuperButton, addVisitButton;
     private DAOBeehives daoBeehives;
     private String idBeehive;
     private HoneySuperAdapter honeySuperAdapter;
@@ -88,7 +88,7 @@ public class BeehiveDetailsMainFragment extends Fragment {
         daoBeehives = new DAOBeehives();
         idBeehive = ((BeehiveDetailsActivity) requireActivity()).getIdBeehive();
 
-        addPictureButton = binding.addPictures;
+        ImageButton addPictureButton = binding.addPictures;
         addPictureButton.setOnClickListener(v -> selectImage(getContext()));
         imageSlider = binding.imageSlider;
         List<SlideModel> slideModels = new ArrayList<>();
@@ -117,7 +117,7 @@ public class BeehiveDetailsMainFragment extends Fragment {
             }
         });
 
-        addHoneySuperButton = binding.addHoneySuper;
+        ImageButton addHoneySuperButton = binding.addHoneySuper;
         addHoneySuperButton.setOnClickListener(v -> addHoneySuperDialog(requireActivity()));
         daoHoneySuper = new DAOHoneySuper();
         Query query = daoHoneySuper.findAllForBeehive(idBeehive);
@@ -131,7 +131,7 @@ public class BeehiveDetailsMainFragment extends Fragment {
         honeySuperRecyclerView.setLayoutManager(linearLayoutManager);
         honeySuperRecyclerView.setAdapter(honeySuperAdapter);
 
-        addVisitButton = binding.addVisit;
+        ImageButton addVisitButton = binding.addVisit;
         addVisitButton.setOnClickListener(v -> addVisitDialog(requireActivity()));
         daoVisits = new DAOVisits();
         Query queryVisits = daoVisits.findAllForBeehive(idBeehive);
@@ -262,6 +262,7 @@ public class BeehiveDetailsMainFragment extends Fragment {
         dialog.show();
     }
 
+    @SuppressLint("SetTextI18n")
     private void editHoneySuperDialog(Activity activity, HoneySuperModel honeySuper) {
         final Dialog dialog = new Dialog(activity);
         dialog.setContentView(R.layout.dialog_add_honey_super);
@@ -420,6 +421,7 @@ public class BeehiveDetailsMainFragment extends Fragment {
         dialog.show();
     }
 
+    @SuppressLint("SetTextI18n")
     private void editVisitDialog(Activity activity, VisitModel visit) {
         final Dialog dialog = new Dialog(activity);
         dialog.setContentView(R.layout.dialog_add_visit);
@@ -476,6 +478,7 @@ public class BeehiveDetailsMainFragment extends Fragment {
             map.put("date", date);
             map.put("description", reason);
             map.put("visitType", visitType[0]);
+            map.put("idUser_visitType", Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid() + "_" + visitType[0]);
             daoVisit.update(idVisit, map).addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
                     Toast.makeText(activity, "Visite modifiée", Toast.LENGTH_SHORT).show();

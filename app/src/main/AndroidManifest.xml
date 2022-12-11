@@ -27,18 +27,6 @@
             android:theme="@style/AppTheme">
         </activity>
         <activity
-            android:name=".controller.QrCodeScannerActivity"
-            android:screenOrientation="portrait"
-            android:exported="false"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
-        <activity
-            android:name=".controller.MapActivity"
-            android:screenOrientation="portrait"
-            android:exported="false"
-            android:label="Positionner votre rucher"
-            android:parentActivityName=".controller.AddUpdateApiaryActivity"
-            android:theme="@style/Theme.AppCompat.Light" />
-        <activity
             android:name=".controller.ApiaryDetailsActivity"
             android:screenOrientation="portrait"
             android:exported="false"

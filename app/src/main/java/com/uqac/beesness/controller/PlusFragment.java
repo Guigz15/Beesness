@@ -1,5 +1,6 @@
 package com.uqac.beesness.controller;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -22,10 +23,13 @@ public class PlusFragment extends Fragment {
 
     private FragmentPlusBinding binding;
 
+    @SuppressLint("SetTextI18n")
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentPlusBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
+        requireActivity().findViewById(R.id.toolbar_add).setVisibility(View.GONE);
+        requireActivity().findViewById(R.id.space).setVisibility(View.GONE);
         ((TextView) requireActivity().findViewById(R.id.title_text)).setText("Plus");
 
         binding.accountCardView.setOnClickListener(v -> {

@@ -100,7 +100,7 @@
     <string name="queen">Reine</string>
     <string name="product_image">Image du produit</string>
     <string name="product_name">Nom du produit</string>
-    <string name="product_quantity">Quantité totale du produit</string>
+    <string name="product_quantity">Quantité totale du produit (kg)</string>
     <string name="delete_beehive_confirmation">Êtes-vous sûr de vouloir supprimer cette ruche ?</string>
     <string name="visit_type">visit_type</string>
     <string name="visit_type_prompt">Type de visite</string>

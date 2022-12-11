@@ -21,7 +21,6 @@ public class SubscriptionActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private EditText lastname, firstname, email, password, passwordConfirm;
-    private Button subscribeButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +36,7 @@ public class SubscriptionActivity extends AppCompatActivity {
         password = findViewById(R.id.password);
         passwordConfirm = findViewById(R.id.password_checking);
 
-        subscribeButton = findViewById(R.id.subscription_button);
+        Button subscribeButton = findViewById(R.id.subscription_button);
         subscribeButton.setOnClickListener(v -> subscribeUser());
 
         TextView loginButton = findViewById(R.id.connect);
@@ -73,12 +72,15 @@ public class SubscriptionActivity extends AppCompatActivity {
         } else if (!passwordValid(passwordText)) {
             password.setError("Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule et un chiffre");
             password.requestFocus();
+            if (!passwordConfirmText.isEmpty())
+                passwordConfirm.setText("");
         } else if (passwordConfirmText.isEmpty()) {
             passwordConfirm.setError("Veuillez confirmer votre mot de passe");
             passwordConfirm.requestFocus();
         } else if (!passwordText.equals(passwordConfirmText)) {
             passwordConfirm.setError("Les mots de passe ne correspondent pas");
             passwordConfirm.requestFocus();
+            passwordConfirm.setText("");
         } else {
             mAuth.createUserWithEmailAndPassword(emailText, passwordText)
                     .addOnCompleteListener(this, task -> {
@@ -124,11 +126,8 @@ public class SubscriptionActivity extends AppCompatActivity {
         Pattern lowerCasePatten = Pattern.compile("[a-z]");
         Pattern digitCasePatten = Pattern.compile("[0-9]");
 
-        boolean flag = true;
+        boolean flag = password.length() >= 8;
 
-        if (password.length() < 8) {
-            flag = false;
-        }
         if (!UpperCasePatten.matcher(password).find()) {
             flag = false;
         }

@@ -54,7 +54,7 @@
             android:ems="13"
             android:fontFamily="@font/dosis_book"
             android:hint="@string/product_quantity"
-            android:inputType="text"
+            android:inputType="numberSigned"
             android:textColor="@color/white"
             android:textColorHint="@color/white2"
             android:textSize="22sp" />
@@ -91,7 +91,8 @@
             android:layout_width="match_parent"
             android:layout_height="313dp"
             android:layout_marginTop="5dp"
-            android:layout_marginBottom="30dp" />
+            android:layout_marginBottom="30dp"
+            android:contentDescription="@string/product_image" />
     </LinearLayout>
 
     <Button

@@ -66,10 +66,7 @@ public class AddUpdateApiaryActivity extends AppCompatActivity {
         }
 
         Button pinOnMapButton = findViewById(R.id.situerCarteButton);
-        pinOnMapButton.setOnClickListener(v -> {
-            Intent intent = new Intent(this, MapActivity.class);
-            startActivity(intent);
-        });
+        pinOnMapButton.setOnClickListener(v -> Toast.makeText(this, "En développement", Toast.LENGTH_SHORT).show());
 
         Button saveButton = findViewById(R.id.save_button);
         saveButton.setOnClickListener(v -> saveApiary());

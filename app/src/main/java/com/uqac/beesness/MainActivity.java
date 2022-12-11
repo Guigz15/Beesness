@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,7 +19,6 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import com.uqac.beesness.controller.LoginActivity;
 import com.uqac.beesness.controller.ProfileActivity;
-import com.uqac.beesness.controller.QrCodeScannerActivity;
 
 import com.uqac.beesness.databinding.ActivityMainBinding;
 
@@ -26,21 +26,16 @@ import com.uqac.beesness.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ActivityMainBinding binding;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         // To define qrCode button behavior
         ImageButton qrCodeButton = findViewById(R.id.toolbar_qr_code_scanner);
-        qrCodeButton.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, QrCodeScannerActivity.class);
-            startActivity(intent);
-        });
+        qrCodeButton.setOnClickListener(v -> Toast.makeText(this, "En développement", Toast.LENGTH_SHORT).show());
 
         // To define menu items behavior
         ImageButton menuButton = findViewById(R.id.toolbar_more_vert);
@@ -61,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment_activity_main);
+        assert navHostFragment != null;
         NavController navController = navHostFragment.getNavController();
         NavigationUI.setupWithNavController(binding.navView, navController);
     }
@@ -76,9 +72,7 @@ public class MainActivity extends AppCompatActivity {
             finish();
         });
 
-        logoutView.findViewById(R.id.cancel_button).setOnClickListener(v -> {
-            logoutDialog.dismiss();
-        });
+        logoutView.findViewById(R.id.cancel_button).setOnClickListener(v -> logoutDialog.dismiss());
 
         logoutDialog.setContentView(logoutView);
         logoutDialog.show();
