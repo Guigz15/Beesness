@@ -1,57 +1,36 @@
 package com.uqac.beesness.controller;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
-
 import com.uqac.beesness.R;
-
-import com.uqac.beesness.database.DAOProducts;
 import com.uqac.beesness.model.ProductModel;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
-
+/**
+ * Adapter for the products recycler view
+ */
 public class ProductAdapter extends FirebaseRecyclerAdapter<ProductModel, ProductAdapter.ViewHolder> {
-
-
 
     public ProductAdapter(@NonNull FirebaseRecyclerOptions<ProductModel> options) {
         super(options);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onBindViewHolder(@NonNull ProductAdapter.ViewHolder holder, int position, @NonNull ProductModel model) {
 
         Glide.with(holder.productImage.getContext()).load(model.getPictureUrl()).into(holder.productImage);
         holder.productName.setText(model.getName());
-        holder.productQuantity.setText(String.valueOf(model.getQuantityProduct()) + "kg");
-
-        /*DAOProducts daoProducts = new DAOProducts();
-        daoProducts.findAllForUser().addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                holder.productQuantity.setText(String.valueOf(snapshot.getChildrenCount()));
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) { }
-        });*/
+        holder.productQuantity.setText(model.getQuantityProduct() + "kg");
     }
 
     @NonNull
@@ -69,6 +48,9 @@ public class ProductAdapter extends FirebaseRecyclerAdapter<ProductModel, Produc
         return viewHolder;
     }
 
+    /**
+     * View holder for the products recycler view
+     */
     static class ViewHolder extends RecyclerView.ViewHolder {
         private final ImageView productImage;
         private final TextView productName;
@@ -92,5 +74,4 @@ public class ProductAdapter extends FirebaseRecyclerAdapter<ProductModel, Produc
             mClickListener = clickListener;
         }
     }
-
 }

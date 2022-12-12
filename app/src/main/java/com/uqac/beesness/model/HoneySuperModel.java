@@ -1,5 +1,8 @@
 package com.uqac.beesness.model;
 
+/**
+ * This class represents a honey super.
+ */
 public class HoneySuperModel {
 
     private String idHoneySuper;

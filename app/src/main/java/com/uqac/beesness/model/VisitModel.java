@@ -1,7 +1,13 @@
 package com.uqac.beesness.model;
 
+/**
+ * This class represents a visit.
+ */
 public class VisitModel {
 
+    /**
+     * Enum for the status of a visit.
+     */
     public enum VisitType {
         SANITARY_CONTROL,
         FEEDING,
@@ -16,8 +22,7 @@ public class VisitModel {
     private String idBeehive;
     private String idUser_visitType;
 
-    public VisitModel() {
-    }
+    public VisitModel() {}
 
     public VisitModel(String idVisit, String date, String description, VisitType visitType, String idBeehive, String idUser_visitType) {
         this.idVisit = idVisit;
@@ -26,13 +31,6 @@ public class VisitModel {
         this.visitType = visitType;
         this.idBeehive = idBeehive;
         this.idUser_visitType = idUser_visitType;
-    }
-
-    public VisitModel(String idVisit, String date, VisitType visitType, String idBeehive) {
-        this.idVisit = idVisit;
-        this.date = date;
-        this.visitType = visitType;
-        this.idBeehive = idBeehive;
     }
 
     public String getIdVisit() {

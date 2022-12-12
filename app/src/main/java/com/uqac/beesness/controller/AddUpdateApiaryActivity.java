@@ -1,15 +1,11 @@
 package com.uqac.beesness.controller;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -18,10 +14,12 @@ import com.uqac.beesness.R;
 import com.uqac.beesness.database.DAOApiaries;
 import com.uqac.beesness.model.ApiaryModel;
 import com.uqac.beesness.model.LocationModel;
-
 import java.util.HashMap;
 import java.util.Objects;
 
+/**
+ * Activity to add or update an apiary
+ */
 public class AddUpdateApiaryActivity extends AppCompatActivity {
 
     private EditText apiaryName, apiaryEnvironment, apiaryDescription, apiaryLongitude, apiaryLatitude;
@@ -78,6 +76,9 @@ public class AddUpdateApiaryActivity extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * Save the apiary in the database
+     */
     private void saveApiary() {
         String apiaryNameText = apiaryName.getText().toString();
         String apiaryEnvironmentText = apiaryEnvironment.getText().toString();
@@ -142,6 +143,12 @@ public class AddUpdateApiaryActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Check if the location is valid
+     * @param longitudeText longitude value
+     * @param latitudeText latitude value
+     * @return true if the location is valid, false otherwise
+     */
     private boolean locationIsValid(String longitudeText, String latitudeText) {
         double longitude = Double.parseDouble(longitudeText);
         double latitude = Double.parseDouble(latitudeText);

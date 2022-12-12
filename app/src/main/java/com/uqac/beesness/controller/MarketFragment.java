@@ -1,29 +1,32 @@
 package com.uqac.beesness.controller;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
-
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.uqac.beesness.R;
 import com.uqac.beesness.database.DAOProducts;
 import com.uqac.beesness.databinding.FragmentMarketBinding;
 import com.uqac.beesness.model.ProductModel;
 
+/**
+ * Fragment to handle the market tab
+ */
 public class MarketFragment extends Fragment {
 
     private FragmentMarketBinding binding;
     private ProductAdapter adapter;
 
+    @SuppressLint("SetTextI18n")
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentMarketBinding.inflate(inflater, container, false);
 

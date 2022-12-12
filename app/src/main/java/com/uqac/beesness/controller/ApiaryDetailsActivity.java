@@ -10,20 +10,17 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.uqac.beesness.R;
 import com.uqac.beesness.database.DAOApiaries;
-import com.uqac.beesness.database.DAOBeehives;
-import com.uqac.beesness.database.DAOHoneySuper;
 import com.uqac.beesness.model.ApiaryModel;
 
+/**
+ * Activity for the details of an apiary
+ */
 public class ApiaryDetailsActivity extends AppCompatActivity {
 
     private String idApiary;
@@ -110,11 +107,14 @@ public class ApiaryDetailsActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Show the dialog to delete an apiary
+     */
     private void showDialog() {
         deleteApiaryDialog = new BottomSheetDialog(this, R.style.BottomSheetDialogTheme);
         View deleteApiaryView = getLayoutInflater().inflate(R.layout.delete_apiary_confirmation, findViewById(R.id.bottom_sheet_container));
 
-        deleteApiaryView.findViewById(R.id.delete_button).setOnClickListener(v -> {
+        deleteApiaryView.findViewById(R.id.delete_button).setOnClickListener(v ->
             daoApiaries.delete(idApiary).addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
                     Toast.makeText(ApiaryDetailsActivity.this, "Le rucher a été supprimé", Toast.LENGTH_SHORT).show();
@@ -122,21 +122,27 @@ public class ApiaryDetailsActivity extends AppCompatActivity {
                 } else {
                     Toast.makeText(ApiaryDetailsActivity.this, "Une erreur est survenue", Toast.LENGTH_SHORT).show();
                 }
-            });
-        });
+            }
+        ));
 
-        deleteApiaryView.findViewById(R.id.cancel_button).setOnClickListener(v -> {
-            deleteApiaryDialog.dismiss();
-        });
+        deleteApiaryView.findViewById(R.id.cancel_button).setOnClickListener(v -> deleteApiaryDialog.dismiss());
 
         deleteApiaryDialog.setContentView(deleteApiaryView);
         deleteApiaryDialog.show();
     }
 
+    /**
+     * Get the id of the apiary
+     * @return the id of the apiary
+     */
     public String getIdApiary() {
         return idApiary;
     }
 
+    /**
+     * Get the apiary's name
+     * @return the apiary's name
+     */
     public String getApiaryName() {
         return apiaryNameTextView.getText().toString();
     }

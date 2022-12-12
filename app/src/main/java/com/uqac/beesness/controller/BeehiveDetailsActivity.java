@@ -1,32 +1,31 @@
 package com.uqac.beesness.controller;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
-import com.uqac.beesness.MainActivity;
 import com.uqac.beesness.R;
 import com.uqac.beesness.database.DAOBeehives;
-import com.uqac.beesness.model.BeeQueenModel;
 import com.uqac.beesness.model.BeehiveModel;
 
+/**
+ * Activity for details of a beehive
+ */
 public class BeehiveDetailsActivity extends AppCompatActivity {
 
     private String idBeehive;
     private TextView beehiveNameTextView;
-    private ImageButton infoButton, editButton, backButton, deleteButton;
+    private ImageButton infoButton;
     private DAOBeehives daoBeehives;
     private BottomSheetDialog deleteBeehiveDialog;
 
@@ -70,27 +69,28 @@ public class BeehiveDetailsActivity extends AppCompatActivity {
             fragmentTransaction.commit();
         });
 
-        editButton = findViewById(R.id.edit_button);
+        ImageButton editButton = findViewById(R.id.edit_button);
         editButton.setOnClickListener(v -> {
             Intent intent = new Intent(this, AddUpdateBeehiveActivity.class);
             intent.putExtra("idBeehive", idBeehive);
             startActivity(intent);
         });
 
-        deleteButton = findViewById(R.id.delete_button);
-        deleteButton.setOnClickListener(v -> {
-            showDialog();
-        });
+        ImageButton deleteButton = findViewById(R.id.delete_button);
+        deleteButton.setOnClickListener(v -> showDialog());
 
-        backButton = findViewById(R.id.back_button);
+        ImageButton backButton = findViewById(R.id.back_button);
         backButton.setOnClickListener(v -> finish());
     }
 
+    /**
+     * Show the dialog to confirm the deletion of a beehive
+     */
     private void showDialog() {
         deleteBeehiveDialog = new BottomSheetDialog(this, R.style.BottomSheetDialogTheme);
         View deleteBeehiveView = getLayoutInflater().inflate(R.layout.delete_beehive_confirmation, findViewById(R.id.bottom_sheet_container));
 
-        deleteBeehiveView.findViewById(R.id.delete_button).setOnClickListener(v -> {
+        deleteBeehiveView.findViewById(R.id.delete_button).setOnClickListener(v ->
             daoBeehives.delete(idBeehive).addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
                     Toast.makeText(this, "La ruche a été supprimé", Toast.LENGTH_SHORT).show();
@@ -98,12 +98,10 @@ public class BeehiveDetailsActivity extends AppCompatActivity {
                 } else {
                     Toast.makeText(this, "Une erreur est survenue", Toast.LENGTH_SHORT).show();
                 }
-            });
-        });
+            }
+        ));
 
-        deleteBeehiveView.findViewById(R.id.cancel_button).setOnClickListener(v -> {
-            deleteBeehiveDialog.dismiss();
-        });
+        deleteBeehiveView.findViewById(R.id.cancel_button).setOnClickListener(v -> deleteBeehiveDialog.dismiss());
 
         deleteBeehiveDialog.setContentView(deleteBeehiveView);
         deleteBeehiveDialog.show();
@@ -133,6 +131,10 @@ public class BeehiveDetailsActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Get the id of the beehive
+     * @return the id of the beehive
+     */
     public String getIdBeehive() {
         return idBeehive;
     }

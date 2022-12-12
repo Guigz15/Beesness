@@ -2,12 +2,10 @@ package com.uqac.beesness.controller;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -16,10 +14,12 @@ import com.uqac.beesness.R;
 import com.uqac.beesness.database.DAOBeehives;
 import com.uqac.beesness.model.BeeQueenModel;
 import com.uqac.beesness.model.BeehiveModel;
-
 import java.util.HashMap;
 import java.util.Objects;
 
+/**
+ * Activity to add or update a beehive
+ */
 public class AddUpdateBeehiveActivity extends AppCompatActivity {
 
     private EditText beehiveName, beehiveDetails, beehiveType, queenOrigin, queenLine, queenBirthYear;
@@ -79,6 +79,9 @@ public class AddUpdateBeehiveActivity extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * Save the beehive in the database
+     */
     private void saveBeehive() {
         String beehiveNameText = beehiveName.getText().toString();
         String beehiveDetailsText = beehiveDetails.getText().toString();

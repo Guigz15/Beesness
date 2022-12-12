@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * This class represents a beehive.
+ */
 public class BeehiveModel {
 
     private String idBeehive;
@@ -11,7 +14,6 @@ public class BeehiveModel {
     private String type;
     private String details;
     private HashMap<String, String> picturesUrl;
-    //private String qrCode;
     private String idApiary;
     private List<HoneySuperModel> honeySupers;
     private List<VisitModel> visits;
@@ -29,7 +31,6 @@ public class BeehiveModel {
         this.name = name;
         this.type = type;
         this.details = details;
-        //this.qrCode = qrCode;
         this.idApiary = idApiary;
         this.honeySupers = new ArrayList<>();
         this.visits = new ArrayList<>();
@@ -65,10 +66,6 @@ public class BeehiveModel {
     public HashMap<String, String> getPicturesUrl() { return picturesUrl; }
 
     public void setPicturesUrl(HashMap<String, String> picturesUrl) { this.picturesUrl = picturesUrl; }
-
-    // public String getQrCode() { return qrCode; }
-    //
-    // public void setQrCode(String qrCode) { this.qrCode = qrCode; }
 
     public String getIdApiary() { return idApiary; }
 

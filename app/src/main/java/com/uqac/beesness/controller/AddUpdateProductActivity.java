@@ -17,27 +17,24 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
-
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-
-import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.uqac.beesness.R;
-
 import com.uqac.beesness.database.DAOProducts;
 import com.uqac.beesness.model.ProductModel;
-
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.Objects;
 
+/**
+ * Activity to add or update a product
+ */
 public class AddUpdateProductActivity extends AppCompatActivity {
     private EditText productName, productQuantity;
-    private ImageButton addPictureButton;
     private ImageView productImage;
     private DAOProducts daoProducts;
     private String idProduct;
@@ -55,7 +52,7 @@ public class AddUpdateProductActivity extends AppCompatActivity {
 
         daoProducts = new DAOProducts();
 
-        addPictureButton = findViewById(R.id.add_pictures);
+        ImageButton addPictureButton = findViewById(R.id.add_pictures);
         addPictureButton.setOnClickListener(v -> selectImage(this));
 
         Button saveButton = findViewById(R.id.save_button);
@@ -68,24 +65,21 @@ public class AddUpdateProductActivity extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * Save the product in the database
+     */
     private void saveProduct() {
         String nameText = productName.getText().toString();
         String quantityText = productQuantity.getText().toString();
-        String image = "";
 
         if (nameText.isEmpty()) {
             productName.setError("Veuillez entrer un nom de produit");
             productName.requestFocus();
         }
 
-/*
-        if (quantityText.isEmpty()) {
-            productQuantity.setError("Veuillez entrer une quantité");
-            productQuantity.requestFocus();
-        }*/
         String userId = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
 
-        if (!nameText.isEmpty() && !quantityText.isEmpty() && !productImage.getDrawable().equals(null)) {
+        if (!nameText.isEmpty() && !quantityText.isEmpty() && productImage.getDrawable() != null) {
             daoProducts = new DAOProducts();
 
             if (getIntent().getStringExtra("idProduct") == null) {
@@ -96,7 +90,7 @@ public class AddUpdateProductActivity extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         if((productImage.getDrawable()) instanceof BitmapDrawable) {
                             Bitmap bitmap = ((BitmapDrawable) productImage.getDrawable()).getBitmap();
-                            daoProducts.addPictureFromCamera(idProduct, bitmap);
+                            daoProducts.addPicture(idProduct, bitmap);
                         }
                         Toast.makeText(this, "Produit ajouté", Toast.LENGTH_LONG).show();
                         finish();
@@ -104,12 +98,14 @@ public class AddUpdateProductActivity extends AppCompatActivity {
                         Toast.makeText(this, "Erreur lors de l'ajout du produit", Toast.LENGTH_LONG).show();
                     }
                 });
-            } else {
-
             }
         }
     }
 
+    /**
+     * Select an image from the gallery or take a picture
+     * @param context the context
+     */
     private void selectImage(Context context) {
         if (ContextCompat.checkSelfPermission(context, Manifest.permission.CAMERA) == PackageManager.PERMISSION_DENIED)
             ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.CAMERA}, 100);
@@ -132,31 +128,30 @@ public class AddUpdateProductActivity extends AppCompatActivity {
         });
 
         builder.show();
-
     }
 
     ActivityResultLauncher<Intent> launcher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
-            result -> {
-                if (result.getResultCode() == Activity.RESULT_OK) {
-                    Intent data = result.getData();
-                    if (data != null) {
-                        if (data.getData() == null) {
-                            Bitmap bitmap = (Bitmap) data.getExtras().get("data");
-                            productImage.setImageBitmap(bitmap);
+        result -> {
+            if (result.getResultCode() == Activity.RESULT_OK) {
+                Intent data = result.getData();
+                if (data != null) {
+                    if (data.getData() == null) {
+                        Bitmap bitmap = (Bitmap) data.getExtras().get("data");
+                        productImage.setImageBitmap(bitmap);
 
-                        } else {
-                            Uri selectedImageUri = data.getData();
-                            InputStream imageStream = null;
-                            try {
-                                imageStream = getContentResolver().openInputStream(selectedImageUri);
-                            } catch (FileNotFoundException e) {
-                                e.printStackTrace();
-                            }
-                            Bitmap bitmap = BitmapFactory.decodeStream(imageStream);
-                            productImage.setImageBitmap(bitmap);
+                    } else {
+                        Uri selectedImageUri = data.getData();
+                        InputStream imageStream = null;
+                        try {
+                            imageStream = getContentResolver().openInputStream(selectedImageUri);
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
                         }
+                        Bitmap bitmap = BitmapFactory.decodeStream(imageStream);
+                        productImage.setImageBitmap(bitmap);
                     }
                 }
             }
+        }
     );
 }

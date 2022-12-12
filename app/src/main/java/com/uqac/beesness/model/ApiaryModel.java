@@ -1,20 +1,13 @@
 package com.uqac.beesness.model;
 
-import androidx.annotation.NonNull;
-
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
+/**
+ * This class represents an apiary.
+ */
 public class ApiaryModel {
+
     private String idApiary;
     private String name;
     private String environment;
@@ -84,6 +77,4 @@ public class ApiaryModel {
     public String getIdUser() { return idUser; }
 
     public void setIdUser(String idUser) { this.idUser = idUser; }
-
-    public void addBeehive(BeehiveModel beehive) { this.beehives.add(beehive); }
 }

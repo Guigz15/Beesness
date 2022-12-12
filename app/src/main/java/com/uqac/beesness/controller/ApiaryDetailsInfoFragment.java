@@ -3,20 +3,19 @@ package com.uqac.beesness.controller;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.uqac.beesness.database.DAOApiaries;
 import com.uqac.beesness.databinding.FragmentApiaryDetailsInfoBinding;
-
 import java.util.Objects;
 
+/**
+ * Fragment for the apiary details information
+ */
 public class ApiaryDetailsInfoFragment extends Fragment {
 
     private FragmentApiaryDetailsInfoBinding binding;

@@ -1,5 +1,6 @@
 package com.uqac.beesness.controller;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,7 +10,6 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -18,11 +18,15 @@ import com.uqac.beesness.database.DAOApiaries;
 import com.uqac.beesness.databinding.FragmentApiariesBinding;
 import com.uqac.beesness.model.ApiaryModel;
 
+/**
+ * Fragment to handle the apiaries tab
+ */
 public class ApiariesFragment extends Fragment {
 
     private FragmentApiariesBinding binding;
     private ApiariesAdapter adapter;
 
+    @SuppressLint("SetTextI18n")
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentApiariesBinding.inflate(inflater, container, false);

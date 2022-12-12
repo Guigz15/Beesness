@@ -1,13 +1,11 @@
 package com.uqac.beesness.controller;
 
 import static android.content.pm.PackageManager.PERMISSION_GRANTED;
-
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -16,9 +14,9 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.CalendarContract;
+import android.provider.CalendarContract.Events;
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -48,7 +46,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.uqac.beesness.R;
 import com.uqac.beesness.database.DAOApiaries;
 import com.uqac.beesness.database.DAOBeehives;
@@ -67,8 +64,10 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
-import android.provider.CalendarContract.Events;
 
+/**
+ * Fragment for the main beehive details page
+ */
 public class BeehiveDetailsMainFragment extends Fragment {
 
     private FragmentBeehiveDetailsMainBinding binding;
@@ -177,6 +176,10 @@ public class BeehiveDetailsMainFragment extends Fragment {
         return super.onContextItemSelected(item);
     }
 
+    /**
+     * Select an image from the gallery or take a picture
+     * @param context the context
+     */
     private void selectImage(Context context) {
         if (ContextCompat.checkSelfPermission(context, Manifest.permission.CAMERA) == PackageManager.PERMISSION_DENIED)
             ActivityCompat.requestPermissions(requireActivity(), new String[] {Manifest.permission.CAMERA}, 100);
@@ -207,7 +210,7 @@ public class BeehiveDetailsMainFragment extends Fragment {
                 if (data != null) {
                     if (data.getData() == null) {
                         Bitmap bitmap = (Bitmap) data.getExtras().get("data");
-                        daoBeehives.addPictureFromCamera(idBeehive, bitmap);
+                        daoBeehives.addPicture(idBeehive, bitmap);
                     } else {
                         Uri selectedImageUri = data.getData();
                         InputStream imageStream = null;
@@ -217,13 +220,17 @@ public class BeehiveDetailsMainFragment extends Fragment {
                             e.printStackTrace();
                         }
                         Bitmap bitmap = BitmapFactory.decodeStream(imageStream);
-                        daoBeehives.addPictureFromCamera(idBeehive, bitmap);
+                        daoBeehives.addPicture(idBeehive, bitmap);
                     }
                 }
             }
         }
     );
 
+    /**
+     * Dialog to add a honey super
+     * @param activity the fragment's activity
+     */
     private void addHoneySuperDialog(Activity activity) {
         final Dialog dialog = new Dialog(activity);
         dialog.setContentView(R.layout.dialog_add_honey_super);
@@ -262,6 +269,11 @@ public class BeehiveDetailsMainFragment extends Fragment {
         dialog.show();
     }
 
+    /**
+     * Dialog to edit a honey super
+     * @param activity the fragment's activity
+     * @param honeySuper the honey super to edit
+     */
     @SuppressLint("SetTextI18n")
     private void editHoneySuperDialog(Activity activity, HoneySuperModel honeySuper) {
         final Dialog dialog = new Dialog(activity);
@@ -306,6 +318,13 @@ public class BeehiveDetailsMainFragment extends Fragment {
         dialog.show();
     }
 
+    /**
+     * Method to open calendar and add a new event
+     * @param title the event's title
+     * @param description the event's description
+     * @param location the event's location
+     * @param startDate the event's start date
+     */
     private void addEvent(String title, String description, String location, long startDate) {
         Intent intent = new Intent(Intent.ACTION_INSERT)
                 .setData(Events.CONTENT_URI)
@@ -317,6 +336,11 @@ public class BeehiveDetailsMainFragment extends Fragment {
         startActivity(intent);
     }
 
+    /**
+     * Check if the user has the permission to access the calendar
+     * @param permissionsId for write or read the calendar
+     * @return true if the user has the permission, false otherwise
+     */
     private boolean checkPermission(String... permissionsId) {
         boolean permissions = true;
         for (String p : permissionsId) {
@@ -329,6 +353,10 @@ public class BeehiveDetailsMainFragment extends Fragment {
         return permissions;
     }
 
+    /**
+     * Dialog to add a visit
+     * @param activity the fragment's activity
+     */
     private void addVisitDialog(Activity activity) {
         final Dialog dialog = new Dialog(activity);
         dialog.setContentView(R.layout.dialog_add_visit);
@@ -421,6 +449,11 @@ public class BeehiveDetailsMainFragment extends Fragment {
         dialog.show();
     }
 
+    /**
+     * Dialog to edit a visit
+     * @param activity the fragment's activity
+     * @param visit the visit to edit
+     */
     @SuppressLint("SetTextI18n")
     private void editVisitDialog(Activity activity, VisitModel visit) {
         final Dialog dialog = new Dialog(activity);

@@ -4,6 +4,9 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+/**
+ * This class handles the data for the stats fragment
+ */
 public class StatsViewModel extends ViewModel {
 
     private final MutableLiveData<String> mText;

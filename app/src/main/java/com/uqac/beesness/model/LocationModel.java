@@ -2,7 +2,11 @@ package com.uqac.beesness.model;
 
 import androidx.annotation.NonNull;
 
+/**
+ * This class represents a location.
+ */
 public class LocationModel {
+
     private double latitude;
     private double longitude;
 

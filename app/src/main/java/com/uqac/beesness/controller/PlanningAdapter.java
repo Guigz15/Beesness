@@ -1,14 +1,13 @@
 package com.uqac.beesness.controller;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.DataSnapshot;
@@ -19,8 +18,9 @@ import com.uqac.beesness.database.DAOBeehives;
 import com.uqac.beesness.model.BeehiveModel;
 import com.uqac.beesness.model.VisitModel;
 
-import java.util.Calendar;
-
+/**
+ * Adapter for the planning recycler view
+ */
 public class PlanningAdapter extends FirebaseRecyclerAdapter<VisitModel, PlanningAdapter.ViewHolder> {
 
     private final String[] MONTHS = {"JAN.", "FEV.", "MAR.", "AVR.", "MAI.", "JUIN.", "JUIL.", "AOU.", "SEP.", "OCT.", "NOV.", "DEC."};
@@ -29,6 +29,7 @@ public class PlanningAdapter extends FirebaseRecyclerAdapter<VisitModel, Plannin
         super(options);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull PlanningAdapter.ViewHolder holder, int position, @NonNull VisitModel model) {
         holder.dateTextView.setText(model.getDate().split("-")[2] + " " + MONTHS[Integer.parseInt(model.getDate().split("-")[1])]);
@@ -64,6 +65,9 @@ public class PlanningAdapter extends FirebaseRecyclerAdapter<VisitModel, Plannin
         return viewHolder;
     }
 
+    /**
+     * View holder for the planning recycler view
+     */
     static class ViewHolder extends RecyclerView.ViewHolder {
 
         private final TextView dateTextView;

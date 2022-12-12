@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -14,10 +13,12 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 import com.uqac.beesness.R;
-import com.uqac.beesness.database.DAOBeehives;
 import com.uqac.beesness.database.DAOHoneySuper;
 import com.uqac.beesness.model.BeehiveModel;
 
+/**
+ * Adapter for the beehives recycler view
+ */
 public class BeehivesAdapter extends FirebaseRecyclerAdapter<BeehiveModel, BeehivesAdapter.ViewHolder> {
 
     public BeehivesAdapter(@NonNull FirebaseRecyclerOptions<BeehiveModel> options) {
@@ -57,6 +58,9 @@ public class BeehivesAdapter extends FirebaseRecyclerAdapter<BeehiveModel, Beehi
         return viewHolder;
     }
 
+    /**
+     * View holder for the beehives recycler view
+     */
     static class ViewHolder extends RecyclerView.ViewHolder {
         private final TextView beehiveName;
         private final TextView honeySuperNumber;

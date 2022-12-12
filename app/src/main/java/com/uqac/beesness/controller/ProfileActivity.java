@@ -1,17 +1,13 @@
 package com.uqac.beesness.controller;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -20,14 +16,15 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.uqac.beesness.MainActivity;
 import com.uqac.beesness.R;
 import com.uqac.beesness.database.DAOUsers;
 import com.uqac.beesness.model.UserModel;
-
 import java.util.HashMap;
 import java.util.Objects;
 
+/**
+ * Activity for the user profile
+ */
 public class ProfileActivity extends AppCompatActivity {
 
     private EditText lastname, forename, address, beekeeper_number;
@@ -44,7 +41,6 @@ public class ProfileActivity extends AppCompatActivity {
         address = findViewById(R.id.address);
         beekeeper_number = findViewById(R.id.beekeeper_number);
 
-        //Set les informations de l'utilisateur dans les champs
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         DatabaseReference userReference = FirebaseDatabase.getInstance().getReference("Users");
         if (user != null) {
@@ -82,6 +78,9 @@ public class ProfileActivity extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * Method to modify the user's account information
+     */
     private void modify() {
         HashMap<String, Object> updatedUserMap = new HashMap<>();
 
@@ -103,8 +102,6 @@ public class ProfileActivity extends AppCompatActivity {
         daoUsers.update(userId, updatedUserMap).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 Toast.makeText(ProfileActivity.this, "Modification effectuée", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(ProfileActivity.this, MainActivity.class);
-                startActivity(intent);
                 finish();
             } else {
                 Toast.makeText(ProfileActivity.this, "Erreur lors de la modification", Toast.LENGTH_SHORT).show();
@@ -112,6 +109,9 @@ public class ProfileActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Show a dialog to confirm the deletion of the user's account
+     */
     private void showDialog() {
         BottomSheetDialog deleteAccountDialog = new BottomSheetDialog(this, R.style.BottomSheetDialogTheme);
         View deleteAccountView = getLayoutInflater().inflate(R.layout.delete_account_confirmation, findViewById(R.id.bottom_sheet_container));
@@ -119,17 +119,17 @@ public class ProfileActivity extends AppCompatActivity {
         deleteAccountView.findViewById(R.id.delete_button).setOnClickListener(v -> {
             DAOUsers daoUsers = new DAOUsers();
 
-            //Recuperation de l'id de l'utilisateur
+            // Get the user's id
             String userId = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
 
-            //Suppression de l'utilisateur
+            // Delete the user's account
             daoUsers.delete(userId).addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
                     FirebaseAuth.getInstance().getCurrentUser().delete();
                     Toast.makeText(ProfileActivity.this, "Votre compte a été supprimé", Toast.LENGTH_SHORT).show();
                     deleteAccountDialog.dismiss();
 
-                    //Deconnexion
+                    // Log out the user
                     FirebaseAuth.getInstance().signOut();
                     Intent intent = new Intent(ProfileActivity.this, SubscriptionActivity.class);
                     startActivity(intent);

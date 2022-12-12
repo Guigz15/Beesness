@@ -10,13 +10,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.splashscreen.SplashScreen;
-
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.uqac.beesness.MainActivity;
 import com.uqac.beesness.R;
 
+/**
+ * Activity for the login page
+ */
 public class LoginActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
@@ -46,9 +48,7 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         TextView forgotPasswordButton = findViewById(R.id.forgot_password);
-        forgotPasswordButton.setOnClickListener(v -> {
-            showDialog();
-        });
+        forgotPasswordButton.setOnClickListener(v -> showDialog());
     }
 
     @Override
@@ -63,6 +63,9 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Method to show the dialog to reset the password
+     */
     private void showDialog() {
         BottomSheetDialog forgotPasswordDialog = new BottomSheetDialog(this, R.style.BottomSheetDialogTheme);
         View forgotPasswordView = getLayoutInflater().inflate(R.layout.forgot_password_dialog, findViewById(R.id.bottom_sheet_container));
@@ -76,6 +79,10 @@ public class LoginActivity extends AppCompatActivity {
         forgotPasswordDialog.show();
     }
 
+    /**
+     * Method to reset the password
+     * @param view forgot password view
+     */
     private void resetPassord(View view) {
         EditText email = view.findViewById(R.id.email_for_reset);
         String emailText = email.getText().toString();
@@ -101,6 +108,9 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Method to login the user
+     */
     private void userLogin() {
         String emailText = email.getText().toString();
         String passwordText = password.getText().toString();
@@ -121,25 +131,24 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         if(!emailText.isEmpty() && !passwordText.isEmpty()) {
-            mAuth.signInWithEmailAndPassword(emailText, passwordText)
-                    .addOnCompleteListener(this, task -> {
-                        if (task.isSuccessful()) {
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            assert user != null;
-                            if (user.isEmailVerified()) {
-                                Toast.makeText(this, "Connexion réussie", Toast.LENGTH_LONG).show();
-                                Intent intent = new Intent(this, MainActivity.class);
-                                startActivity(intent);
-                                finish();
-                            } else {
-                                password.getText().clear();
-                                Toast.makeText(this, "Veuillez vérifier votre adresse courriel.", Toast.LENGTH_LONG).show();
-                            }
-                        } else {
-                            password.getText().clear();
-                            Toast.makeText(this, "Courriel ou mot de passe erroné", Toast.LENGTH_SHORT).show();
-                        }
-                    });
+            mAuth.signInWithEmailAndPassword(emailText, passwordText).addOnCompleteListener(this, task -> {
+                if (task.isSuccessful()) {
+                    FirebaseUser user = mAuth.getCurrentUser();
+                    assert user != null;
+                    if (user.isEmailVerified()) {
+                        Toast.makeText(this, "Connexion réussie", Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(this, MainActivity.class);
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        password.getText().clear();
+                        Toast.makeText(this, "Veuillez vérifier votre adresse courriel.", Toast.LENGTH_LONG).show();
+                    }
+                } else {
+                    password.getText().clear();
+                    Toast.makeText(this, "Courriel ou mot de passe erroné", Toast.LENGTH_SHORT).show();
+                }
+            });
         }
     }
 }

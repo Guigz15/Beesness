@@ -4,21 +4,20 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.auth.FirebaseAuth;
-import com.uqac.beesness.MainActivity;
 import com.uqac.beesness.R;
 import com.uqac.beesness.databinding.FragmentPlusBinding;
 
+/**
+ * Fragment to handle plus tab
+ */
 public class PlusFragment extends Fragment {
 
     private FragmentPlusBinding binding;
@@ -53,6 +52,9 @@ public class PlusFragment extends Fragment {
         return root;
     }
 
+    /**
+     * Show dialog to confirm logout
+     */
     private void showDialog() {
         BottomSheetDialog logoutDialog = new BottomSheetDialog(requireActivity(), R.style.BottomSheetDialogTheme);
         View logoutView = getLayoutInflater().inflate(R.layout.user_deconnection, requireActivity().findViewById(R.id.bottom_sheet_container));

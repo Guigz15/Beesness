@@ -4,16 +4,16 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.uqac.beesness.databinding.FragmentBeehiveDetailsInfoBinding;
-
 import java.util.Objects;
 
+/**
+ * Fragment for the beehive details information
+ */
 public class BeehiveDetailsInfoFragment extends Fragment {
 
     private FragmentBeehiveDetailsInfoBinding binding;

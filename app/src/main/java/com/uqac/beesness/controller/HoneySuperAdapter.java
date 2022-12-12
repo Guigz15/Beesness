@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,6 +14,9 @@ import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.uqac.beesness.R;
 import com.uqac.beesness.model.HoneySuperModel;
 
+/**
+ * Adapter for the honey super recycler view
+ */
 public class HoneySuperAdapter extends FirebaseRecyclerAdapter<HoneySuperModel, HoneySuperAdapter.ViewHolder> {
 
     public HoneySuperAdapter(@NonNull FirebaseRecyclerOptions<HoneySuperModel> options) {
@@ -33,24 +35,24 @@ public class HoneySuperAdapter extends FirebaseRecyclerAdapter<HoneySuperModel, 
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_layout_honey_supers, parent, false);
         HoneySuperAdapter.ViewHolder viewHolder = new ViewHolder(view);
 
-        viewHolder.setOnClickListener((view1, position) -> {
-            Toast.makeText(view1.getContext(), "Appuyez longtemps pour modifier ou supprimer la hausse", Toast.LENGTH_LONG).show();
-        });
+        viewHolder.setOnClickListener((view1, position) -> Toast.makeText(view1.getContext(), "Appuyez longtemps pour modifier ou supprimer la hausse", Toast.LENGTH_LONG).show());
 
         return viewHolder;
     }
 
+    /**
+     * View holder for the honey super recycler view
+     */
     static class ViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
 
         private final TextView honeySuperName;
         private final TextView honeySuperFrameNumber;
-        private final CardView honeySuperCard;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             honeySuperName = itemView.findViewById(R.id.honey_super_name);
             honeySuperFrameNumber = itemView.findViewById(R.id.frame_number);
-            honeySuperCard = itemView.findViewById(R.id.card_view);
+            CardView honeySuperCard = itemView.findViewById(R.id.card_view);
             honeySuperCard.setOnCreateContextMenuListener(this);
 
             itemView.setOnClickListener(v -> mClickListener.onItemClick(v, getAbsoluteAdapterPosition()));

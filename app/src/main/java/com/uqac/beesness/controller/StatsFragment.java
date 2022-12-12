@@ -1,7 +1,6 @@
 package com.uqac.beesness.controller;
 
 import androidx.lifecycle.ViewModelProvider;
-
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
@@ -10,11 +9,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import com.uqac.beesness.R;
 import com.uqac.beesness.databinding.FragmentStatsBinding;
 import com.uqac.beesness.model.StatsViewModel;
 
+/**
+ * Fragment to handle the statistics tab
+ */
 public class StatsFragment extends Fragment {
 
     private FragmentStatsBinding binding;

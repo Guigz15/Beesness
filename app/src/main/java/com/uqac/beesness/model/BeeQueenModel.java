@@ -1,5 +1,8 @@
 package com.uqac.beesness.model;
 
+/**
+ * This class represents the bee queen.
+ */
 public class BeeQueenModel {
 
     private String birthYear;

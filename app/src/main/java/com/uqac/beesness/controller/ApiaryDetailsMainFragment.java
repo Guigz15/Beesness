@@ -2,17 +2,14 @@ package com.uqac.beesness.controller;
 
 import android.content.Intent;
 import android.os.Bundle;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -21,10 +18,12 @@ import com.uqac.beesness.R;
 import com.uqac.beesness.databinding.FragmentApiaryDetailsMainBinding;
 import com.uqac.beesness.model.BeehiveModel;
 
+/**
+ * Fragment for the main page of the apiary details activity
+ */
 public class ApiaryDetailsMainFragment extends Fragment {
 
     private FragmentApiaryDetailsMainBinding binding;
-    private ImageButton addBeehiveButton;
     private BeehivesAdapter adapter;
     private RecyclerView beehivesRecyclerView;
     private String idApiary;
@@ -36,7 +35,7 @@ public class ApiaryDetailsMainFragment extends Fragment {
 
         idApiary = ((ApiaryDetailsActivity) requireActivity()).getIdApiary();
 
-        addBeehiveButton = binding.imageButton;
+        ImageButton addBeehiveButton = binding.imageButton;
         addBeehiveButton.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), AddUpdateBeehiveActivity.class);
             intent.putExtra("idApiary", idApiary);

@@ -5,25 +5,20 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
-
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
-
-
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.auth.FirebaseAuth;
-
 import com.uqac.beesness.controller.LoginActivity;
 import com.uqac.beesness.controller.ProfileActivity;
-
 import com.uqac.beesness.databinding.ActivityMainBinding;
 
-
-
+/**
+ * This class represents the main activity of the application.
+ */
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -61,6 +56,9 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(binding.navView, navController);
     }
 
+    /**
+     * This method displays a dialog to confirm the user's logout.
+     */
     private void showDialog() {
         BottomSheetDialog logoutDialog = new BottomSheetDialog(this, R.style.BottomSheetDialogTheme);
         View logoutView = getLayoutInflater().inflate(R.layout.user_deconnection, findViewById(R.id.bottom_sheet_container));

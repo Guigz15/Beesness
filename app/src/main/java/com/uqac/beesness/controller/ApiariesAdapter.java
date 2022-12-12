@@ -13,10 +13,12 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 import com.uqac.beesness.R;
-import com.uqac.beesness.database.DAOApiaries;
 import com.uqac.beesness.database.DAOBeehives;
 import com.uqac.beesness.model.ApiaryModel;
 
+/**
+ * Adapter for the apiaries recycler view
+ */
 public class ApiariesAdapter extends FirebaseRecyclerAdapter<ApiaryModel, ApiariesAdapter.ViewHolder> {
 
     public ApiariesAdapter(@NonNull FirebaseRecyclerOptions<ApiaryModel> options) {
@@ -54,6 +56,9 @@ public class ApiariesAdapter extends FirebaseRecyclerAdapter<ApiaryModel, Apiari
         return viewHolder;
     }
 
+    /**
+     * View holder for the apiaries recycler view
+     */
     static class ViewHolder extends RecyclerView.ViewHolder {
         private final TextView apiaryName;
         private final TextView beehiveNumber;

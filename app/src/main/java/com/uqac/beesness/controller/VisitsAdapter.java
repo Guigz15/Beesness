@@ -1,5 +1,6 @@
 package com.uqac.beesness.controller;
 
+import android.annotation.SuppressLint;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,18 +8,17 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.uqac.beesness.R;
 import com.uqac.beesness.model.VisitModel;
 
-import java.util.Calendar;
-
+/**
+ * Adapter for the visits recycler view
+ */
 public class VisitsAdapter extends FirebaseRecyclerAdapter<VisitModel, VisitsAdapter.ViewHolder> {
 
     private final String[] MONTHS = {"JAN.", "FEV.", "MAR.", "AVR.", "MAI.", "JUIN.", "JUIL.", "AOU.", "SEP.", "OCT.", "NOV.", "DEC."};
@@ -27,6 +27,7 @@ public class VisitsAdapter extends FirebaseRecyclerAdapter<VisitModel, VisitsAda
         super(options);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull VisitsAdapter.ViewHolder holder, int position, @NonNull VisitModel model) {
         holder.dateTextView.setText(model.getDate().split("-")[2] + " " + MONTHS[Integer.parseInt(model.getDate().split("-")[1])]);
@@ -56,26 +57,26 @@ public class VisitsAdapter extends FirebaseRecyclerAdapter<VisitModel, VisitsAda
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_layout_visits, parent, false);
         VisitsAdapter.ViewHolder viewHolder = new ViewHolder(view);
 
-        viewHolder.setOnClickListener((view1, position) -> {
-            Toast.makeText(view1.getContext(), "Appuyez longtemps pour modifier ou supprimer la visite", Toast.LENGTH_LONG).show();
-        });
+        viewHolder.setOnClickListener((view1, position) -> Toast.makeText(view1.getContext(), "Appuyez longtemps pour modifier ou supprimer la visite", Toast.LENGTH_LONG).show());
 
         return viewHolder;
     }
 
+    /**
+     * View holder for the visits recycler view
+     */
     static class ViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
 
         private final TextView dateTextView;
         private final TextView visitTextView;
         private final ImageView visitImageView;
-        private final CardView visitCard;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             dateTextView = itemView.findViewById(R.id.visit_date);
             visitTextView = itemView.findViewById(R.id.visit_text);
             visitImageView = itemView.findViewById(R.id.visit_image);
-            visitCard = itemView.findViewById(R.id.cardView);
+            CardView visitCard = itemView.findViewById(R.id.cardView);
             visitCard.setOnCreateContextMenuListener(this);
 
             itemView.setOnClickListener(v -> mClickListener.onItemClick(v, getAbsoluteAdapterPosition()));

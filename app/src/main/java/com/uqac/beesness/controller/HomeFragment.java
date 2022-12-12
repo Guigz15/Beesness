@@ -11,7 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -30,6 +29,9 @@ import com.uqac.beesness.databinding.FragmentHomeBinding;
 import com.uqac.beesness.model.UserModel;
 import com.uqac.beesness.model.VisitModel;
 
+/**
+ * Fragment to handle the home tab
+ */
 public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding binding;

@@ -9,14 +9,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.FirebaseDatabase;
 import com.uqac.beesness.R;
 import com.uqac.beesness.database.DAOUsers;
 import com.uqac.beesness.model.UserModel;
-
 import java.util.Objects;
 import java.util.regex.Pattern;
 
+/**
+ * Activity for the user to subscribe to the app
+ */
 public class SubscriptionActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
@@ -47,6 +48,9 @@ public class SubscriptionActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Method to subscribe a user
+     */
     private void subscribeUser() {
         String lastnameText = lastname.getText().toString();
         String firstnameText = firstname.getText().toString();
@@ -82,30 +86,18 @@ public class SubscriptionActivity extends AppCompatActivity {
             passwordConfirm.requestFocus();
             passwordConfirm.setText("");
         } else {
-            mAuth.createUserWithEmailAndPassword(emailText, passwordText)
-                    .addOnCompleteListener(this, task -> {
-                        if (task.isSuccessful()) {
-                            UserModel user = new UserModel(Objects.requireNonNull(mAuth.getCurrentUser()).getUid(), lastnameText, firstnameText, emailText);
-                            DAOUsers daoUsers = new DAOUsers();
+            mAuth.createUserWithEmailAndPassword(emailText, passwordText).addOnCompleteListener(this, task -> {
+                if (task.isSuccessful()) {
+                    UserModel user = new UserModel(Objects.requireNonNull(mAuth.getCurrentUser()).getUid(), lastnameText, firstnameText, emailText);
+                    DAOUsers daoUsers = new DAOUsers();
 
-                            daoUsers.add(user).addOnCompleteListener(task1 -> {
-                                if (task1.isSuccessful()) {
-                                    Objects.requireNonNull(mAuth.getCurrentUser()).sendEmailVerification();
-                                    Toast.makeText(this, "Veuillez vérifier votre adresse courriel.", Toast.LENGTH_LONG).show();
-                                    Intent intent = new Intent(this, LoginActivity.class);
-                                    startActivity(intent);
-                                    finish();
-                                } else {
-                                    password.getText().clear();
-                                    passwordConfirm.getText().clear();
-                                    Toast.makeText(this, "Inscription échouée", Toast.LENGTH_LONG).show();
-                                    try {
-                                        throw Objects.requireNonNull(task.getException());
-                                    } catch (Exception e) {
-                                        e.printStackTrace();
-                                    }
-                                }
-                            });
+                    daoUsers.add(user).addOnCompleteListener(task1 -> {
+                        if (task1.isSuccessful()) {
+                            Objects.requireNonNull(mAuth.getCurrentUser()).sendEmailVerification();
+                            Toast.makeText(this, "Veuillez vérifier votre adresse courriel.", Toast.LENGTH_LONG).show();
+                            Intent intent = new Intent(this, LoginActivity.class);
+                            startActivity(intent);
+                            finish();
                         } else {
                             password.getText().clear();
                             passwordConfirm.getText().clear();
@@ -117,9 +109,25 @@ public class SubscriptionActivity extends AppCompatActivity {
                             }
                         }
                     });
+                } else {
+                    password.getText().clear();
+                    passwordConfirm.getText().clear();
+                    Toast.makeText(this, "Inscription échouée", Toast.LENGTH_LONG).show();
+                    try {
+                        throw Objects.requireNonNull(task.getException());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
         }
     }
 
+    /**
+     * Method to check if the password is valid
+     * @param password to check
+     * @return true if the password is valid, false otherwise
+     */
     private boolean passwordValid(String password) {
 
         Pattern UpperCasePatten = Pattern.compile("[A-Z]");
