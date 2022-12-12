@@ -48,7 +48,7 @@ public class ApiaryDetailsInfoFragment extends Fragment {
 
         binding.seeOnMaps.setOnClickListener(v -> {
             String geoUri = "http://maps.google.com/maps?q=loc:" + binding.latitudeValue.getText().toString()
-                    + "," + binding.longitudeValue.getText().toString() + " (" + apiaryName + ")";
+                    + ", " + binding.longitudeValue.getText().toString() + " (" + apiaryName + ")";
             Intent intent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse(geoUri));
             startActivity(intent);
         });

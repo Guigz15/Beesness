@@ -28,7 +28,7 @@ public class ApiaryDetailsActivity extends AppCompatActivity {
 
     private String idApiary;
     private TextView apiaryNameTextView;
-    private ImageButton infoButton, editButton, backButton;
+    private ImageButton infoButton;
     private DAOApiaries daoApiaries;
     private BottomSheetDialog deleteApiaryDialog;
 
@@ -75,14 +75,14 @@ public class ApiaryDetailsActivity extends AppCompatActivity {
         ImageButton deleteApiaryButton = findViewById(R.id.delete_button);
         deleteApiaryButton.setOnClickListener(v -> showDialog());
 
-        editButton = findViewById(R.id.edit_button);
+        ImageButton editButton = findViewById(R.id.edit_button);
         editButton.setOnClickListener(v -> {
             Intent intent = new Intent(this, AddUpdateApiaryActivity.class);
             intent.putExtra("idApiary", idApiary);
             startActivity(intent);
         });
 
-        backButton = findViewById(R.id.back);
+        ImageButton backButton = findViewById(R.id.back);
         backButton.setOnClickListener(v -> finish());
     }
 
